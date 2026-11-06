@@ -1,7 +1,5 @@
 # Image sources and licenses
 
-This folder is a concept mockup by Argus AI. It is not the official Age-Less Medicine website.
-
 ## First-party images (used with attribution to the practice's public pages)
 
 Downloaded from https://agelessbydrlinda.com/ on 6 November 2026:
