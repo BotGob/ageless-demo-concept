@@ -463,7 +463,7 @@
         '<a class="btn btn--line" href="#book" data-open-booking data-treatment="' + result.treatment + '">Book a visit</a>' +
         "</div>" +
         '<p class="quiz-back-wrap"><button class="quiz-back" type="button" data-quiz-restart>Start over</button></p>' +
-        '<p class="form-note">This guide does not collect medical details, and nothing is sent.</p>';
+        '<p class="form-note">This guide does not collect medical details.</p>';
     }
     var focusEl = root.querySelector("button, a");
     if (focusEl) focusEl.focus();
