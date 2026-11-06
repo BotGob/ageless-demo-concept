@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>About Dr. Linda McClintock | Age-Less Medicine</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="Meet Dr. Linda McClintock, medical director of Age-Less Medicine in Tampa and a longtime Bay News 9 health correspondent.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html" aria-current="page">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -138,6 +141,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -221,6 +225,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>

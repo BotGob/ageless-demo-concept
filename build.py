@@ -61,6 +61,7 @@ def header(active):
         </div>
         <a href="about.html"{cur(active, "about")}>The doctor</a>
         <a href="beauty-club.html"{cur(active, "club")}>Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html"{cur(active, "contact")}>Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -96,6 +97,7 @@ def footer():
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -191,6 +193,77 @@ def modal():
   </div>"""
 
 
+
+def quiz_modal():
+    return """  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
+    </div>
+  </div>"""
+
+
+RELATED = {
+    "prp": [
+        ("skin.html", "images/stock/still-life", "Skin and facials", "Micro-needling, Diamond Tome, Cosmelan, Fire and Ice, and medical grade peels supervised by Dr. Linda."),
+        ("injectables.html", "images/stock/hallway", "Injectables", "Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with a natural look in mind."),
+    ],
+    "hormones": [
+        ("weight-loss.html", "images/stock/interior-cream", "Medical weight loss", "Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life."),
+        ("beauty-club.html", "images/stock/palms", "Beauty Club", "A monthly Age-less Savings Account that builds Age-less Bucks toward products and services."),
+    ],
+    "weight": [
+        ("hormones.html", "images/stock/lounge", "Hormone and age management", "An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise."),
+        ("beauty-club.html", "images/stock/palms", "Beauty Club", "A monthly Age-less Savings Account that builds Age-less Bucks toward products and services."),
+    ],
+    "injectables": [
+        ("skin.html", "images/stock/still-life", "Skin and facials", "PRP facials, micro-needling, peels, and medical grade products chosen by Dr. Linda."),
+        ("prp.html", "images/stock/palms", "PRP Stem-Cell Facial", "A preparation from your own blood, applied with micro-needling."),
+    ],
+    "skin": [
+        ("prp.html", "images/stock/palms", "PRP Stem-Cell Facial", "A preparation from your own blood, applied with micro-needling."),
+        ("injectables.html", "images/stock/hallway", "Injectables", "Muscle relaxants and dermal fillers, offered with a natural look in mind."),
+    ],
+}
+
+
+def related_section(key):
+    cards = ""
+    for href, image, title, lede in RELATED[key]:
+        cards += f"""          <a class="related-card" href="{href}" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="{image}.webp">
+              <img src="{image}.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>{title}</h3>
+              <p>{lede}</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+"""
+    return f"""    <section class="section section--ivory related">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 class="display">You might also like</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="related-grid">
+{cards}        </div>
+      </div>
+    </section>
+"""
+
+
+def book_block(treatment, label):
+    return f"""        <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="{treatment}">{label}</a>
+          <a class="btn btn--line" href="contact.html">Visit our office</a>
+        </div>"""
+
+
 def page(filename, title, description, active, body, solid=False):
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -198,7 +271,9 @@ def page(filename, title, description, active, body, solid=False):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>{title}</title>
+  <style>html,body{{background:#faf6ee}}</style>
   <meta name="description" content="{description}">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -216,6 +291,7 @@ def page(filename, title, description, active, body, solid=False):
 {footer()}
 {book_bar()}
 {modal()}
+{quiz_modal()}
   <script src="js/main.js" defer></script>
 </body>
 </html>
@@ -278,11 +354,12 @@ def review_cards():
 
 
 def build_home():
-    body = f"""    <section class="hero">
+    body = f"""    <section class="hero" data-hero-video>
       <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="images/stock/hero-spa.webp">
-          <img src="images/stock/hero-spa.jpg" alt="" width="1800" height="1200">
+        <video class="hero-video" muted loop playsinline preload="none" poster="images/stock/hero-video-poster.jpg"></video>
+        <picture class="hero-fallback">
+          <source type="image/webp" srcset="images/stock/hero-video-poster.webp">
+          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -293,7 +370,7 @@ def build_home():
         <p class="lede">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
         <div class="btn-row">
           <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          <a class="btn btn--ghost" href="about.html">Meet Dr. Linda</a>
+          <a class="btn btn--ghost" href="#find-treatment" data-open-quiz>Find your treatment</a>
         </div>
       </div>
     </section>
@@ -348,6 +425,19 @@ def build_home():
               <span class="treat-more">Browse skin care</span>
             </div>
           </a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="find-treatment">
+      <div class="wrap quiz-intro" data-reveal>
+        <p class="eyebrow">A simple starting point</p>
+        <h2 class="display">Find your treatment</h2>
+        <hr class="gold-rule">
+        <p class="lede">Answer two short questions about what brings you in. We will point you toward a visit that may fit. No medical details are collected, and nothing is sent.</p>
+        <div class="btn-row" style="margin-top:1.5rem">
+          <a class="btn btn--gold" href="#find-treatment" data-open-quiz>Find your treatment</a>
         </div>
       </div>
     </section>
@@ -417,7 +507,7 @@ def build_home():
         <div class="tiers">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
-            <p class="price">$99 <span>a month</span></p>
+            <p class="price">$<span data-count="99">99</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>8% off retail products</li>
@@ -426,7 +516,7 @@ def build_home():
           </article>
           <article class="tier" data-reveal>
             <h3>Silver</h3>
-            <p class="price">$125 <span>a month</span></p>
+            <p class="price">$<span data-count="125">125</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>10% off retail products</li>
@@ -435,7 +525,7 @@ def build_home():
           </article>
           <article class="tier tier--gold" data-reveal>
             <h3>Gold</h3>
-            <p class="price">$200 <span>a month</span></p>
+            <p class="price">$<span data-count="200">200</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>12% off retail products</li>
@@ -487,7 +577,7 @@ def build_prp():
     body = f"""{page_hero(
         "Skin care",
         "The PRP Stem-Cell Facial",
-        "A simple way to understand this visit: we use a preparation made from a small sample of your own blood and apply it to your skin with micro-needling.",
+        "A facial that uses your own blood's natural growth factors, paired with micro-needling, to refresh and renew your skin.",
         "images/stock/palms",
         "",
         '<a class="btn btn--ghost" href="skin.html">See all skin treatments</a>',
@@ -497,45 +587,8 @@ def build_prp():
         <p class="eyebrow">What it is</p>
         <h2 class="display">What is a PRP facial?</h2>
         <hr class="gold-rule">
-        <p>PRP stands for a preparation we make from your own blood. At Age-Less Medicine we call this visit our PRP Stem-Cell Facial. We draw a small sample of blood, place it in a special centrifuge to prepare the serum, and apply that serum to your skin with our micro-needling technique.</p>
+        <p>PRP stands for platelet-rich plasma, the part of your blood that carries natural growth factors. At Age-Less Medicine we call this treatment our PRP Stem-Cell Facial. We draw a small sample of blood, place it in a special centrifuge to prepare the serum, and apply that serum to your skin with our micro-needling technique.</p>
         <p>Because the facial uses a preparation from your own blood, it is designed for people who want a treatment built from their own cells rather than from an off-the-shelf injectable alone.</p>
-      </div>
-    </section>
-    <section class="section section--ivory">
-      <div class="wrap" data-reveal>
-        <div class="section-head">
-          <p class="eyebrow">Is this visit right for you?</p>
-          <h2 class="display">Who it is for</h2>
-          <hr class="gold-rule">
-          <p class="lede">We offer the PRP Stem-Cell Facial to women and men, and for all skin types and tones. Many guests come to us when they want a physician-supervised facial that may help the look of pores, fine lines, wrinkles, stretch marks, or acne scarring. We also offer PRP stem-cell treatments for hair.</p>
-        </div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Your visit</p>
-          <h2 class="display">What to expect</h2>
-          <hr class="gold-rule">
-          <p class="lede">Your time with us follows three clear steps.</p>
-        </div>
-        <div class="steps">
-          <article class="step-card" data-reveal>
-            <p class="n">01</p>
-            <h3>Draw</h3>
-            <p>We begin by drawing a small sample of blood. This is the starting point for the rest of your visit.</p>
-          </article>
-          <article class="step-card" data-reveal>
-            <p class="n">02</p>
-            <h3>Spin</h3>
-            <p>We place the sample in a centrifuge that prepares the blood serum we will use on your skin.</p>
-          </article>
-          <article class="step-card" data-reveal>
-            <p class="n">03</p>
-            <h3>Apply</h3>
-            <p>We apply the prepared serum with our micro-needling technique, which creates tiny channels in the skin.</p>
-          </article>
-        </div>
       </div>
     </section>
     <section class="section section--ivory">
@@ -575,12 +628,47 @@ def build_prp():
             <div class="faq-a">Dr. Linda oversees and medically supervises the aestheticians who practice micro-needling and PRP applications.</div>
           </div>
         </div>
-        <div class="btn-row" style="margin-top:2rem">
-          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="PRP Stem-Cell Facial">Book a PRP facial</a>
-          <a class="btn btn--line" href="contact.html">Visit our office</a>
+      </div>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Is this visit right for you?</p>
+          <h2 class="display">Who it is for</h2>
+          <hr class="gold-rule">
+          <p class="lede">We offer the PRP Stem-Cell Facial to women and men, and for all skin types and tones. Many guests come to us when they want a physician-supervised facial that may help the look of pores, fine lines, wrinkles, stretch marks, or acne scarring. We also offer PRP stem-cell treatments for hair.</p>
         </div>
       </div>
     </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Your time with us follows three clear steps.</p>
+        </div>
+        <div class="steps">
+          <article class="step-card" data-reveal>
+            <p class="n">01</p>
+            <h3>Draw</h3>
+            <p>We begin by drawing a small sample of blood. This is the starting point for the rest of your visit.</p>
+          </article>
+          <article class="step-card" data-reveal>
+            <p class="n">02</p>
+            <h3>Spin</h3>
+            <p>We place the sample in a centrifuge that prepares the blood serum we will use on your skin.</p>
+          </article>
+          <article class="step-card" data-reveal>
+            <p class="n">03</p>
+            <h3>Apply</h3>
+            <p>We apply the prepared serum with our micro-needling technique, which creates tiny channels in the skin.</p>
+          </article>
+        </div>
+        {book_block("PRP Stem-Cell Facial", "Book a PRP facial")}
+      </div>
+    </section>
+{related_section("prp")}
 """
     page(
         "prp.html",
@@ -606,34 +694,47 @@ def build_hormones():
         <p>We see this work as a partnership. The goal is a plan that fits your life, reviewed over time as your needs change.</p>
       </div>
     </section>
-    <section class="section section--ivory">
-      <div class="wrap detail-grid">
-        <article class="detail" data-reveal>
-          <h3>Your initial visit</h3>
-          <ul>
-            <li>Extensive hormonal labs</li>
-            <li>An EKG</li>
-            <li>Body fat analysis</li>
-            <li>A nutritional consult</li>
-          </ul>
-        </article>
-        <article class="detail" data-reveal>
-          <h3>Ongoing care</h3>
-          <p>Follow-up visits are typically scheduled every three to four months. Labs are repeated as needed, or as Dr. Linda recommends.</p>
-        </article>
-      </div>
-    </section>
     <section class="section">
       <div class="wrap prose" data-reveal>
         <h2 class="display">Specialized testing</h2>
         <hr class="gold-rule">
         <p>When it is helpful, we also offer specialized testing. Spectracell analysis looks at selected vitamins, minerals, antioxidants, and other micronutrients inside your white blood cells. ALCAT testing can identify foods that may be a problem for you. After your results return, you meet with Dr. Linda, and you may also meet with our nutritionist.</p>
-        <div class="btn-row" style="margin-top:1.6rem">
-          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Hormone and age management">Book this visit</a>
-          <a class="btn btn--line" href="about.html">Meet Dr. Linda</a>
-        </div>
       </div>
     </section>
+    <section class="section section--ivory">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is for</h2>
+        <hr class="gold-rule">
+        <p>We welcome women and men who want a thoughtful look at how they age and how they feel. Dr. Linda creates an individualized program that may include bio-identical hormone care, nutrition, and exercise, based on your history, labs, and goals.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to expect</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="detail-grid">
+          <article class="detail">
+            <h3>Your initial visit</h3>
+            <ul>
+              <li>Extensive hormonal labs</li>
+              <li>An EKG</li>
+              <li>Body fat analysis</li>
+              <li>A nutritional consult</li>
+            </ul>
+          </article>
+          <article class="detail">
+            <h3>Ongoing care</h3>
+            <p>Follow-up visits are typically scheduled every three to four months. Labs are repeated as needed, or as Dr. Linda recommends.</p>
+          </article>
+        </div>
+        {book_block("Hormone and age management", "Book this visit")}
+      </div>
+    </section>
+{related_section("hormones")}
 """
     page(
         "hormones.html",
@@ -695,10 +796,27 @@ def build_weight():
           <p>Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
         </article>
       </div>
-      <div class="wrap" style="margin-top:2rem" data-reveal>
-        <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Medical weight loss">Book a weight management visit</a>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is for</h2>
+        <hr class="gold-rule">
+        <p>This program is for people who want a medically supervised plan tailored to their dietary and lifestyle needs, not a cookie-cutter diet. Appetite suppressants, vitamins, and minerals may be included when they are medically appropriate. In some cases, hormone care may also be part of understanding what led to weight gain.</p>
       </div>
     </section>
+    <section class="section">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Your first visit typically includes labs, an EKG, vitamin injections, and a thorough nutritional consult. Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
+        </div>
+        {book_block("Medical weight loss", "Book a weight management visit")}
+      </div>
+    </section>
+{related_section("weight")}
 """
     page(
         "weight-loss.html",
@@ -742,10 +860,27 @@ def build_injectables():
           <p>Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
         </article>
       </div>
-      <div class="wrap" style="margin-top:2rem" data-reveal>
-        <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Injectables">Book an injectable visit</a>
+    </section>
+    <section class="section">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is for</h2>
+        <hr class="gold-rule">
+        <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind. The amount needed can be higher for men. A 10 percent discount is applied when two or more muscle-relaxant areas are treated.</p>
       </div>
     </section>
+    <section class="section section--ivory">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
+        </div>
+        {book_block("Injectables", "Book an injectable visit")}
+      </div>
+    </section>
+{related_section("injectables")}
 """
     page(
         "injectables.html",
@@ -799,12 +934,28 @@ def build_skin():
         <h2 class="display">Medical grade products</h2>
         <hr class="gold-rule">
         <p>Dr. Linda personally selects the skin care we carry. Our shelves include IS Clinical, Neocutis, Proplus, Neova, Mesoestetic, and other medical grade lines.</p>
-        <div class="btn-row" style="margin-top:1.5rem">
-          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Skin and facials">Book a skin visit</a>
-          <a class="btn btn--line" href="prp.html">Start with the PRP facial</a>
-        </div>
       </div>
     </section>
+    <section class="section">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is for</h2>
+        <hr class="gold-rule">
+        <p>Our skin treatments are chosen and supervised by Dr. Linda. We see women and men, and we offer the PRP Stem-Cell Facial for all skin types and tones.</p>
+      </div>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Your visit depends on the treatment you choose. A Diamond Tome session is about 45 minutes, followed by a 15-minute hydrating facial. Cosmelan includes two microdermabrasion visits, a mask worn for seven to eight hours, and 30 days of home care. We will help you choose a plan when you come in.</p>
+        </div>
+        {book_block("Skin and facials", "Book a skin visit")}
+      </div>
+    </section>
+{related_section("skin")}
 """
     page(
         "skin.html",
@@ -835,7 +986,7 @@ def build_club():
         <div class="tiers">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
-            <p class="price">$99 <span>a month</span></p>
+            <p class="price">$<span data-count="99">99</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>8% off retail products</li>
@@ -847,7 +998,7 @@ def build_club():
           </article>
           <article class="tier" data-reveal>
             <h3>Silver</h3>
-            <p class="price">$125 <span>a month</span></p>
+            <p class="price">$<span data-count="125">125</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>10% off retail products</li>
@@ -859,7 +1010,7 @@ def build_club():
           </article>
           <article class="tier tier--gold" data-reveal>
             <h3>Gold</h3>
-            <p class="price">$200 <span>a month</span></p>
+            <p class="price">$<span data-count="200">200</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>12% off retail products</li>

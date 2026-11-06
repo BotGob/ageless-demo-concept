@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>Hormone and Age Management | Age-Less Medicine</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="Bio-identical hormone care and age management with Dr. Linda McClintock in Tampa, including labs, EKG, body fat analysis, and a nutritional consult.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -79,34 +82,83 @@
         <p>We see this work as a partnership. The goal is a plan that fits your life, reviewed over time as your needs change.</p>
       </div>
     </section>
-    <section class="section section--ivory">
-      <div class="wrap detail-grid">
-        <article class="detail" data-reveal>
-          <h3>Your initial visit</h3>
-          <ul>
-            <li>Extensive hormonal labs</li>
-            <li>An EKG</li>
-            <li>Body fat analysis</li>
-            <li>A nutritional consult</li>
-          </ul>
-        </article>
-        <article class="detail" data-reveal>
-          <h3>Ongoing care</h3>
-          <p>Follow-up visits are typically scheduled every three to four months. Labs are repeated as needed, or as Dr. Linda recommends.</p>
-        </article>
-      </div>
-    </section>
     <section class="section">
       <div class="wrap prose" data-reveal>
         <h2 class="display">Specialized&nbsp;testing</h2>
         <hr class="gold-rule">
         <p>When it is helpful, we also offer specialized testing. Spectracell analysis looks at selected vitamins, minerals, antioxidants, and other micronutrients inside your white blood cells. ALCAT testing can identify foods that may be a problem for you. After your results return, you meet with Dr. Linda, and you may also meet with our nutritionist.</p>
-        <div class="btn-row" style="margin-top:1.6rem">
+      </div>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is&nbsp;for</h2>
+        <hr class="gold-rule">
+        <p>We welcome women and men who want a thoughtful look at how they age and how they feel. Dr. Linda creates an individualized program that may include bio-identical hormone care, nutrition, and exercise, based on your history, labs, and goals.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to&nbsp;expect</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="detail-grid">
+          <article class="detail">
+            <h3>Your initial visit</h3>
+            <ul>
+              <li>Extensive hormonal labs</li>
+              <li>An EKG</li>
+              <li>Body fat analysis</li>
+              <li>A nutritional consult</li>
+            </ul>
+          </article>
+          <article class="detail">
+            <h3>Ongoing care</h3>
+            <p>Follow-up visits are typically scheduled every three to four months. Labs are repeated as needed, or as Dr. Linda recommends.</p>
+          </article>
+        </div>
+                <div class="btn-row" style="margin-top:2rem">
           <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Hormone and age management">Book this visit</a>
-          <a class="btn btn--line" href="about.html">Meet Dr. Linda</a>
+          <a class="btn btn--line" href="contact.html">Visit our office</a>
         </div>
       </div>
     </section>
+    <section class="section section--ivory related">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 class="display">You might also&nbsp;like</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="related-grid">
+          <a class="related-card" href="weight-loss.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/interior-cream.webp">
+              <img src="images/stock/interior-cream.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Medical weight loss</h3>
+              <p>Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+          <a class="related-card" href="beauty-club.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/palms.webp">
+              <img src="images/stock/palms.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Beauty Club</h3>
+              <p>A monthly Age-less Savings Account that builds Age-less Bucks toward products and services.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
   </main>
   <footer class="site-footer">
@@ -144,6 +196,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -227,6 +280,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>

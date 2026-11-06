@@ -31,4 +31,6 @@ Pexels License: https://www.pexels.com/license/
 - `images/stock/apothecary.jpg` — Pexels photo 3865676 (lavender and oil rollers). Not used on the live pages in v1, retained locally.
 - `images/stock/hallway.jpg` — Pexels photo 373578 (interior with cream mirror).
 
+- `images/stock/hero-ambient.webm`, `hero-ambient.mp4`, `hero-ambient-sm.webm`, `hero-ambient-sm.mp4`, and `hero-video-poster.jpg` / `.webp` — Pexels video 2876754, “Water Droplets On A Leaf Of Plant,” by Edie Reed. Downloaded 6 November 2026 from https://www.pexels.com/video/slow-motion-video-of-water-droplets-falling-on-green-leaf-2876754/. Pexels License: https://www.pexels.com/license/. No people, faces, or text appear in the clip. Trimmed and compressed locally for the home hero (12 seconds, 1080p desktop and 854x480 mobile, muted).
+
 No generated portraits or generated skin were used.

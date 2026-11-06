@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>Age-Less Medicine | Tampa Age and Aesthetic Care</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="Age-Less Medicine in Tampa offers physician-led age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments with Dr. Linda McClintock.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -54,11 +57,12 @@
     </div>
   </header>
   <main id="main">
-    <section class="hero">
+    <section class="hero" data-hero-video>
       <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="images/stock/hero-spa.webp">
-          <img src="images/stock/hero-spa.jpg" alt="" width="1800" height="1200">
+        <video class="hero-video" muted loop playsinline preload="none" poster="images/stock/hero-video-poster.jpg"></video>
+        <picture class="hero-fallback">
+          <source type="image/webp" srcset="images/stock/hero-video-poster.webp">
+          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -69,7 +73,7 @@
         <p class="lede">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
         <div class="btn-row">
           <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          <a class="btn btn--ghost" href="about.html">Meet Dr. Linda</a>
+          <a class="btn btn--ghost" href="#find-treatment" data-open-quiz>Find your treatment</a>
         </div>
       </div>
     </section>
@@ -124,6 +128,19 @@
               <span class="treat-more">Browse skin care</span>
             </div>
           </a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="find-treatment">
+      <div class="wrap quiz-intro" data-reveal>
+        <p class="eyebrow">A simple starting point</p>
+        <h2 class="display">Find your&nbsp;treatment</h2>
+        <hr class="gold-rule">
+        <p class="lede">Answer two short questions about what brings you in. We will point you toward a visit that may fit. No medical details are collected, and nothing is sent.</p>
+        <div class="btn-row" style="margin-top:1.5rem">
+          <a class="btn btn--gold" href="#find-treatment" data-open-quiz>Find your treatment</a>
         </div>
       </div>
     </section>
@@ -257,7 +274,7 @@
         <div class="tiers">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
-            <p class="price">$99 <span>a month</span></p>
+            <p class="price">$<span data-count="99">99</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>8% off retail products</li>
@@ -266,7 +283,7 @@
           </article>
           <article class="tier" data-reveal>
             <h3>Silver</h3>
-            <p class="price">$125 <span>a month</span></p>
+            <p class="price">$<span data-count="125">125</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>10% off retail products</li>
@@ -275,7 +292,7 @@
           </article>
           <article class="tier tier--gold" data-reveal>
             <h3>Gold</h3>
-            <p class="price">$200 <span>a month</span></p>
+            <p class="price">$<span data-count="200">200</span> <span>a month</span></p>
             <ul>
               <li>Service of your choice</li>
               <li>12% off retail products</li>
@@ -350,6 +367,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -433,6 +451,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>

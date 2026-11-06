@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>Skin and Facials | Age-Less Medicine</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="PRP facials, micro-needling, Diamond Tome microdermabrasion, Dermawave, Cosmelan, and Fire and Ice facials at Age-Less Medicine in Tampa.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -107,12 +110,64 @@
         <h2 class="display">Medical grade&nbsp;products</h2>
         <hr class="gold-rule">
         <p>Dr. Linda personally selects the skin care we carry. Our shelves include IS Clinical, Neocutis, Proplus, Neova, Mesoestetic, and other medical grade lines.</p>
-        <div class="btn-row" style="margin-top:1.5rem">
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is&nbsp;for</h2>
+        <hr class="gold-rule">
+        <p>Our skin treatments are chosen and supervised by Dr. Linda. We see women and men, and we offer the PRP Stem-Cell Facial for all skin types and tones.</p>
+      </div>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to&nbsp;expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Your visit depends on the treatment you choose. A Diamond Tome session is about 45 minutes, followed by a 15-minute hydrating facial. Cosmelan includes two microdermabrasion visits, a mask worn for seven to eight hours, and 30 days of home care. We will help you choose a plan when you come in.</p>
+        </div>
+                <div class="btn-row" style="margin-top:2rem">
           <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Skin and facials">Book a skin visit</a>
-          <a class="btn btn--line" href="prp.html">Start with the PRP facial</a>
+          <a class="btn btn--line" href="contact.html">Visit our office</a>
         </div>
       </div>
     </section>
+    <section class="section section--ivory related">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 class="display">You might also&nbsp;like</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="related-grid">
+          <a class="related-card" href="prp.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/palms.webp">
+              <img src="images/stock/palms.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>PRP Stem-Cell Facial</h3>
+              <p>A preparation from your own blood, applied with micro-needling.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+          <a class="related-card" href="injectables.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/hallway.webp">
+              <img src="images/stock/hallway.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Injectables</h3>
+              <p>Muscle relaxants and dermal fillers, offered with a natural look in mind.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
   </main>
   <footer class="site-footer">
@@ -150,6 +205,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -233,6 +289,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>

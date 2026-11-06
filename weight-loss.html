@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>Medical Weight Loss | Age-Less Medicine</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="Couture Lifestyle Modification is Age-Less Medicine’s three-step, medically supervised weight program in Tampa, personalized by Dr. Linda McClintock.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -115,10 +118,63 @@
           <p>Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
         </article>
       </div>
-      <div class="wrap" style="margin-top:2rem" data-reveal>
-        <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Medical weight loss">Book a weight management visit</a>
+    </section>
+    <section class="section section--ivory">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is&nbsp;for</h2>
+        <hr class="gold-rule">
+        <p>This program is for people who want a medically supervised plan tailored to their dietary and lifestyle needs, not a cookie-cutter diet. Appetite suppressants, vitamins, and minerals may be included when they are medically appropriate. In some cases, hormone care may also be part of understanding what led to weight gain.</p>
       </div>
     </section>
+    <section class="section">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to&nbsp;expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Your first visit typically includes labs, an EKG, vitamin injections, and a thorough nutritional consult. Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
+        </div>
+                <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Medical weight loss">Book a weight management visit</a>
+          <a class="btn btn--line" href="contact.html">Visit our office</a>
+        </div>
+      </div>
+    </section>
+    <section class="section section--ivory related">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 class="display">You might also&nbsp;like</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="related-grid">
+          <a class="related-card" href="hormones.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/lounge.webp">
+              <img src="images/stock/lounge.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Hormone and age management</h3>
+              <p>An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+          <a class="related-card" href="beauty-club.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/palms.webp">
+              <img src="images/stock/palms.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Beauty Club</h3>
+              <p>A monthly Age-less Savings Account that builds Age-less Bucks toward products and services.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
   </main>
   <footer class="site-footer">
@@ -156,6 +212,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -239,6 +296,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>

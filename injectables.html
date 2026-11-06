@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="view-transition" content="same-origin">
   <title>Injectables | Age-Less Medicine</title>
+  <style>html,body{background:#faf6ee}</style>
   <meta name="description" content="Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with Dr. Linda McClintock at Age-Less Medicine in Tampa.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +49,7 @@
         </div>
         <a href="about.html">The doctor</a>
         <a href="beauty-club.html">Beauty Club</a>
+        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
         <a href="contact.html">Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
@@ -97,10 +100,63 @@
           <p>Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
         </article>
       </div>
-      <div class="wrap" style="margin-top:2rem" data-reveal>
-        <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Injectables">Book an injectable visit</a>
+    </section>
+    <section class="section">
+      <div class="wrap prose" data-reveal>
+        <p class="eyebrow">Is this visit right for you?</p>
+        <h2 class="display">Who it is&nbsp;for</h2>
+        <hr class="gold-rule">
+        <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind. The amount needed can be higher for men. A 10 percent discount is applied when two or more muscle-relaxant areas are treated.</p>
       </div>
     </section>
+    <section class="section section--ivory">
+      <div class="wrap" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display">What to&nbsp;expect</h2>
+          <hr class="gold-rule">
+          <p class="lede">Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
+        </div>
+                <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Injectables">Book an injectable visit</a>
+          <a class="btn btn--line" href="contact.html">Visit our office</a>
+        </div>
+      </div>
+    </section>
+    <section class="section section--ivory related">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 class="display">You might also&nbsp;like</h2>
+          <hr class="gold-rule">
+        </div>
+        <div class="related-grid">
+          <a class="related-card" href="skin.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/still-life.webp">
+              <img src="images/stock/still-life.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>Skin and facials</h3>
+              <p>PRP facials, micro-needling, peels, and medical grade products chosen by Dr. Linda.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+          <a class="related-card" href="prp.html" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="images/stock/palms.webp">
+              <img src="images/stock/palms.jpg" alt="" width="900" height="600">
+            </picture>
+            <div>
+              <h3>PRP Stem-Cell Facial</h3>
+              <p>A preparation from your own blood, applied with micro-needling.</p>
+              <span class="treat-more">Explore this visit</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
   </main>
   <footer class="site-footer">
@@ -138,6 +194,7 @@
           <li><a href="skin.html">Skin and facials</a></li>
           <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
+          <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
         </ul>
       </div>
@@ -221,6 +278,13 @@
         </div>
       </form>
       <div class="confirm" id="booking-confirm" hidden></div>
+    </div>
+  </div>
+  <div class="modal" id="quiz" aria-hidden="true" role="dialog" aria-labelledby="quiz-title">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card quiz-card">
+      <button class="modal-close" type="button" data-close-quiz aria-label="Close treatment guide">&times;</button>
+      <div id="quiz-app"></div>
     </div>
   </div>
   <script src="js/main.js" defer></script>
