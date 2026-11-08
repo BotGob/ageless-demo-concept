@@ -937,6 +937,7 @@ img.js-blur.is-ready {
   .related-grid { grid-template-columns: 1fr; }
   .section { padding: 3.6rem 0; }
   .hero-copy { margin-bottom: 3.4rem; }
+  .hero .hero-copy { margin-bottom: 7rem; } /* clear sticky Call/Book bar */
   .treat-card { min-height: 20.5rem; }
   .book-bar { display: flex; }
   body { padding-bottom: 5.4rem; }
