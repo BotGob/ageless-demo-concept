@@ -316,6 +316,8 @@ figure { margin: 0; }
 .nav-open .nav-toggle span { background: transparent !important; }
 .nav-open .nav-toggle span::before { top: 0; transform: rotate(45deg); }
 .nav-open .nav-toggle span::after { top: 0; transform: rotate(-45deg); }
+.nav-open .nav-toggle span::before,
+.nav-open .nav-toggle span::after { background: var(--green); } /* visible close X on cream menu */
 
 /* Hero */
 .hero, .page-hero {
