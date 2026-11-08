@@ -958,3 +958,9 @@ img.js-blur.is-ready {
   ::view-transition-old(root),
   ::view-transition-new(root) { animation: none !important; }
 }
+
+/* Desktop: raise home hero copy toward center (mobile unchanged) */
+@media (min-width: 901px) {
+  .hero { align-items: center; }
+  .hero .hero-copy { margin: 0 auto; padding: 6.5rem 0 3rem; }
+}
