@@ -234,7 +234,7 @@ def related_section(key):
         cards += f"""          <a class="related-card" href="{href}" data-reveal>
             <picture>
               <source type="image/webp" srcset="{image}.webp">
-              <img src="{image}.jpg" alt="" width="900" height="600">
+              <img src="{image}.jpg" alt="" width="900" height="600" loading="lazy" decoding="async">
             </picture>
             <div>
               <h3>{title}</h3>
@@ -313,7 +313,7 @@ def page_hero(eyebrow, heading, lede, image, image_alt, extra_btn=""):
       <div class="hero-media" aria-hidden="true">
         <picture>
           <source type="image/webp" srcset="{image}.webp">
-          <img src="{image}.jpg" alt="" width="1800" height="1200">
+          <img src="{image}.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -356,10 +356,10 @@ def review_cards():
 def build_home():
     body = f"""    <section class="hero" data-hero-video>
       <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" muted loop playsinline preload="none" poster="images/stock/hero-video-poster.jpg"></video>
+        <video class="hero-video" muted loop playsinline webkit-playsinline autoplay preload="none" poster="images/stock/hero-video-poster.jpg"></video>
         <picture class="hero-fallback">
           <source type="image/webp" srcset="images/stock/hero-video-poster.webp">
-          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080">
+          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -367,7 +367,8 @@ def build_home():
         <p class="eyebrow">Tampa  ·  Founded 2006</p>
         <h1 class="display">Aging is not optional, but youthfulness is.</h1>
         <hr class="gold-rule">
-        <p class="lede">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
+        <p class="lede lede--full">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
+        <p class="lede lede--compact">Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
         <div class="btn-row">
           <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
           <a class="btn btn--ghost" href="#find-treatment" data-open-quiz>Find your treatment</a>
@@ -394,7 +395,7 @@ def build_home():
         </div>
         <div class="treat-grid">
           <a class="treat-card" href="hormones.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="A calm sitting room with cream chairs and greenery" width="1800" height="1350"></picture>
+            <picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="A calm sitting room with cream chairs and greenery" width="1800" height="1350" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Hormone and age management</h3>
               <p>An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise.</p>
@@ -402,7 +403,7 @@ def build_home():
             </div>
           </a>
           <a class="treat-card" href="weight-loss.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/interior-cream.webp"><img src="images/stock/interior-cream.jpg" alt="A cream-toned sitting room with linen textures" width="1800" height="1318"></picture>
+            <picture><source type="image/webp" srcset="images/stock/interior-cream.webp"><img src="images/stock/interior-cream.jpg" alt="A cream-toned sitting room with linen textures" width="1800" height="1318" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Medical weight loss</h3>
               <p>Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life, not a cookie-cutter diet.</p>
@@ -410,7 +411,7 @@ def build_home():
             </div>
           </a>
           <a class="treat-card" href="injectables.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/hallway.webp"><img src="images/stock/hallway.jpg" alt="A quiet interior with a cream mirror" width="1600" height="1048"></picture>
+            <picture><source type="image/webp" srcset="images/stock/hallway.webp"><img src="images/stock/hallway.jpg" alt="A quiet interior with a cream mirror" width="1600" height="1048" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Injectables</h3>
               <p>Dr. Linda offers Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with an eye toward a natural look.</p>
@@ -418,7 +419,7 @@ def build_home():
             </div>
           </a>
           <a class="treat-card" href="skin.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/still-life.webp"><img src="images/stock/still-life.jpg" alt="A linen towel, bottle, candle, and tulips" width="1600" height="1066"></picture>
+            <picture><source type="image/webp" srcset="images/stock/still-life.webp"><img src="images/stock/still-life.jpg" alt="A linen towel, bottle, candle, and tulips" width="1600" height="1066" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Skin and facials</h3>
               <p>PRP facials, micro-needling, Diamond Tome microdermabrasion, Dermawave, Cosmelan, Fire and Ice, and medical grade peels.</p>
@@ -448,7 +449,7 @@ def build_home():
           <div class="signature-media">
             <picture>
               <source type="image/webp" srcset="images/stock/palms.webp">
-              <img src="images/stock/palms.jpg" alt="Dark green palm leaves" width="1800" height="1200">
+              <img src="images/stock/palms.jpg" alt="Dark green palm leaves" width="1800" height="1200" loading="lazy" decoding="async">
             </picture>
           </div>
           <div class="signature-copy">
@@ -468,7 +469,7 @@ def build_home():
     <section class="section section--ivory">
       <div class="wrap about-grid">
         <div class="portrait-frame" data-reveal>
-          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319">
+          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
         </div>
         <div data-reveal>
           <p class="eyebrow">Medical director</p>
@@ -557,7 +558,7 @@ def build_home():
         </div>
         <div class="visit-visual" data-reveal>
           <figure class="building-photo">
-            <img src="images/clinic/urban-centre.jpg" alt="The glass towers of Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220">
+            <img src="images/clinic/urban-centre.jpg" alt="The glass towers of Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220" loading="lazy" decoding="async">
             <figcaption>One Urban Centre, 4830 West Kennedy Boulevard</figcaption>
           </figure>
         </div>
@@ -1037,15 +1038,15 @@ def build_club():
         </div>
         <div class="shop-grid">
           <a class="product" data-reveal href="https://agelessbydrlinda.com/product/age-less-greens/" rel="noopener noreferrer" target="_blank">
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694"></picture></div>
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p></div>
           </a>
           <a class="product" data-reveal href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694"></picture></div>
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Reds</h3><p class="amt">$49.92</p></div>
           </a>
           <a class="product" data-reveal href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694"></picture></div>
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Purples</h3><p class="amt">$50.88</p></div>
           </a>
         </div>
@@ -1073,7 +1074,7 @@ def build_about():
     <section class="section">
       <div class="wrap about-grid">
         <div class="portrait-frame" data-reveal>
-          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319">
+          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" loading="lazy" decoding="async">
         </div>
         <div class="prose" data-reveal>
           <p>Dr. Linda founded Age-Less Medicine in 2006. She leads the practice by hand and supervises every part of the care we deliver, from hormone and weight programs to injectables and skin treatments.</p>
@@ -1143,7 +1144,7 @@ def build_contact():
         </div>
         <div class="visit-visual" data-reveal>
           <figure class="building-photo">
-            <img src="images/clinic/urban-centre.jpg" alt="Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220">
+            <img src="images/clinic/urban-centre.jpg" alt="Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220" loading="lazy" decoding="async">
             <figcaption>One Urban Centre, West Kennedy Boulevard</figcaption>
           </figure>
           <div class="map-frame">

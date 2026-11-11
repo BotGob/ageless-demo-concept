@@ -59,10 +59,10 @@
   <main id="main">
     <section class="hero" data-hero-video>
       <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" muted loop playsinline preload="none" poster="images/stock/hero-video-poster.jpg"></video>
+        <video class="hero-video" muted loop playsinline webkit-playsinline autoplay preload="none" poster="images/stock/hero-video-poster.jpg"></video>
         <picture class="hero-fallback">
           <source type="image/webp" srcset="images/stock/hero-video-poster.webp">
-          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080">
+          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -70,7 +70,8 @@
         <p class="eyebrow">Tampa  ·  Founded 2006</p>
         <h1 class="display">Aging is not optional, but youthfulness&nbsp;is.</h1>
         <hr class="gold-rule">
-        <p class="lede">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
+        <p class="lede lede--full">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
+        <p class="lede lede--compact">Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
         <div class="btn-row">
           <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
           <a class="btn btn--ghost" href="#find-treatment" data-open-quiz>Find your treatment</a>
@@ -97,7 +98,7 @@
         </div>
         <div class="treat-grid">
           <a class="treat-card" href="hormones.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="A calm sitting room with cream chairs and greenery" width="1800" height="1350"></picture>
+            <picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="A calm sitting room with cream chairs and greenery" width="1800" height="1350" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Hormone and age management</h3>
               <p>An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise.</p>
@@ -105,7 +106,7 @@
             </div>
           </a>
           <a class="treat-card" href="weight-loss.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/interior-cream.webp"><img src="images/stock/interior-cream.jpg" alt="A cream-toned sitting room with linen textures" width="1800" height="1318"></picture>
+            <picture><source type="image/webp" srcset="images/stock/interior-cream.webp"><img src="images/stock/interior-cream.jpg" alt="A cream-toned sitting room with linen textures" width="1800" height="1318" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Medical weight loss</h3>
               <p>Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life, not a cookie-cutter diet.</p>
@@ -113,7 +114,7 @@
             </div>
           </a>
           <a class="treat-card" href="injectables.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/hallway.webp"><img src="images/stock/hallway.jpg" alt="A quiet interior with a cream mirror" width="1600" height="1048"></picture>
+            <picture><source type="image/webp" srcset="images/stock/hallway.webp"><img src="images/stock/hallway.jpg" alt="A quiet interior with a cream mirror" width="1600" height="1048" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Injectables</h3>
               <p>Dr. Linda offers Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with an eye toward a natural look.</p>
@@ -121,7 +122,7 @@
             </div>
           </a>
           <a class="treat-card" href="skin.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/still-life.webp"><img src="images/stock/still-life.jpg" alt="A linen towel, bottle, candle, and tulips" width="1600" height="1066"></picture>
+            <picture><source type="image/webp" srcset="images/stock/still-life.webp"><img src="images/stock/still-life.jpg" alt="A linen towel, bottle, candle, and tulips" width="1600" height="1066" loading="lazy" decoding="async"></picture>
             <div class="treat-body">
               <h3>Skin and facials</h3>
               <p>PRP facials, micro-needling, Diamond Tome microdermabrasion, Dermawave, Cosmelan, Fire and Ice, and medical grade peels.</p>
@@ -151,7 +152,7 @@
           <div class="signature-media">
             <picture>
               <source type="image/webp" srcset="images/stock/palms.webp">
-              <img src="images/stock/palms.jpg" alt="Dark green palm leaves" width="1800" height="1200">
+              <img src="images/stock/palms.jpg" alt="Dark green palm leaves" width="1800" height="1200" loading="lazy" decoding="async">
             </picture>
           </div>
           <div class="signature-copy">
@@ -171,7 +172,7 @@
     <section class="section section--ivory">
       <div class="wrap about-grid">
         <div class="portrait-frame" data-reveal>
-          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319">
+          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
         </div>
         <div data-reveal>
           <p class="eyebrow">Medical director</p>
@@ -324,7 +325,7 @@
         </div>
         <div class="visit-visual" data-reveal>
           <figure class="building-photo">
-            <img src="images/clinic/urban-centre.jpg" alt="The glass towers of Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220">
+            <img src="images/clinic/urban-centre.jpg" alt="The glass towers of Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220" loading="lazy" decoding="async">
             <figcaption>One Urban Centre, 4830 West Kennedy Boulevard</figcaption>
           </figure>
         </div>

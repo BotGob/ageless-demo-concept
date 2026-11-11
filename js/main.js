@@ -99,7 +99,10 @@
     var header = document.querySelector(".site-header");
     var toggle = document.querySelector(".nav-toggle");
     if (header) header.classList.remove("nav-open");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+    }
     syncLock();
   }
 
@@ -112,12 +115,14 @@
       toggle.addEventListener("click", function () {
         var open = header.classList.toggle("nav-open");
         toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
         syncLock();
       });
       header.querySelectorAll(".nav a").forEach(function (link) {
         link.addEventListener("click", function () {
           header.classList.remove("nav-open");
           toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
           syncLock();
         });
       });
@@ -169,6 +174,7 @@
       var openBook = event.target.closest("[data-open-booking]");
       if (openBook) {
         event.preventDefault();
+        lastOpener = openBook;
         openBooking(openBook.getAttribute("data-treatment") || "");
         return;
       }
@@ -522,7 +528,10 @@
     video.defaultMuted = true;
     video.loop = true;
     video.playsInline = true;
+    video.autoplay = true;
     video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.setAttribute("autoplay", "");
     video.setAttribute("muted", "");
     video.setAttribute("data-src", src);
     video.src = src;
@@ -537,7 +546,16 @@
     video.addEventListener("playing", function () {
       hero.classList.add("is-playing");
     });
-    video.addEventListener("error", showStill);
+    var fallbackTried = false;
+    video.addEventListener("error", function () {
+      if (!fallbackTried && /\.webm($|\?)/i.test(video.currentSrc || src)) {
+        fallbackTried = true;
+        video.src = mobile ? "images/stock/hero-ambient-sm.mp4" : "images/stock/hero-ambient.mp4";
+        tryPlay();
+        return;
+      }
+      showStill();
+    });
 
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (entries) {

@@ -26,6 +26,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--cream);
+  overflow-x: hidden;
 }
 
 @view-transition {
@@ -944,6 +945,15 @@ img.js-blur.is-ready {
   .book-bar { display: flex; }
   body { padding-bottom: 5.4rem; }
   .map-frame, .map-frame iframe { min-height: 16rem; }
+}
+
+/* Short phones (iPhone SE): a shorter intro so the hero button clears the Call/Book bar */
+.hero .lede--compact { display: none; }
+@media (max-width: 900px) and (max-height: 740px) {
+  .hero .lede--full { display: none; }
+  .hero .lede--compact { display: block; }
+  .hero .hero-copy { padding-top: 6.25rem; }
+  .hero h1 { font-size: clamp(2.2rem, 10vw, 2.55rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
