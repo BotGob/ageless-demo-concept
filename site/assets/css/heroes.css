@@ -3,6 +3,7 @@
    One restrained entrance per variant: copy fades up, photo unveils. */
 .hv { display: none; }
 :root[data-hero] .hero-clean { display: none !important; }
+:root[data-hero] .hero-full, :root[data-hero] .intro { display: none !important; }
 :root[data-hero="a"] #heroA, :root[data-hero="b"] #heroB, :root[data-hero="c"] #heroC,
 :root[data-hero="d"] #heroD, :root[data-hero="e"] #heroE { display: grid; }
 
@@ -29,7 +30,7 @@
 @media (hover: hover) and (pointer: fine) { .hv .btn.gold:hover { background: #d1b07a; } }
 .hv-b .btn.gold, .hv-c .btn.gold { background: var(--hv-deep); color: #f8f3ea; }
 @media (hover: hover) and (pointer: fine) { .hv-b .btn.gold:hover, .hv-c .btn.gold:hover { background: var(--hv-deep-2); } }
-.hv .hc-link { color: var(--hv-deep); background-image: linear-gradient(var(--hv-gold), var(--hv-gold)); }
+/* secondary CTA styles live in the contrast block at the end */
 .hv-photo { display: block; position: relative; overflow: hidden; text-decoration: none; }
 .hv-photo img { width: 100%; height: 100%; object-fit: cover; }
 .hv figcaption { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hv-mute); }
@@ -38,7 +39,7 @@
 /* Header over light heroes: deep green ink, gold mark */
 :root[data-hero="a"] .top.on-dark, :root[data-hero="b"] .top.on-dark,
 :root[data-hero="c"] .top.on-dark, :root[data-hero="e"] .top.on-dark {
-  --bg: #f8f3ea; --bg-2: #f1ebe0; --ink: #16332c; --muted: #3e4a44; --soft: #6b6f66; --gold-2: #94733f; --line: rgba(148, 115, 63, 0.4); --line-2: rgba(22, 51, 44, 0.12);
+  --bg: #f8f3ea; --bg-2: #f1ebe0; --ink: #0d211c; --muted: #0d211c; --soft: #0d211c; --gold-2: #6e5326; --line: rgba(13, 33, 28, 0.28); --line-2: rgba(13, 33, 28, 0.14);
 }
 :root[data-hero] .top .brand-mark { color: var(--gold); }
 :root[data-hero="a"] .top.on-dark .bag-btn .count, :root[data-hero="e"] .top.on-dark .bag-btn .count { background: var(--hv-deep); color: #f8f3ea; }
@@ -49,8 +50,9 @@
 :root[data-hero="a"] .shop > .wrap, :root[data-hero="b"] .shop > .wrap, :root[data-hero="c"] .shop > .wrap, :root[data-hero="e"] .shop > .wrap { transform: none; }
 :root[data-hero] .shop { padding-top: clamp(72px, 9vw, 120px); }
 
-/* The one entrance */
-:root[data-hero] .hv-copy { opacity: 0; transform: translateY(14px); }
+/* The one entrance. Animation forwards is a safety net if .ready never lands. */
+@keyframes hvIn { to { opacity: 1; transform: none; } }
+:root[data-hero] .hv-copy { opacity: 0; transform: translateY(14px); animation: hvIn 1000ms var(--ease-out) 120ms forwards; }
 :root[data-hero] .ready .hv-copy { opacity: 1; transform: none; transition: opacity 1000ms var(--ease-out) 120ms, transform 1000ms var(--ease-out) 120ms; }
 :root[data-hero] .hv-photo img { transform: scale(1.06); }
 :root[data-hero] .ready .hv-photo img { transform: none; transition: transform 2000ms var(--ease-out); }
@@ -96,22 +98,22 @@
 
 /* ---------- D  Eucalyptus ---------- */
 :root[data-hero="d"] .hv-d, :root[data-hero="d"] .top.on-dark {
-  --ink: #f7f2e8; --muted: #e6e8de; --soft: #d3d9cd; --gold: #dcc293; --gold-2: #ead3a6; --gold-ink: #22392f; --line: rgba(234, 211, 166, 0.45); --line-2: rgba(247, 242, 232, 0.2); --bg: #6c8370;
+  --ink: #f7f2e8; --muted: #f7f2e8; --soft: #f3ecdf; --gold: #ead3a6; --gold-2: #f0e0c0; --gold-ink: #22392f; --line: rgba(234, 211, 166, 0.45); --line-2: rgba(247, 242, 232, 0.2); --bg: #4a5e50;
 }
-.hv-d { min-height: 100vh; min-height: 100svh; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr); align-items: center; gap: clamp(48px, 7vw, 128px); padding: 104px clamp(28px, 7.5vw, 128px) 56px; background: radial-gradient(90% 80% at 30% 40%, #748b78 0%, #6c8370 55%, #647a68 100%); color: #f7f2e8; }
+.hv-d { min-height: 100vh; min-height: 100svh; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr); align-items: center; gap: clamp(48px, 7vw, 128px); padding: 104px clamp(28px, 7.5vw, 128px) 56px; background: radial-gradient(90% 80% at 30% 40%, #556b5a 0%, #4a5e50 55%, #3e5246 100%); color: #f7f2e8; }
 .hv-d .hv-photo { justify-self: end; width: min(100%, 440px); aspect-ratio: 3 / 4; max-height: calc(100svh - 190px); border-radius: 999px 999px 4px 4px; box-shadow: 0 40px 80px -40px rgba(20, 35, 27, 0.55); }
 .hv-d .hv-photo img { object-position: 50% 66%; }
 :root[data-hero="d"] .hv-d .hv-photo { clip-path: inset(100% 0 0 0 round 999px 999px 4px 4px); }
 :root[data-hero="d"] .ready .hv-d .hv-photo { clip-path: inset(0 0 0 0 round 999px 999px 4px 4px); }
 .hv-d .hv-title { color: #f7f2e8; }
 .hv-d .hv-title em { color: #ead3a6; }
-.hv-d .hv-eyebrow { color: #e3e7dc; }
+.hv-d .hv-eyebrow { color: #f7f2e8; }
 .hv-d .hv-eyebrow::before { background: #ead3a6; }
-.hv-d .hv-sub { color: #eef0e8; }
+.hv-d .hv-sub { color: #f7f2e8; }
 .hv-d .btn.gold { background: #f7f2e8; color: #22392f; }
 @media (hover: hover) and (pointer: fine) { .hv-d .btn.gold:hover { background: #ffffff; } }
-.hv-d .hc-link { color: #f7f2e8; background-image: linear-gradient(#ead3a6, #ead3a6); }
-:root[data-hero="d"] .shop { background: #647a68; }
+/* .hv-d secondary CTA is restyled in the contrast block at the end */
+:root[data-hero="d"] .shop { background: #3e5246; }
 :root[data-hero="d"] .shop::before { box-shadow: none; }
 
 /* ---------- E  Atelier ---------- */
@@ -226,3 +228,190 @@
 @media (max-width: 860px) { .hv-b .hv-photo { aspect-ratio: 1050 / 1190; } }
 .hv-e .hv-sub { max-width: 54ch; text-wrap: balance; }
 @media (max-width: 860px) { .hv-e .hv-eyebrow i { display: none; } .hv-e .hv-eyebrow { letter-spacing: 0.18em; text-wrap: balance; } }
+
+/* ---------- Contrast + secondary CTA (2026-11-14) ----------
+   Nav type was muted #3e4a44 / weight 300, which failed WCAG AA on the
+   mid-tone beige of hero B. Logo, links, lang and bag use deep green
+   #0d211c on light heroes and cream on D, at weight 500, including after
+   scroll. Secondary "Meet Dr. Linda" is an outlined pill, not a gold underline. */
+:root[data-hero="a"] .top,
+:root[data-hero="b"] .top,
+:root[data-hero="c"] .top,
+:root[data-hero="e"] .top,
+:root[data-hero="a"] .top.on-dark,
+:root[data-hero="b"] .top.on-dark,
+:root[data-hero="c"] .top.on-dark,
+:root[data-hero="e"] .top.on-dark,
+:root[data-hero="a"] .top.solid,
+:root[data-hero="b"] .top.solid,
+:root[data-hero="c"] .top.solid,
+:root[data-hero="e"] .top.solid {
+  --bg: #f8f3ea;
+  --bg-2: #f1ebe0;
+  --ink: #0d211c;
+  --muted: #0d211c;
+  --soft: #0d211c;
+  --gold-2: #6e5326;
+  --line: rgba(13, 33, 28, 0.28);
+  --line-2: rgba(13, 33, 28, 0.14);
+  color: #0d211c;
+}
+:root[data-hero="a"] .top.solid,
+:root[data-hero="b"] .top.solid,
+:root[data-hero="c"] .top.solid,
+:root[data-hero="e"] .top.solid {
+  background: color-mix(in srgb, #f8f3ea 92%, transparent);
+}
+:root[data-hero="d"] .top,
+:root[data-hero="d"] .top.on-dark,
+:root[data-hero="d"] .top.solid {
+  --ink: #f7f2e8;
+  --muted: #f7f2e8;
+  --soft: #f3ecdf;
+  --gold: #ead3a6;
+  --gold-2: #ead3a6;
+  --gold-ink: #22392f;
+  --line: rgba(234, 211, 166, 0.45);
+  --line-2: rgba(247, 242, 232, 0.2);
+  --bg: #3e5246;
+  --bg-2: #4a5e50;
+  color: #f7f2e8;
+}
+:root[data-hero="d"] .top.solid {
+  background: color-mix(in srgb, #3e5246 92%, transparent);
+}
+
+:root[data-hero] .top .brand,
+:root[data-hero] .top .brand-name,
+:root[data-hero] .top .brand-sub,
+:root[data-hero] .top .nav a,
+:root[data-hero] .top .back-main,
+:root[data-hero] .top .voice-btn,
+:root[data-hero] .top .voice-btn .lbl,
+:root[data-hero] .top .lang button,
+:root[data-hero] .top .lang button[aria-pressed="true"],
+:root[data-hero] .top .bag-btn {
+  color: var(--ink);
+  font-weight: 500;
+  opacity: 1;
+}
+:root[data-hero] .top .brand-sub { opacity: 1; }
+:root[data-hero] .top .lang button { color: var(--ink); }
+:root[data-hero="a"] .top .bag-btn .count,
+:root[data-hero="b"] .top .bag-btn .count,
+:root[data-hero="c"] .top .bag-btn .count,
+:root[data-hero="e"] .top .bag-btn .count {
+  background: var(--ink);
+  color: #f8f3ea;
+}
+
+/* Secondary CTA: same pill geometry as the gold button, no underline or fill */
+.hv .hc-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  border: 1px solid var(--hv-deep);
+  background: transparent;
+  background-image: none;
+  color: var(--hv-deep);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 200ms ease, transform 200ms var(--ease-out), border-color 200ms ease, color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hv .hc-link:hover {
+    background: rgba(13, 33, 28, 0.06);
+    background-image: none;
+    color: var(--hv-deep);
+    transform: translateX(2px);
+  }
+}
+.hv .hc-link:focus { outline: none; }
+.hv .hc-link:focus-visible {
+  outline: 2px solid var(--hv-deep);
+  outline-offset: 3px;
+}
+.hv-d .hc-link {
+  border-color: #f7f2e8;
+  color: #f7f2e8;
+  background: transparent;
+  background-image: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hv-d .hc-link:hover {
+    background: rgba(247, 242, 232, 0.12);
+    color: #f7f2e8;
+  }
+}
+.hv-d .hc-link:focus-visible { outline-color: #ead3a6; }
+@media (max-width: 860px) {
+  .hv .hc-link { min-height: 50px; padding: 0 22px; }
+}
+
+/* Hero type contrast on B: keep the gold italic, deepen the body if needed */
+.hv-b .hv-title { color: #0d211c; }
+.hv-b .hv-sub { color: #1a2a26; }
+
+/* =================== POLISH 2 (2026-11-14 PM) ===================
+   Same standard as B on all five: AA nav and hero type, one refined primary pill,
+   one outlined secondary pill, no underline links, buttons equal width on phones. */
+
+/* Header: clinic pill picks up each hero's ink */
+:root[data-hero] .top .clinic-link { color: var(--ink); border-color: var(--line); }
+:root[data-hero="d"] .top .clinic-link { border-color: rgba(247, 242, 232, 0.55); }
+
+/* Primary pill: calmer weight and tracking, a quiet lift on hover */
+.hv .btn.gold { font-weight: 500; letter-spacing: 0.03em; transition: background-color 200ms ease, transform 200ms var(--ease-out), box-shadow 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .hv .btn.gold:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -18px rgba(13, 33, 28, 0.55); } }
+.hv .hc-link:hover { transform: translateY(-1px); }
+/* A and E: champagne gold with deep green type (AA 6:1), hairline edge so it does not look flat */
+.hv-a .btn.gold, .hv-e .btn.gold { background: #c8a76b; color: #0d211c; box-shadow: inset 0 0 0 1px rgba(110, 83, 38, 0.25); }
+@media (hover: hover) and (pointer: fine) { .hv-a .btn.gold:hover, .hv-e .btn.gold:hover { background: #d2b47c; } }
+
+/* Caption link: small caps with an arrow, no underline */
+.hv .hc-cap-link { display: inline-flex; align-items: center; gap: 8px; padding: 4px 0; background: none; color: var(--hv-deep); font-weight: 500; text-decoration: none; }
+.hv .hc-cap-link::after { content: "\2192"; font-size: 1.05em; letter-spacing: 0; transition: transform 200ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .hv .hc-cap-link:hover { background: none; } .hv .hc-cap-link:hover::after { transform: translateX(3px); } }
+.hv figcaption { color: #4a4f48; }
+
+/* Eyebrows: darker so the small caps pass AA on ivory and stone */
+.hv-a .hv-eyebrow, .hv-c .hv-eyebrow, .hv-e .hv-eyebrow { color: #3e4a44; }
+.hv-a .hv-sub, .hv-c .hv-sub, .hv-e .hv-sub { color: #33403a; }
+
+/* C: tools sit on the photo, so give them a frosted ivory pill; lift the note clear of the demo pill */
+@media (min-width: 861px) {
+  :root[data-hero="c"] .top .tools { padding: 4px 6px 4px 4px; border-radius: 999px; background: rgba(248, 243, 234, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 6px 24px -14px rgba(13, 33, 28, 0.4); }
+  :root[data-hero="c"] .top.solid .tools { background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  :root[data-hero="c"] .top .clinic-link { border-color: transparent; background: rgba(13, 33, 28, 0.06); }
+  .hv-c .hv-panel { padding-bottom: 84px; }
+}
+
+/* D: cream primary, cream outline secondary, brighter gold italic */
+.hv-d .btn.gold { color: #1b2f26; }
+.hv-d .hv-title em { color: #efdcb4; }
+
+/* E: tighten the gap between buttons and photo, keep the hairline caption */
+.hv-e .hv-actions { gap: 14px 18px; }
+
+/* Desktop: secondary pill sits 14px from primary, same height */
+@media (min-width: 861px) { .hv-actions { gap: 14px 16px; } .hv .btn.gold, .hv .hc-link { min-height: 52px; } }
+
+/* Phones: both pills full width and equal, stacked, so long Spanish labels never wrap */
+@media (max-width: 560px) {
+  .hv-actions { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; max-width: 360px; }
+  .hv-e .hv-actions { margin: 0 auto; }
+  .hv .btn.gold, .hv .hc-link { width: 100%; min-height: 50px; padding: 0 20px; }
+}
+/* B: the outlined secondary sits on the photo, so give it a soft ivory glass fill */
+.hv-b .hc-link { background: rgba(248, 243, 234, 0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+@media (hover: hover) and (pointer: fine) { .hv-b .hc-link:hover { background: rgba(248, 243, 234, 0.8); } }
+/* B phone: light veil at the top of the photo so the logo and Clinic pill read cleanly */
+@media (max-width: 860px) {
+  .hv-b .hv-photo::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 120px; background: linear-gradient(180deg, rgba(248, 243, 234, 0.78) 0%, rgba(248, 243, 234, 0) 100%); pointer-events: none; }
+  .hv-b .hc-link { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

@@ -38,8 +38,8 @@ window.AL_PRODUCTS = [
     name: { en: 'Lumineyes', es: 'Lumineyes' },
     size: { en: '0.5 fl oz (15 ml) pump', es: '0.5 fl oz (15 ml), bomba' },
     short: { en: 'Eye cream for dark circles, puffiness and fine lines.', es: 'Crema de ojos para ojeras, bolsas y líneas finas.' },
-    long: { en: 'Ten ingredients, each with a job. Tap what bothers you below and see which ones go to work on it. Cruelty free, made in the USA.',
-            es: 'Diez ingredientes, cada uno con su trabajo. Toca lo que te molesta y mira cuáles se encargan. Libre de crueldad, hecho en EE. UU.' },
+    long: { en: 'Ten ingredients, each with a job. Tap what you\u2019d like to focus on below and see which ones go to work on it. Cruelty free, made in the USA.',
+            es: 'Diez ingredientes, cada uno con su trabajo. Toca en qué te gustaría enfocarte y mira cuáles se encargan. Libre de crueldad, hecho en EE. UU.' },
     chart: true,
     keys: []
   },
@@ -119,17 +119,17 @@ window.AL_EYE_CHART = {
 
 window.AL_I18N = {
   en: {
-    skip: 'Skip to the shop', back_main: 'Back to Age-Less Medicine', nav_shop: 'Shop', nav_routine: 'Morning routine', nav_about: 'Dr. Linda', nav_visit: 'Visit',
+    skip: 'Skip to the shop', back_main: 'Back to Age-Less Medicine', clinic_site: 'Clinic site', clinic_short: 'Clinic', foot_clinic: 'Visit our clinic site', brand_aria: 'Age-Less Medicine, clinic home', nav_shop: 'Shop', nav_routine: 'Morning routine', nav_about: 'Dr. Linda', nav_visit: 'Visit',
     hear: 'Hear Dr. Linda', bag: 'Bag', demo_flag_short: 'Demo store \u00b7 test checkout', hc_sub: 'Medical-grade skin care from her Tampa practice, sent to your door.', hc_cta: 'Shop the collection', hc_link: 'Meet Dr. Linda', hc_cap: 'The Age-Less collection', hc_cap_link: 'Shop all', hc_alt: 'Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+', ingr_title: 'Inside Peptide RX', demo_flag: 'Demo store - sample prices - test checkout',
     hero_kicker_line: 'Medical-grade skin care from her Tampa practice',
     hero_title_1: 'Age-less,', hero_title_2: 'by Dr. Linda.',
     hero_sub: 'The same products she trusts in the treatment room, chosen for your skin and sent to your door.',
-    hero_cta: 'Shop Peptide RX', hero_cta2: 'What\u2019s bothering you?',
+    hero_cta: 'Shop Peptide RX', hero_cta2: 'Shop by skin goal',
     hero_price: 'Peptide RX, 1 fl oz', scroll: 'Scroll',
     call_1: 'Peptides', call_1b: 'Visibly firm and tighten', call_2: 'CoQ10', call_2b: 'Calming antioxidant', call_3: 'Hyaluronic acid', call_3b: 'Moisture that stays', call_4: 'Botanicals', call_4b: 'Cucumber, chamomile, kelp',
     reveal_line: 'Peptides have been part of her practice for over twenty years. This is the serum she built around them.',
-    concern_title: 'What\u2019s bothering you?', concern_sub: 'Tap one. We\u2019ll show you where Dr. Linda would start.',
-    c_all: 'Show me everything', c_lines: 'Fine lines', c_firm: 'Firmness', c_eyes: 'Dark circles', c_neck: 'My neck', c_sun: 'Sun', c_inside: 'Inside out', c_routine: 'Just tell me what to do',
+    concern_title: 'Your skin. Your\u00a0goals.', concern_sub: 'Choose what you\u2019d like to focus on, and we\u2019ll show you where Dr. Linda would start your routine.', goals_aria: 'Skin goals',
+    c_all: 'The full collection', c_lines: 'Smoother lines', c_firm: 'Firmer skin', c_eyes: 'Brighter eyes', c_neck: 'Neck care', c_sun: 'Daily protection', c_inside: 'Wellness from within', c_routine: 'A complete routine',
     picks_all: 'Six favorites from her shelf', picks_n: '{n} picks for {c}', picks_1: 'Where to start for {c}', also: 'Also loved',
     add: 'Add to bag', added: 'Added', details: 'Details', sample: 'sample pricing', from: '',
     routine_title: 'Her morning, in three moves.', routine_sub: 'Five products, about three minutes. The routine Dr. Linda builds for most of her patients.',
@@ -151,20 +151,20 @@ window.AL_I18N = {
     summary: 'Order summary', shipping: 'Shipping', tax: 'Estimated tax', total: 'Total', processing: 'Processing',
     done_title: 'Thank you. Your order is in.', done_body: 'Order {o}. A receipt would go to {e}. This was a test, so nothing was charged.', done_ship: 'We\u2019ll email tracking as soon as it ships.', done_pick: 'We\u2019ll text you when it\u2019s ready at the front desk.', done_live: 'In the live store, Shopify sends the receipt and the order shows up in Dr. Linda\u2019s orders screen.', keep: 'Keep shopping',
     err_req: 'Please fill this in', err_email: 'Please enter a valid email', err_card: 'Check the card number', err_zip: 'Enter a 5 digit ZIP',
-    co_opening: 'Opening secure checkout...', eye_tap: 'Tap a concern', eye_reset: 'Show all', toast_added: 'added to your bag', close: 'Close', in_box: 'In the box'
+    co_opening: 'Opening secure checkout...', eye_tap: 'Choose a goal', eye_reset: 'Show all', toast_added: 'added to your bag', close: 'Close', in_box: 'In the box'
   },
   es: {
-    skip: 'Ir a la tienda', back_main: 'Volver a Age-Less Medicine', nav_shop: 'Tienda', nav_routine: 'Rutina de mañana', nav_about: 'Dra. Linda', nav_visit: 'Visítanos',
+    skip: 'Ir a la tienda', back_main: 'Volver a Age-Less Medicine', clinic_site: 'Sitio de la clínica', clinic_short: 'Clínica', foot_clinic: 'Visita el sitio de nuestra clínica', brand_aria: 'Age-Less Medicine, inicio de la clínica', nav_shop: 'Tienda', nav_routine: 'Rutina de mañana', nav_about: 'Dra. Linda', nav_visit: 'Visítanos',
     hear: 'Escucha a la Dra. Linda', bag: 'Bolsa', demo_flag_short: 'Tienda demo \u00b7 pago de prueba', hc_sub: 'Cuidado de la piel de grado médico desde su consultorio en Tampa, directo a tu puerta.', hc_cta: 'Ver la colección', hc_link: 'Conoce a la Dra. Linda', hc_cap: 'La colección Age-Less', hc_cap_link: 'Ver todo', hc_alt: 'Línea de cuidado de la piel Age-Less Medicine sobre una encimera de mármol: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist y Protective Antioxidant Sunscreen 50+', ingr_title: 'Dentro de Peptide RX', demo_flag: 'Tienda demo - precios de muestra - pago de prueba',
     hero_kicker_line: 'Cuidado de la piel de grado médico, desde su consultorio en Tampa',
     hero_title_1: 'Age-less,', hero_title_2: 'por la Dra. Linda.',
     hero_sub: 'Los mismos productos en los que confía en su consultorio, elegidos para tu piel y enviados a tu puerta.',
-    hero_cta: 'Comprar Peptide RX', hero_cta2: '¿Qué te preocupa?',
+    hero_cta: 'Comprar Peptide RX', hero_cta2: 'Compra según tu objetivo',
     hero_price: 'Peptide RX, 1 fl oz', scroll: 'Desliza',
     call_1: 'Péptidos', call_1b: 'Reafirman y tensan a la vista', call_2: 'CoQ10', call_2b: 'Antioxidante calmante', call_3: 'Ácido hialurónico', call_3b: 'Hidratación que se queda', call_4: 'Botánicos', call_4b: 'Pepino, manzanilla, algas',
     reveal_line: 'Los péptidos han sido parte de su práctica por más de veinte años. Este es el sérum que creó alrededor de ellos.',
-    concern_title: '¿Qué te preocupa?', concern_sub: 'Toca una opción. Te mostramos por dónde empezaría la Dra. Linda.',
-    c_all: 'Muéstrame todo', c_lines: 'Líneas finas', c_firm: 'Firmeza', c_eyes: 'Ojeras', c_neck: 'Mi cuello', c_sun: 'Sol', c_inside: 'Desde adentro', c_routine: 'Solo dime qué hacer',
+    concern_title: 'Tu piel. Tus\u00a0objetivos.', concern_sub: 'Elige en qué te gustaría enfocarte y te mostramos con qué empezaría tu rutina la Dra. Linda.', goals_aria: 'Objetivos para tu piel',
+    c_all: 'Toda la colección', c_lines: 'Líneas más suaves', c_firm: 'Piel más firme', c_eyes: 'Mirada más luminosa', c_neck: 'Cuidado del cuello', c_sun: 'Protección diaria', c_inside: 'Bienestar desde adentro', c_routine: 'Una rutina completa',
     picks_all: 'Seis favoritos de su repisa', picks_n: '{n} opciones para {c}', picks_1: 'Por dónde empezar: {c}', also: 'También les encanta',
     add: 'Agregar a la bolsa', added: 'Agregado', details: 'Detalles', sample: 'precio de muestra', from: '',
     routine_title: 'Su mañana, en tres pasos.', routine_sub: 'Cinco productos, unos tres minutos. La rutina que la Dra. Linda arma para la mayoría de sus pacientes.',
@@ -186,6 +186,6 @@ window.AL_I18N = {
     summary: 'Resumen del pedido', shipping: 'Envío', tax: 'Impuesto estimado', total: 'Total', processing: 'Procesando',
     done_title: 'Gracias. Tu pedido está listo.', done_body: 'Pedido {o}. El recibo llegaría a {e}. Fue una prueba, así que no se cobró nada.', done_ship: 'Te enviamos el número de rastreo en cuanto salga.', done_pick: 'Te avisamos por mensaje cuando esté listo en la recepción.', done_live: 'En la tienda real, Shopify envía el recibo y el pedido aparece en la pantalla de pedidos de la Dra. Linda.', keep: 'Seguir comprando',
     err_req: 'Completa este campo', err_email: 'Escribe un correo válido', err_card: 'Revisa el número de tarjeta', err_zip: 'Escribe un código de 5 dígitos',
-    co_opening: 'Abriendo el pago seguro...', eye_tap: 'Toca una preocupación', eye_reset: 'Ver todo', toast_added: 'se agregó a tu bolsa', close: 'Cerrar', in_box: 'Qué incluye'
+    co_opening: 'Abriendo el pago seguro...', eye_tap: 'Elige un objetivo', eye_reset: 'Ver todo', toast_added: 'se agregó a tu bolsa', close: 'Cerrar', in_box: 'Qué incluye'
   }
 };

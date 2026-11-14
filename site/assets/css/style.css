@@ -579,7 +579,7 @@ legend { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; paddin
   .hero-copy { transform: none; opacity: 1; }
   .callout { opacity: 1; transform: none; }
   .reveal-line { position: relative; opacity: 1; transform: none; left: 0; bottom: 0; }
-  .intro { display: none; }
+  .intro { display: none !important; }
 }
 
 /* =================== MOTION POLISH (2026-11-14) ===================
@@ -684,13 +684,22 @@ h2.display.md[data-i18n] { transition: none; }
 /* =================== CLEAN LANDING (2026-11-14, default) ===================
    html[data-layout="clean"] is the default. ?layout=full shows the original hero, intro and header.
    Clean = slim header, quiet demo flag, one headline / one line / one button, one straight photo,
-   a single soft entrance. Ingredients move to a quiet row under the shop. */
+   a single soft entrance. Ingredients move to a quiet row under the shop.
+   The motion hero (.hero-full) and intro are hidden by default so a stale style.css
+   or a missing data-layout attribute cannot leave that section on the default page. */
 .hero-clean, .ingr, .flag-clean { display: none; }
+.hero-full, .intro, .flag-full, .nav .nav-full, .top .back-main { display: none !important; }
+:root[data-layout="full"] .hero-full { display: block !important; }
+:root[data-layout="full"] .intro { display: grid !important; }
+:root[data-layout="full"] .intro.gone { display: none !important; }
+:root[data-layout="full"] .flag-full { display: inline !important; }
+:root[data-layout="full"] .nav .nav-full { display: block !important; }
+:root[data-layout="full"] .top .back-main { display: inline-flex !important; }
 :root[data-layout="clean"] .hero-full,
 :root[data-layout="clean"] .intro,
 :root[data-layout="clean"] .flag-full,
 :root[data-layout="clean"] .nav .nav-full,
-:root[data-layout="clean"] .top .back-main { display: none; }
+:root[data-layout="clean"] .top .back-main { display: none !important; }
 :root[data-layout="clean"] .flag-clean { display: inline; }
 :root[data-layout="clean"] .ingr { display: block; }
 :root[data-layout="clean"] { --flag-h: 0px; }
@@ -756,8 +765,19 @@ h2.display.md[data-i18n] { transition: none; }
 /* Clean landing, round 2: stronger type scale, quiet secondary link, photo reveal as the one motion moment */
 .hero-clean h1 { font-size: clamp(3.2rem, 7vw, 7.2rem); letter-spacing: -0.03em; }
 .hc-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 30px; }
-.hc-link { font-size: 0.95rem; text-decoration: none; color: var(--ink); padding: 6px 0; background: linear-gradient(var(--gold), var(--gold)) 0 100% / 100% 1px no-repeat; transition: background-size 300ms var(--ease-out), color 200ms ease; }
-@media (hover: hover) and (pointer: fine) { .hc-link:hover { color: var(--gold-2); background-size: 0% 1px; background-position: 100% 100%; } }
+.hc-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 28px; border-radius: 999px;
+  border: 1px solid currentColor; background: transparent; background-image: none;
+  font-size: 0.95rem; letter-spacing: 0.02em; text-decoration: none; color: var(--ink);
+  transition: background-color 200ms ease, transform 200ms var(--ease-out), border-color 200ms ease, color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hc-link:hover { background: rgba(247, 242, 232, 0.12); color: var(--ink); transform: translateX(2px); }
+}
+.hc-link:focus { outline: none; }
+.hc-link:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+@media (max-width: 860px) { .hc-link { min-height: 50px; padding: 0 22px; } }
 .hc-photo img { filter: contrast(1.06) saturate(0.92); }
 .hc-media { width: min(100%, 500px); }
 :root[data-layout="clean"] .hc-media { opacity: 1; transform: none; }
@@ -806,3 +826,33 @@ h2.display.md[data-i18n] { transition: none; }
   .hc-photo img { object-position: 50% 50%; }
 }
 @media (prefers-reduced-motion: reduce) { :root[data-layout="clean"] .hc-photo { clip-path: none; } }
+
+/* =================== CLINIC LINK (2026-11-14 polish2) ===================
+   Vito could not find the way back to her main site: the old "Back to Age-Less Medicine"
+   link was hidden on the clean layout. Now a labelled pill sits in the header on every
+   hero (desktop: "Clinic site", phone: "Clinic"), the logo goes to the clinic home,
+   and the footer has a clear "Visit our clinic site" button. All carry ?lang=. */
+.clinic-link { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 15px 0 12px; margin-right: 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; transition: background-color 200ms ease, border-color 200ms ease; }
+.clinic-link svg { width: 16px; height: 16px; flex: 0 0 auto; }
+.clinic-link .cl-short { display: none; }
+@media (hover: hover) and (pointer: fine) { .clinic-link:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); border-color: var(--ink); } }
+.clinic-link:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+:root[data-layout="full"] .clinic-link { display: none; }
+@media (max-width: 860px) {
+  .clinic-link { min-height: 36px; padding: 0 12px 0 10px; margin-right: 2px; letter-spacing: 0.1em; gap: 6px; }
+  .clinic-link .cl-long { display: none; }
+  .clinic-link .cl-short { display: inline; }
+}
+@media (max-width: 560px) {
+  /* Phone header: logo, Clinic, EN/ES, bag. "Hear Dr. Linda" stays in her section below. */
+  :root[data-layout="clean"] .top .voice-btn { display: none; }
+  :root[data-layout="clean"] .tools { gap: 2px; }
+}
+@media (max-width: 360px) { .clinic-link svg { display: none; } }
+.foot-clinic { display: inline-flex; align-items: center; gap: 10px; margin-top: 24px; min-height: 48px; padding: 0 22px 0 18px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.02em; transition: background-color 200ms ease, border-color 200ms ease; }
+.foot-clinic svg { width: 18px; height: 18px; }
+.foot-clinic .arr { width: 16px; height: 16px; transition: transform 200ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .foot-clinic:hover { border-color: var(--gold); } .foot-clinic:hover .arr { transform: translateX(3px); } }
+.foot-clinic:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+/* Goal chips on phones: first chip lines up with the heading instead of snapping to the edge */
+@media (max-width: 860px) { .chips { scroll-padding-inline: 24px; } }

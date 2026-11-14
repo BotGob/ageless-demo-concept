@@ -43,7 +43,14 @@
     $$('[data-i18n]').forEach(function (el) { var v = t(el.getAttribute('data-i18n')); if (v) el.textContent = v; });
     $$('[data-i18n-alt]').forEach(function (el) { var v = t(el.getAttribute('data-i18n-alt')); if (v) el.setAttribute('alt', v); });
     $$('[data-price]').forEach(function (el) { el.textContent = money(+el.getAttribute('data-price')); });
-    $$('[data-main-site]').forEach(function (a) { a.setAttribute('aria-label', t('back_main')); a.setAttribute('href', '../index.html?lang=' + lang); });
+    $$('[data-main-site]').forEach(function (a) {
+      // Every link back to the clinic site carries the language. Only icon-only links get an aria-label;
+      // links with visible text keep that text as their name.
+      var ak = a.getAttribute('data-main-aria');
+      if (ak) a.setAttribute('aria-label', t(ak)); else if (a.classList.contains('back-main')) a.setAttribute('aria-label', t('back_main'));
+      a.setAttribute('href', '../index.html?lang=' + lang);
+    });
+    $$('[data-i18n-aria]').forEach(function (el) { var v = t(el.getAttribute('data-i18n-aria')); if (v) el.setAttribute('aria-label', v); });
     $$('.voice-btn').forEach(function (b) { b.setAttribute('aria-label', t('hear')); });
     $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     document.title = lang === 'es' ? 'Age-Less Medicine | Cuidado de la piel por la Dra. Linda McClintock' : 'Age-Less Medicine | Skin care by Dr. Linda McClintock';
