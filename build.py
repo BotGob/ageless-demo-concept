@@ -62,7 +62,7 @@ def header(active):
         <a href="about.html"{cur(active, "about")}>The doctor</a>
         <a href="beauty-club.html"{cur(active, "club")}>Beauty Club</a>
         <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
-        <a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Shop</a>
+        <a href="site/index.html">Shop</a>
         <a href="contact.html"{cur(active, "contact")}>Visit</a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
       </nav>
@@ -104,7 +104,7 @@ def footer():
       <div>
         <h2>Connect</h2>
         <ul class="footer-list">
-          <li><a href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Online shop</a></li>
+          <li><a href="site/index.html">Shop skin care</a></li>
           <li><a href="https://www.facebook.com/296291637095921" rel="noopener noreferrer" target="_blank">Facebook</a></li>
           <li><a href="https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609" rel="noopener noreferrer" target="_blank">Directions</a></li>
           <li><a href="#book" data-open-booking>Book a visit</a></li>
@@ -974,7 +974,7 @@ def build_club():
         "Dr. Linda’s Age-less Savings Account is a simple way to invest in your care each month and build Age-less Bucks toward our products and services.",
         "images/stock/palms",
         "",
-        '<a class="btn btn--ghost" href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">Visit the shop</a>',
+        '<a class="btn btn--ghost" href="site/index.html">Visit the shop</a>',
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
@@ -1041,11 +1041,11 @@ def build_club():
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p></div>
           </a>
-          <a class="product" data-reveal href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">
+          <a class="product" data-reveal href="site/index.html">
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Reds</h3><p class="amt">$49.92</p></div>
           </a>
-          <a class="product" data-reveal href="https://agelessbydrlinda.com/shop/" rel="noopener noreferrer" target="_blank">
+          <a class="product" data-reveal href="site/index.html">
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694" loading="lazy" decoding="async"></picture></div>
             <div class="product-body"><h3>Age-Less Purples</h3><p class="amt">$50.88</p></div>
           </a>

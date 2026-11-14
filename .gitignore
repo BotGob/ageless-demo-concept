@@ -1,1 +1,9 @@
 screenshots/
+# Internal working files (not part of the published demo)
+BRAIN-NOTES.md
+age-less-demo.zip
+shop-test.py
+compare-themes.py
+polish-shots.py
+shopify/
+.sf_token

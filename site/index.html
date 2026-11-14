@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" data-theme="mixed">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Age-Less Medicine | Skin care by Dr. Linda McClintock</title>
+<meta name="description" content="Medical-grade skin care and supplements from Dr. Linda McClintock's Tampa practice. Shop Peptide RX, Lumineyes, Firm Neck, Sunscreen 50+ and more.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07120e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230d211c'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23d8b57a' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/img/peptide-hero.webp" as="image">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!-- Age-Less Medicine shop demo. Static, self-contained. Checkout is simulated in JS (test mode)
+     unless a Storefront API token is set in assets/js/shopify.js, which sends the bag to the
+     Shopify test store's checkout instead. See README.md. -->
+<a class="skip" href="#shop" data-i18n="skip">Skip to the shop</a>
+
+<!-- Intro curtain: the gold mark draws, then lifts. Under 1.6s, skipped for reduced motion. -->
+<div class="intro" id="intro" aria-hidden="true">
+  <svg class="intro-mark" viewBox="0 0 48 48"><circle class="ring-c" cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="0.8"/><g class="petals" fill="currentColor"><circle cx="24" cy="24" r="3.1"/><ellipse cx="24" cy="13.2" rx="3.2" ry="7.2"/><ellipse cx="24" cy="34.8" rx="3.2" ry="7.2"/><ellipse cx="13.2" cy="24" rx="7.2" ry="3.2"/><ellipse cx="34.8" cy="24" rx="7.2" ry="3.2"/></g></svg>
+  <div class="intro-word brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></div>
+</div>
+
+<div class="demo-flag" role="note"><span class="dot"></span><span data-i18n="demo_flag">Demo store - sample prices - test checkout</span></div>
+
+<header class="top" id="top">
+  <a class="brand" href="#hero" aria-label="Age-Less Medicine, home">
+    <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g fill="currentColor"><circle cx="24" cy="24" r="3.1"/><ellipse cx="24" cy="13.2" rx="3.2" ry="7.2"/><ellipse cx="24" cy="34.8" rx="3.2" ry="7.2"/><ellipse cx="13.2" cy="24" rx="7.2" ry="3.2"/><ellipse cx="34.8" cy="24" rx="7.2" ry="3.2"/></g>
+    </svg>
+    <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#shop" data-i18n="nav_shop">Shop</a>
+    <a href="#routine" data-i18n="nav_routine">Morning routine</a>
+    <a href="#about" data-i18n="nav_about">Dr. Linda</a>
+    <a href="#visit" data-i18n="nav_visit">Visit</a>
+  </nav>
+  <!-- MAIN SITE LINK: relative because the shop demo sits inside the main demo folder.
+       In her real two-site setup, point this at the clinic site (age-lessmedicine.com). -->
+  <div class="tools">
+    <a class="back-main" href="../index.html" data-main-site><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back_main">Back to Age-Less Medicine</span></a>
+    <button class="voice-btn" type="button" data-voice aria-describedby="voice-pop">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="lbl" data-i18n="hear">Hear Dr. Linda</span>
+    </button>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <button class="bag-btn" type="button" id="bagBtn" aria-label="Bag, 0 items">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="count" id="bagCount">0</span>
+    </button>
+  </div>
+</header>
+
+<div class="voice-pop" id="voice-pop" role="status" aria-live="polite" hidden>
+  <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p data-i18n="voice_soon">Her welcome, in her own voice, is coming soon.</p>
+</div>
+
+<main id="main">
+  <!-- HERO: one authored moment. Peptide RX rises out of the dark and turns as you scroll. -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-sticky">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <h1 id="heroTitle" class="display">
+          <span class="line"><span class="rise" data-i18n="hero_title_1">Age-less,</span></span>
+          <span class="line"><em class="rise" data-i18n="hero_title_2">by Dr. Linda.</em></span>
+        </h1>
+        <p class="hero-sub fade-in" data-i18n="hero_sub">The same products she trusts in the treatment room, chosen for your skin and sent to your door.</p>
+        <div class="hero-ctas fade-in">
+          <button class="btn gold" type="button" data-open="peptide-rx"><span data-i18n="hero_cta">Shop Peptide RX</span> <span class="price-chip"><span data-price="89"></span></span></button>
+          <a class="btn ghost" href="#shop" data-i18n="hero_cta2">What's bothering you?</a>
+        </div>
+        <p class="hero-foot fade-in" data-i18n="hero_kicker_line">Medical-grade skin care from her Tampa practice</p>
+      </div>
+      <div class="hero-stage" aria-hidden="true">
+        <div class="ring r1"></div><div class="ring r2"></div>
+        <div class="portal" id="portal">
+          <img src="assets/img/peptide-hero.webp" alt="" width="750" height="1420">
+        </div>
+        <div class="callout c1"><b data-i18n="call_1">Peptides</b><span data-i18n="call_1b">Visibly firm and tighten</span></div>
+        <div class="callout c2"><b data-i18n="call_2">CoQ10</b><span data-i18n="call_2b">Calming antioxidant</span></div>
+        <div class="callout c3"><b data-i18n="call_3">Hyaluronic acid</b><span data-i18n="call_3b">Moisture that stays</span></div>
+        <div class="callout c4"><b data-i18n="call_4">Botanicals</b><span data-i18n="call_4b">Cucumber, chamomile, kelp</span></div>
+      </div>
+      <p class="reveal-line" data-i18n="reveal_line">Peptides have been part of her practice for over twenty years. This is the serum she built around them.</p>
+      <div class="scroll-cue fade-in" aria-hidden="true"><span data-i18n="scroll">Scroll</span><i></i></div>
+    </div>
+  </section>
+
+  <!-- SHOP BY CONCERN -->
+  <section class="shop" id="shop" aria-labelledby="shopTitle">
+    <div class="wrap">
+      <div class="shop-head">
+        <h2 id="shopTitle" class="display md" data-i18n="concern_title">What's bothering you?</h2>
+        <p class="lede" data-i18n="concern_sub">Tap one. We'll show you where Dr. Linda would start.</p>
+      </div>
+      <div class="chips" role="group" aria-label="Concerns" id="chips">
+        <button type="button" class="chip" data-c="all" aria-pressed="true" data-i18n="c_all">Show me everything</button>
+        <button type="button" class="chip" data-c="lines" aria-pressed="false" data-i18n="c_lines">Fine lines</button>
+        <button type="button" class="chip" data-c="firm" aria-pressed="false" data-i18n="c_firm">Firmness</button>
+        <button type="button" class="chip" data-c="eyes" aria-pressed="false" data-i18n="c_eyes">Dark circles</button>
+        <button type="button" class="chip" data-c="neck" aria-pressed="false" data-i18n="c_neck">My neck</button>
+        <button type="button" class="chip" data-c="sun" aria-pressed="false" data-i18n="c_sun">Sun</button>
+        <button type="button" class="chip" data-c="inside" aria-pressed="false" data-i18n="c_inside">Inside out</button>
+        <button type="button" class="chip" data-c="routine" aria-pressed="false" data-i18n="c_routine">Just tell me what to do</button>
+      </div>
+      <p class="picks" id="picks" aria-live="polite"></p>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- MORNING ROUTINE: steps light up as you scroll -->
+  <section class="routine" id="routine" aria-labelledby="routineTitle">
+    <div class="wrap routine-wrap">
+      <div class="routine-copy">
+        <h2 id="routineTitle" class="display md" data-i18n="routine_title">Her morning, in three moves.</h2>
+        <p class="lede" data-i18n="routine_sub">Five products, about three minutes.</p>
+        <ol class="steps" id="steps">
+          <li class="step" data-step="0"><span class="n">1</span><div><h3 data-i18n="step_1">Cleanse</h3><p data-i18n="step_1b">Wash with Cleanse &amp; Repair, then mist.</p></div></li>
+          <li class="step" data-step="1"><span class="n">2</span><div><h3 data-i18n="step_2">Treat</h3><p data-i18n="step_2b">Peptide RX all over, Lumineyes under the eyes.</p></div></li>
+          <li class="step" data-step="2"><span class="n">3</span><div><h3 data-i18n="step_3">Protect</h3><p data-i18n="step_3b">Finish with tinted Sunscreen 50+, every single day.</p></div></li>
+        </ol>
+        <div class="routine-buy">
+          <div class="rp"><span class="big" data-price="235"></span> <s data-price="277"></s><small><span data-i18n="routine_price_note">instead of $277 separately</span> · <span data-i18n="sample">sample pricing</span></small></div>
+          <button class="btn gold" type="button" data-add="morning-routine" data-i18n="routine_cta">Add the Morning Routine</button>
+        </div>
+      </div>
+      <div class="shelf" id="shelf" aria-hidden="true">
+        <div class="shelf-line"></div>
+        <img data-g="0" src="assets/img/cleanse-repair.webp" alt="">
+        <img data-g="0" src="assets/img/hydration-mist.webp" alt="">
+        <img data-g="1" src="assets/img/peptide-rx.webp" alt="">
+        <img data-g="1" src="assets/img/lumineyes.webp" alt="">
+        <img data-g="2" src="assets/img/sunscreen-50.webp" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- DR. LINDA -->
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap about-wrap">
+      <figure class="photo-ph">
+        <div class="ph-inner">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <strong data-i18n="photo_ph">Dr. Linda's photo goes here</strong>
+          <span data-i18n="photo_ph2">Her own face and words, not a stock model</span>
+        </div>
+      </figure>
+      <div class="about-copy">
+        <h2 id="aboutTitle" class="display md" data-i18n="about_title">Care built around you.</h2>
+        <p class="lede" data-i18n="about_body"></p>
+        <blockquote><p data-i18n="about_quote">"Live well. Age beautifully."</p><cite data-i18n="about_sign">Dr. Linda McClintock</cite></blockquote>
+        <button class="voice-big" type="button" data-voice>
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg></span>
+          <span data-i18n="voice_cta">Tap to hear Dr. Linda</span>
+          <span class="wave sm" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit" aria-labelledby="visitTitle">
+    <div class="wrap visit-wrap">
+      <h2 id="visitTitle" class="display md" data-i18n="visit_title">Not sure where to start?</h2>
+      <p class="lede" data-i18n="visit_body"></p>
+      <div class="visit-row">
+        <a class="btn gold" href="tel:+18132864404" data-i18n="visit_call">Call 813-286-4404</a>
+        <span class="where" data-i18n="visit_where"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-brand">Age-Less Medicine<span>info@age-lessmedicine.com · 813-286-4404</span></div>
+    <p data-i18n="foot_disc"></p>
+    <p data-i18n="foot_supp"></p>
+    <p class="demo-note" data-i18n="foot_demo"></p>
+    <a class="back-main foot-back" href="../index.html" data-main-site><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back_main">Back to Age-Less Medicine</span></a>
+  </div>
+</footer>
+
+<!-- Product drawer -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<!-- Cart -->
+<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="cart-head"><h2 id="cartTitle" data-i18n="cart_title">Your bag</h2><button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
+  <div class="ship-meter" id="shipMeter"><p></p><div class="bar"><i></i></div></div>
+  <ul class="lines" id="cartLines"></ul>
+  <div class="cart-empty" id="cartEmpty"><p data-i18n="cart_empty">Your bag is empty.</p><button class="btn ghost" type="button" data-goto-shop data-i18n="cart_empty_cta">Find your first product</button></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="row"><span data-i18n="subtotal">Subtotal</span><b id="cartSub"></b></div>
+    <p class="fine"><span data-i18n="taxes_note">Shipping and tax at checkout</span> · <span data-i18n="sample">sample pricing</span></p>
+    <button class="btn gold wide" type="button" id="toCheckout" data-i18n="checkout">Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout (same page). SHOPIFY PLUG-IN POINT: in the live build this panel is replaced by
+     Shopify's hosted checkout (checkoutUrl from the Storefront API cart) or the Buy Button checkout popup. -->
+<div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
+  <div class="co-banner" role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span data-i18n="test_banner">Test mode - no real charge</span></div>
+  <div class="co-shell">
+    <div class="co-main">
+      <div class="co-top">
+        <h2 id="coTitle" data-i18n="co_title">Checkout</h2>
+        <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      </div>
+      <ol class="co-steps" id="coSteps"><li class="on" data-i18n="co_step1">Details</li><li data-i18n="co_step2">Payment</li><li data-i18n="co_step3">Done</li></ol>
+
+      <form class="co-pane" id="paneDetails" novalidate>
+        <div class="express">
+          <p class="lbl" data-i18n="express">Express checkout</p>
+          <div class="express-row">
+            <button type="button" class="xpay shop" data-express>Shop<b>Pay</b></button>
+            <button type="button" class="xpay apple" data-express><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7ZM14.2 5.6c.6-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>Pay</button>
+          </div>
+          <p class="or"><span data-i18n="or">or</span></p>
+        </div>
+        <fieldset>
+          <legend data-i18n="contact">Contact</legend>
+          <label class="f full"><span data-i18n="email">Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="f full"><span data-i18n="phone">Phone (optional)</span><input name="phone" type="tel" autocomplete="tel"></label>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="method">How do you want it?</legend>
+          <div class="methods">
+            <label class="method"><input type="radio" name="method" value="ship" checked><span><b data-i18n="m_ship">Ship to me</b><small data-i18n="m_ship_b">3 to 5 business days</small></span><em id="shipCost"></em></label>
+            <label class="method"><input type="radio" name="method" value="pickup"><span><b data-i18n="m_pick">Pick up at the clinic</b><small data-i18n="m_pick_b">Ready next business day, Suite 110</small></span><em data-i18n="free">Free</em></label>
+          </div>
+        </fieldset>
+        <fieldset id="addrSet">
+          <legend data-i18n="delivery">Delivery</legend>
+          <div class="two">
+            <label class="f"><span data-i18n="first">First name</span><input name="first" autocomplete="given-name" required></label>
+            <label class="f"><span data-i18n="last">Last name</span><input name="last" autocomplete="family-name" required></label>
+          </div>
+          <label class="f full"><span data-i18n="address">Address</span><input name="address" autocomplete="street-address" required></label>
+          <div class="three">
+            <label class="f"><span data-i18n="city">City</span><input name="city" autocomplete="address-level2" required></label>
+            <label class="f"><span data-i18n="state">State</span><input name="state" autocomplete="address-level1" value="FL" required></label>
+            <label class="f"><span data-i18n="zip">ZIP code</span><input name="zip" inputmode="numeric" autocomplete="postal-code" required></label>
+          </div>
+        </fieldset>
+        <div class="co-actions">
+          <button type="button" class="link" id="fillTest" data-i18n="fill_test">Fill test details</button>
+          <button type="submit" class="btn gold" data-i18n="continue">Continue to payment</button>
+        </div>
+      </form>
+
+      <form class="co-pane" id="panePay" novalidate hidden>
+        <p class="hint" data-i18n="test_card_hint">Test card prefilled.</p>
+        <div class="cardbox">
+          <label class="f full"><span data-i18n="card">Card number</span><input name="card" inputmode="numeric" autocomplete="cc-number" value="4242 4242 4242 4242" required></label>
+          <div class="two">
+            <label class="f"><span data-i18n="exp">MM / YY</span><input name="exp" autocomplete="cc-exp" value="12 / 29" required></label>
+            <label class="f"><span data-i18n="cvc">CVC</span><input name="cvc" inputmode="numeric" autocomplete="cc-csc" value="123" required></label>
+          </div>
+          <label class="f full"><span data-i18n="name_on">Name on card</span><input name="cardname" autocomplete="cc-name" required></label>
+        </div>
+        <div class="co-actions">
+          <button type="button" class="link" id="backDetails" data-i18n="back">Back</button>
+          <button type="submit" class="btn gold" id="payBtn"><span class="spinner" aria-hidden="true"></span><span class="idle"><span data-i18n="pay">Pay</span> <span id="payAmt"></span></span><span class="proc" data-i18n="processing">Processing</span></button>
+        </div>
+      </form>
+
+      <div class="co-pane done" id="paneDone" hidden tabindex="-1">
+        <div class="celebrate" aria-hidden="true"><span class="halo"></span><span class="sparks" id="sparks"></span></div>
+        <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 27l7 7 15-16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3 data-i18n="done_title">Thank you. Your order is in.</h3>
+        <p id="doneBody"></p>
+        <p id="doneWhen"></p>
+        <p class="fine" data-i18n="done_live"></p>
+        <button type="button" class="btn ghost" id="keepShopping" data-i18n="keep">Keep shopping</button>
+      </div>
+    </div>
+    <aside class="co-summary" aria-label="Order summary">
+      <h3 data-i18n="summary">Order summary</h3>
+      <ul id="coLines"></ul>
+      <div class="row"><span data-i18n="subtotal">Subtotal</span><b id="coSub"></b></div>
+      <div class="row"><span data-i18n="shipping">Shipping</span><b id="coShip"></b></div>
+      <div class="row"><span data-i18n="tax">Estimated tax</span><b id="coTax"></b></div>
+      <div class="row total"><span data-i18n="total">Total</span><b id="coTotal"></b></div>
+      <p class="fine" data-i18n="sample">sample pricing</p>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/shopify.js"></script>
+<script src="assets/js/motion.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
