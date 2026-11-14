@@ -38,7 +38,7 @@
   /* ---------- Hero: cursor glow + pointer parallax (desktop only) ---------- */
   function heroPointer() {
     var sticky = $('.hero-sticky'), glow = $('#cursorGlow'); if (!sticky || !glow) return;
-    if (reduce || !fine) { glow.remove(); return; }
+    if (reduce || !fine || document.documentElement.getAttribute('data-layout') !== 'full') { glow.remove(); return; }
     var tx = 0, ty = 0, gx = 0, gy = 0, nx = 0, ny = 0, px = 0, py = 0, raf = null, inside = false;
     var portal = $('#portal'), r1 = $('.ring.r1'), r2 = $('.ring.r2'), calls = $$('.callout');
     function loop() {
@@ -66,7 +66,7 @@
     if (reduce || !fine) return;
     document.addEventListener('pointermove', function (e) {
       var b = e.target.closest && e.target.closest('.btn.gold');
-      if (!b || b.disabled) return;
+      if (!b || b.disabled || b.closest('.hero-clean')) return;
       var r = b.getBoundingClientRect();
       var x = (e.clientX - r.left - r.width / 2) / (r.width / 2), y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
       b.classList.add('mag'); b.style.translate = (x * 5).toFixed(1) + 'px ' + (y * 4).toFixed(1) + 'px';

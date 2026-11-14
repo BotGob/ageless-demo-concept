@@ -26,3 +26,11 @@ The token is set, so checkout goes to the Age-Less Demo Shopify development stor
 To load the products into Shopify: Admin > Products > Import, using products.csv (kept outside this site folder), then upload one image per product.
 
 Product photos are demo crops from her product cards (background removed). The real store needs original images and rights from her supplier. No before/after photos are used.
+
+## Layouts (2026-11-14)
+- Default is the **clean** landing: slim header (Shop, Dr. Linda, Visit, voice icon, EN/ES, bag), small demo pill bottom left,
+  one headline, one line, one primary button plus a quiet "Meet Dr. Linda" link, one straight product photo, and a single
+  entrance (the photo unmasks upward). No intro curtain, no pinned scroll; the shop starts one screen down.
+  The four Peptide RX ingredient callouts moved to an "Inside Peptide RX" row under the shop grid.
+- `?layout=full` brings back the original hero (intro curtain, arched portal, rings, cursor glow, callouts, pinned reveal).
+- Both layouts share the same shop, routine, cart, checkout and Shopify wiring. `?theme=` and `?lang=` still work with either.

@@ -21,6 +21,7 @@
     initMarquee();
     initBlurUp();
     initPageFade();
+    initVoiceNote();
   });
 
   function modalOpen() {
@@ -290,23 +291,37 @@
         var time = (data.get("time") || "").toString();
         var phone = (data.get("phone") || "").toString();
         var email = (data.get("email") || "").toString();
+        var I18N = window.ALi18n, es = !!(I18N && I18N.lang() === "es");
+        var tr = function (x) { return I18N ? I18N.t(x) : x; };
         var prettyDay = day;
         if (day) {
           var parsed = new Date(day + "T12:00:00");
-          prettyDay = parsed.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+          prettyDay = parsed.toLocaleDateString(es ? "es-US" : "en-US", { weekday: "long", month: "long", day: "numeric" });
         }
         form.hidden = true;
         confirmBox.hidden = false;
         confirmBox.classList.add("is-on");
         var timeClean = time ? time.replace(/\.$/, "") : "";
-        confirmBox.innerHTML =
+        var tel = "<a href=\"tel:+18132864404\">(813) 286-4404</a>";
+        var mail = "<a href=\"mailto:info@age-lessmedicine.com\">info@age-lessmedicine.com</a>";
+        confirmBox.innerHTML = es ?
+          "<h3>Gracias, " + escapeHtml(name) + ".</h3>" +
+          "<p>Nos preguntaste por " + escapeHtml(tr(treatment)) +
+          (prettyDay ? " el " + escapeHtml(prettyDay) : "") +
+          (timeClean ? ", en el horario de " + escapeHtml(timeClean) : "") + ".</p>" +
+          "<p>Este formulario no envía tu información. Para completar tu solicitud, llámanos al " + tel + " o escríbenos a " + mail + ".</p>" +
+          "<p>Con gusto hablaremos contigo" +
+          (phone ? " al " + escapeHtml(phone) : "") +
+          (email ? " o en " + escapeHtml(email) : "") + ".</p>" +
+          "<div class=\"btn-row\" style=\"margin-top:1.2rem\">" +
+          "<a class=\"btn btn--gold\" href=\"tel:+18132864404\">Llama al consultorio</a>" +
+          "<button class=\"btn btn--line\" type=\"button\" data-close-booking>Cerrar</button></div>"
+          :
           "<h3>Thank you, " + escapeHtml(name) + ".</h3>" +
           "<p>You asked about " + escapeHtml(treatment) +
           (prettyDay ? " on " + escapeHtml(prettyDay) : "") +
           (timeClean ? ", for " + escapeHtml(timeClean) : "") + ".</p>" +
-          "<p>This form does not send your information. To finish your request, please call us at " +
-          "<a href=\"tel:+18132864404\">(813) 286-4404</a> or email " +
-          "<a href=\"mailto:info@age-lessmedicine.com\">info@age-lessmedicine.com</a>.</p>" +
+          "<p>This form does not send your information. To finish your request, please call us at " + tel + " or email " + mail + ".</p>" +
           "<p>We look forward to speaking with you" +
           (phone ? " at " + escapeHtml(phone) : "") +
           (email ? " or " + escapeHtml(email) : "") + ".</p>" +
@@ -317,6 +332,21 @@
         if (closeBtn) closeBtn.focus();
       });
     }
+  }
+
+  /* Welcome note: placeholder until Dr. Linda records her welcome.
+     LIVE BUILD: play her recording here, e.g. new Audio("audio/welcome-" + lang + ".mp3").play() */
+  function initVoiceNote() {
+    var btn = document.querySelector("[data-voice-note]");
+    var note = document.getElementById("voice-note");
+    if (!btn || !note) return;
+    var timer = null;
+    btn.addEventListener("click", function () {
+      note.hidden = false;
+      btn.classList.add("is-playing");
+      clearTimeout(timer);
+      timer = setTimeout(function () { note.hidden = true; btn.classList.remove("is-playing"); }, 4200);
+    });
   }
 
   var QUIZ = {

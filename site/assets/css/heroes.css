@@ -1,0 +1,228 @@
+/* =================== HERO MOCKUPS (2026-11-14) ===================
+   ?hero=a..e on the clean layout. Default (no param) is untouched.
+   One restrained entrance per variant: copy fades up, photo unveils. */
+.hv { display: none; }
+:root[data-hero] .hero-clean { display: none !important; }
+:root[data-hero="a"] #heroA, :root[data-hero="b"] #heroB, :root[data-hero="c"] #heroC,
+:root[data-hero="d"] #heroD, :root[data-hero="e"] #heroE { display: grid; }
+
+:root[data-hero] {
+  --hv-ivory: #f8f3ea;
+  --hv-stone: #ebe4d8;
+  --hv-deep: #16332c;
+  --hv-deep-2: #23443b;
+  --hv-gold: #c4a36a;
+  --hv-gold-deep: #94733f;
+  --hv-mute: #5d6159;
+}
+
+/* Shared type */
+.hv { position: relative; color: var(--hv-deep); }
+.hv-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 28px; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--hv-mute); }
+.hv-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--hv-gold); }
+.hv-title { font-size: clamp(3rem, 5.6vw, 6rem); line-height: 0.98; letter-spacing: -0.028em; color: var(--hv-deep); font-weight: 500; }
+.hv-title em { display: block; color: var(--hv-gold-deep); font-weight: 500; }
+@media (min-width: 861px) { .hv-title em { white-space: nowrap; } }
+.hv-sub { margin: 26px 0 38px; max-width: 34ch; font-size: clamp(1.02rem, 1.25vw, 1.14rem); line-height: 1.6; color: var(--hv-mute); text-wrap: pretty; }
+.hv-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 32px; }
+.hv .btn.gold { min-height: 52px; padding: 0 32px; box-shadow: none; background: var(--hv-gold); color: var(--hv-deep); letter-spacing: 0.02em; }
+@media (hover: hover) and (pointer: fine) { .hv .btn.gold:hover { background: #d1b07a; } }
+.hv-b .btn.gold, .hv-c .btn.gold { background: var(--hv-deep); color: #f8f3ea; }
+@media (hover: hover) and (pointer: fine) { .hv-b .btn.gold:hover, .hv-c .btn.gold:hover { background: var(--hv-deep-2); } }
+.hv .hc-link { color: var(--hv-deep); background-image: linear-gradient(var(--hv-gold), var(--hv-gold)); }
+.hv-photo { display: block; position: relative; overflow: hidden; text-decoration: none; }
+.hv-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hv figcaption { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hv-mute); }
+.hv .hc-cap-link { color: var(--hv-deep); }
+
+/* Header over light heroes: deep green ink, gold mark */
+:root[data-hero="a"] .top.on-dark, :root[data-hero="b"] .top.on-dark,
+:root[data-hero="c"] .top.on-dark, :root[data-hero="e"] .top.on-dark {
+  --bg: #f8f3ea; --bg-2: #f1ebe0; --ink: #16332c; --muted: #3e4a44; --soft: #6b6f66; --gold-2: #94733f; --line: rgba(148, 115, 63, 0.4); --line-2: rgba(22, 51, 44, 0.12);
+}
+:root[data-hero] .top .brand-mark { color: var(--gold); }
+:root[data-hero="a"] .top.on-dark .bag-btn .count, :root[data-hero="e"] .top.on-dark .bag-btn .count { background: var(--hv-deep); color: #f8f3ea; }
+
+/* Shop hand-off: no green strip under light heroes, just a quiet hairline */
+:root[data-hero="a"] .shop, :root[data-hero="b"] .shop, :root[data-hero="c"] .shop, :root[data-hero="e"] .shop { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
+:root[data-hero="a"] .shop::before, :root[data-hero="b"] .shop::before, :root[data-hero="c"] .shop::before, :root[data-hero="e"] .shop::before { display: none; }
+:root[data-hero="a"] .shop > .wrap, :root[data-hero="b"] .shop > .wrap, :root[data-hero="c"] .shop > .wrap, :root[data-hero="e"] .shop > .wrap { transform: none; }
+:root[data-hero] .shop { padding-top: clamp(72px, 9vw, 120px); }
+
+/* The one entrance */
+:root[data-hero] .hv-copy { opacity: 0; transform: translateY(14px); }
+:root[data-hero] .ready .hv-copy { opacity: 1; transform: none; transition: opacity 1000ms var(--ease-out) 120ms, transform 1000ms var(--ease-out) 120ms; }
+:root[data-hero] .hv-photo img { transform: scale(1.06); }
+:root[data-hero] .ready .hv-photo img { transform: none; transition: transform 2000ms var(--ease-out); }
+:root[data-hero] .hv-photo { clip-path: inset(0 0 100% 0); }
+:root[data-hero] .ready .hv-photo { clip-path: inset(0 0 0 0); transition: clip-path 1300ms var(--ease-in-out); }
+:root[data-hero] .hv figcaption { opacity: 0; }
+:root[data-hero] .ready .hv figcaption { opacity: 1; transition: opacity 700ms ease 1100ms; }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-hero] .hv-copy, :root[data-hero] .hv figcaption { opacity: 1; transform: none; }
+  :root[data-hero] .hv-photo { clip-path: none; }
+  :root[data-hero] .hv-photo img { transform: none; }
+}
+
+/* ---------- A  Ivory ---------- */
+.hv-a { min-height: 100vh; min-height: 100svh; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); align-items: center; gap: clamp(40px, 6vw, 110px); padding: 110px clamp(28px, 6.5vw, 108px) 64px; background: var(--hv-ivory); }
+.hv-a .hv-media { margin: 0; }
+.hv-a .hv-photo { aspect-ratio: 4 / 3; max-height: calc(100svh - 240px); border-radius: 2px; }
+:root[data-hero="a"] { --bg: #f8f3ea; }
+
+/* ---------- B  Editorial ---------- */
+.hv-b { min-height: 100vh; min-height: 100svh; align-items: end; background: #d9cbb8; overflow: hidden; }
+.hv-b .hv-photo { position: absolute; inset: 0; }
+.hv-b .hv-photo img { object-position: 50% 50%; }
+.hv-b::after { content: ""; position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(0deg, rgba(240, 233, 222, 0.72) 0%, rgba(240, 233, 222, 0.38) 22%, rgba(240, 233, 222, 0) 42%),
+  linear-gradient(90deg, rgba(240, 233, 222, 0.55) 0%, rgba(240, 233, 222, 0) 38%); }
+.hv-b .hv-copy { position: relative; z-index: 2; padding: 0 clamp(28px, 6vw, 96px) clamp(48px, 8vh, 84px); max-width: 640px; }
+.hv-b .hv-title { font-size: clamp(3rem, 5vw, 5.2rem); }
+.hv-b .hv-sub { margin: 20px 0 30px; color: #3f4741; }
+.hv-b .hv-eyebrow { color: #3f4741; margin-bottom: 22px; }
+
+/* ---------- C  Stone Split ---------- */
+.hv-c { height: 100vh; height: 100svh; min-height: 620px; grid-template-columns: 1fr 1fr; background: var(--hv-stone); }
+.hv-c .hv-panel { display: grid; grid-template-rows: 1fr auto; padding: 120px clamp(28px, 6vw, 96px) 44px; }
+.hv-c .hv-copy { align-self: center; }
+.hv-c .hv-eyebrow::before { display: none; }
+.hv-c .hv-eyebrow i { width: 4px; height: 4px; border-radius: 50%; background: var(--hv-gold); }
+.hv-c .hv-title { font-size: clamp(3rem, 5vw, 5.4rem); }
+.hv-c .hv-note { margin: 0; padding-top: 22px; border-top: 1px solid rgba(22, 51, 44, 0.14); font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--hv-gold-deep); }
+.hv-c .hv-photo { height: 100%; }
+.hv-c .hv-photo img { object-position: 50% 62%; }
+:root[data-hero="c"] .shop { border-top: 0; }
+
+/* ---------- D  Eucalyptus ---------- */
+:root[data-hero="d"] .hv-d, :root[data-hero="d"] .top.on-dark {
+  --ink: #f7f2e8; --muted: #e6e8de; --soft: #d3d9cd; --gold: #dcc293; --gold-2: #ead3a6; --gold-ink: #22392f; --line: rgba(234, 211, 166, 0.45); --line-2: rgba(247, 242, 232, 0.2); --bg: #6c8370;
+}
+.hv-d { min-height: 100vh; min-height: 100svh; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr); align-items: center; gap: clamp(48px, 7vw, 128px); padding: 104px clamp(28px, 7.5vw, 128px) 56px; background: radial-gradient(90% 80% at 30% 40%, #748b78 0%, #6c8370 55%, #647a68 100%); color: #f7f2e8; }
+.hv-d .hv-photo { justify-self: end; width: min(100%, 440px); aspect-ratio: 3 / 4; max-height: calc(100svh - 190px); border-radius: 999px 999px 4px 4px; box-shadow: 0 40px 80px -40px rgba(20, 35, 27, 0.55); }
+.hv-d .hv-photo img { object-position: 50% 66%; }
+:root[data-hero="d"] .hv-d .hv-photo { clip-path: inset(100% 0 0 0 round 999px 999px 4px 4px); }
+:root[data-hero="d"] .ready .hv-d .hv-photo { clip-path: inset(0 0 0 0 round 999px 999px 4px 4px); }
+.hv-d .hv-title { color: #f7f2e8; }
+.hv-d .hv-title em { color: #ead3a6; }
+.hv-d .hv-eyebrow { color: #e3e7dc; }
+.hv-d .hv-eyebrow::before { background: #ead3a6; }
+.hv-d .hv-sub { color: #eef0e8; }
+.hv-d .btn.gold { background: #f7f2e8; color: #22392f; }
+@media (hover: hover) and (pointer: fine) { .hv-d .btn.gold:hover { background: #ffffff; } }
+.hv-d .hc-link { color: #f7f2e8; background-image: linear-gradient(#ead3a6, #ead3a6); }
+:root[data-hero="d"] .shop { background: #647a68; }
+:root[data-hero="d"] .shop::before { box-shadow: none; }
+
+/* ---------- E  Atelier ---------- */
+.hv-e { min-height: 100vh; min-height: 100svh; justify-items: center; align-content: center; gap: clamp(36px, 5vh, 56px); padding: 108px clamp(24px, 5vw, 80px) 48px; background: var(--hv-ivory); text-align: center; }
+.hv-e .hv-copy { display: grid; justify-items: center; }
+.hv-e .hv-eyebrow { margin-bottom: 26px; }
+.hv-e .hv-eyebrow::before { display: none; }
+.hv-e .hv-eyebrow i { display: block; width: 44px; height: 1px; background: var(--hv-gold); }
+.hv-e .hv-title { font-size: clamp(2.8rem, 5vw, 5.2rem); line-height: 1; }
+.hv-e .hv-title em { display: inline; }
+.hv-e .hv-sub { margin: 20px auto 32px; max-width: 46ch; }
+.hv-e .hv-actions { justify-content: center; }
+.hv-e .hv-media { margin: 0; width: min(100%, 1060px); }
+.hv-e .hv-photo { aspect-ratio: 2.25 / 1; max-height: calc(100svh - 470px); min-height: 300px; border-radius: 2px; }
+.hv-e .hv-photo img { object-position: 50% 64%; }
+.hv-e figcaption { padding-top: 14px; border-top: 1px solid rgba(196, 163, 106, 0.55); margin-top: 18px; }
+:root[data-hero="e"] { --bg: #f8f3ea; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 860px) {
+  .hv-eyebrow { margin-bottom: 18px; font-size: 0.66rem; letter-spacing: 0.22em; }
+  .hv-eyebrow::before { width: 24px; }
+  .hv-title { font-size: clamp(2.7rem, 12.4vw, 3.8rem); }
+  .hv-sub { margin: 16px 0 26px; font-size: 1rem; }
+  .hv-actions { gap: 12px 26px; }
+  .hv .btn.gold { min-height: 50px; padding: 0 26px; }
+
+  .hv-a { grid-template-columns: 1fr; align-content: start; gap: 34px; padding: 92px 22px 40px; }
+  .hv-a .hv-photo { max-height: none; }
+
+  :root[data-hero="b"] #heroB { display: flex; flex-direction: column; min-height: 0; background: var(--hv-ivory); }
+  .hv-b .hv-photo { position: relative; inset: auto; aspect-ratio: 4 / 4.3; }
+  .hv-b .hv-photo img { object-position: 50% 78%; }
+  .hv-b::after { display: none; }
+  .hv-b .hv-copy { padding: 30px 22px 44px; }
+  .hv-b .hv-title { font-size: clamp(2.7rem, 12.4vw, 3.8rem); }
+
+  .hv-c { height: auto; min-height: 0; grid-template-columns: 1fr; }
+  .hv-c .hv-panel { padding: 92px 22px 32px; }
+  .hv-c .hv-note { display: none; }
+  .hv-c .hv-photo { height: auto; aspect-ratio: 4 / 4.2; order: 2; }
+  .hv-c .hv-photo img { object-position: 50% 74%; }
+
+  .hv-d { grid-template-columns: 1fr; align-content: start; gap: 30px; padding: 92px 22px 44px; }
+  .hv-d .hv-copy { order: -1; }
+  .hv-d .hv-photo { justify-self: center; width: min(78%, 330px); max-height: none; }
+
+  .hv-e { padding: 96px 20px 40px; gap: 32px; }
+  .hv-e .hv-title { font-size: clamp(2.5rem, 11.2vw, 3.4rem); }
+  .hv-e .hv-title em { display: block; }
+  .hv-e .hv-eyebrow i { width: 22px; }
+  .hv-e .hv-photo { aspect-ratio: 4 / 3; max-height: none; min-height: 0; }
+  .hv-e .hv-photo img { object-position: 50% 70%; }
+}
+
+/* ---------- Round 2 refinements ---------- */
+/* Closed drawers were leaking their shadow onto the right edge of light heroes */
+:root[data-hero] .drawer[hidden], :root[data-hero] .cart[hidden] { visibility: hidden; box-shadow: none; }
+:root[data-hero] .top .lang button { color: var(--muted); }
+:root[data-hero] .top .lang button[aria-pressed="true"] { color: var(--ink); }
+
+/* A: photo a touch larger, airy campaign crop */
+.hv-a { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); }
+.hv-a .hv-photo { max-height: calc(100svh - 220px); }
+
+/* B: gentle top veil for the header; type block sits on the counter */
+.hv-b::after { background:
+  linear-gradient(180deg, rgba(244, 238, 228, 0.42) 0%, rgba(244, 238, 228, 0) 16%),
+  radial-gradient(60% 70% at 0% 100%, rgba(244, 238, 228, 0.82) 0%, rgba(244, 238, 228, 0.5) 45%, rgba(244, 238, 228, 0) 75%); }
+
+/* D: bigger arch so the lineup reads */
+.hv-d { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
+.hv-d .hv-photo { width: min(100%, 560px); aspect-ratio: 5 / 6; max-height: calc(100svh - 160px); }
+.hv-d .hv-photo img { object-position: 50% 62%; }
+
+/* E: photo width follows the available height so the frame and caption always line up */
+.hv-e { gap: clamp(30px, 4.5vh, 52px); padding-top: 112px; }
+.hv-e .hv-title { font-size: clamp(2.8rem, 5.4vw, 5.6rem); }
+.hv-e .hv-media { width: min(100%, 1000px, calc((100svh - 470px) * 2)); }
+.hv-e .hv-photo { aspect-ratio: 2 / 1; max-height: none; min-height: 0; }
+.hv-e .hv-photo img { object-position: 50% 50%; }
+@media (max-width: 860px) {
+  .hv-b .hv-photo img { object-position: 50% 80%; }
+  .hv-d .hv-photo { width: min(84%, 340px); max-height: none; }
+  .hv-e { padding-top: 96px; }
+  .hv-e .hv-media { width: 100%; }
+  .hv-e .hv-photo { aspect-ratio: 3 / 2; }
+}
+/* B round 3: calm wall on the left now, so the type sits on it, centered, no heavy veil */
+.hv-b { align-items: center; }
+.hv-b::after { background: linear-gradient(180deg, rgba(244, 238, 228, 0.3) 0%, rgba(244, 238, 228, 0) 14%); }
+.hv-b .hv-copy { padding: 68px clamp(28px, 6.5vw, 104px) 0; max-width: 680px; }
+.hv-b .hv-title { font-size: clamp(3rem, 5.4vw, 5.6rem); }
+.hv-b .hv-sub { color: #463f37; }
+.hv-b .hv-photo img { object-position: 40% 50%; }
+@media (max-width: 860px) { .hv-b .hv-copy { padding: 30px 22px 44px; } .hv-b .hv-photo img { object-position: 50% 80%; } }
+.hv-b .hv-title em { color: #6e5326; }
+.hv-b .hv-sub { color: #3a342d; }
+.hv-b .hv-copy::before { content: ""; position: absolute; z-index: -1; left: -10%; right: -20%; top: 10%; bottom: -10%; background: radial-gradient(closest-side, rgba(246, 240, 230, 0.5), rgba(246, 240, 230, 0)); pointer-events: none; }
+@media (max-width: 860px) { .hv-b .hv-copy::before { display: none; } .hv-b .hv-title em { color: var(--hv-gold-deep); } }
+.hv-e .hv-media { width: min(100%, 1000px, calc((100svh - 500px) * 2)); }
+.hv-d .hv-photo img { object-position: 50% 50%; }
+/* C: keep brand + nav on the stone panel, tools on the photo */
+@media (min-width: 1081px) { :root[data-hero="c"] .top .nav { margin-right: auto; margin-left: clamp(32px, 4vw, 64px); } }
+/* Mobile re-assert (round-2 desktop rules above must not leak into phones) */
+@media (max-width: 860px) {
+  .hv-a, .hv-d { grid-template-columns: 1fr; }
+  .hv-b .hv-photo { aspect-ratio: 1 / 1; }
+  .hv-b .hv-photo img { object-position: 50% 50%; }
+  .hv-d .hv-photo { width: min(80%, 320px); aspect-ratio: 5 / 6; }
+}
+@media (max-width: 860px) { .hv-b .hv-photo { aspect-ratio: 1050 / 1190; } }
+.hv-e .hv-sub { max-width: 54ch; text-wrap: balance; }
+@media (max-width: 860px) { .hv-e .hv-eyebrow i { display: none; } .hv-e .hv-eyebrow { letter-spacing: 0.18em; text-wrap: balance; } }

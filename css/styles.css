@@ -977,3 +977,43 @@ img.js-blur.is-ready {
   .hero { align-items: center; }
   .hero .hero-copy { margin: 0 auto; padding: 6.5rem 0 3rem; }
 }
+
+/* ===== Language switch + welcome note (2026-11-14) ===== */
+html.lang-pending body { opacity: 0; }
+.nav { margin-left: auto; }
+.lang-switch { display: inline-flex; align-items: center; gap: 0.1rem; margin-left: 1.1rem; padding-left: 1.1rem; border-left: 1px solid rgba(250, 246, 238, 0.28); position: relative; z-index: 70; }
+.lang-switch button { background: none; border: 0; padding: 0.4rem 0.35rem; min-width: 2rem; min-height: 2.25rem; font: inherit; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; color: rgba(250, 246, 238, 0.62); cursor: pointer; transition: color 0.2s var(--ease); position: relative; }
+.lang-switch button[aria-pressed="true"] { color: var(--ivory); }
+.lang-switch button[aria-pressed="true"]::after { content: ""; position: absolute; left: 0.35rem; right: 0.5rem; bottom: 0.3rem; height: 1px; background: var(--gold-2); }
+.lang-switch button:hover { color: var(--gold-2); }
+.site-header.is-scrolled .lang-switch, .site-header.is-solid .lang-switch, .nav-open .lang-switch { border-left-color: rgba(36, 31, 26, 0.16); }
+.site-header.is-scrolled .lang-switch button, .site-header.is-solid .lang-switch button, .nav-open .lang-switch button { color: rgba(36, 31, 26, 0.5); }
+.site-header.is-scrolled .lang-switch button[aria-pressed="true"], .site-header.is-solid .lang-switch button[aria-pressed="true"], .nav-open .lang-switch button[aria-pressed="true"] { color: var(--ink); }
+.site-header.is-scrolled .lang-switch button[aria-pressed="true"]::after, .site-header.is-solid .lang-switch button[aria-pressed="true"]::after, .nav-open .lang-switch button[aria-pressed="true"]::after { background: var(--gold-3); }
+
+.welcome { background: var(--paper); padding: clamp(4.5rem, 9vw, 7.5rem) 0; border-bottom: 1px solid rgba(196, 163, 106, 0.22); scroll-margin-top: var(--header-h); }
+.welcome-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.welcome-head .gold-rule { margin: 0.2rem 0 0; }
+.welcome-text { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.32; letter-spacing: -0.01em; color: var(--green); max-width: 34ch; text-wrap: pretty; }
+.welcome-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem 2rem; margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid rgba(196, 163, 106, 0.3); max-width: 46rem; }
+.welcome-sign { margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.35rem; color: var(--gold-3); }
+.voice-note-btn { display: inline-flex; align-items: center; gap: 0.8rem; background: none; border: 0; padding: 0.3rem 0; font: inherit; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); cursor: pointer; }
+.vn-play { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--gold); color: var(--gold-3); transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.2s var(--ease); }
+.vn-play svg { width: 0.95rem; height: 0.95rem; margin-left: 2px; }
+.voice-note-btn:hover .vn-play, .voice-note-btn.is-playing .vn-play { background: var(--gold); color: var(--green-2); }
+.voice-note-btn:active .vn-play { transform: scale(0.95); }
+.voice-note { margin: 0.9rem 0 0; font-size: 0.92rem; color: var(--muted); animation: vt-fade-in 0.3s var(--ease); }
+
+@media (max-width: 900px) {
+  .lang-switch { margin-left: auto; margin-right: 0.35rem; padding-left: 0; border-left: 0; }
+  .nav-toggle { order: 3; }
+  .welcome-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .welcome-text { font-size: 1.55rem; }
+}
+/* Fix: the blurred (scrolled) header became the containing block for the fixed mobile menu, clipping it to ~220px. */
+@media (max-width: 900px) {
+  .site-header.nav-open { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+.welcome-body { max-width: 44rem; }
+.welcome-text { max-width: none; }
+.welcome-foot { max-width: none; }

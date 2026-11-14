@@ -8,9 +8,14 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#07120e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230d211c'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23d8b57a' stroke-width='3'/%3E%3C/svg%3E">
-<link rel="preload" href="assets/img/peptide-hero.webp" as="image">
+<link rel="preload" href="assets/img/hero-lineup.webp" as="image" imagesrcset="assets/img/hero-lineup-800.webp 800w, assets/img/hero-lineup.webp 1227w" imagesizes="(max-width: 860px) 92vw, 660px">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/heroes.css">
+<!-- LAYOUT: clean landing is the default. Add ?layout=full to see the original motion-heavy hero for comparison. -->
+<script>(function(){var q=new URLSearchParams(location.search),d=document.documentElement;d.setAttribute('data-layout', q.get('layout') === 'full' ? 'full' : 'clean');
+/* HERO MOCKUPS (2026-11-14): ?hero=a..e previews five first-screen directions. No param = B (Editorial), Vito's pick 2026-11-14. ?hero=now shows the earlier dark green clean hero. */
+var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout')!=='full') d.setAttribute('data-hero',h);})();</script>
 </head>
 <body>
 <!-- Age-Less Medicine shop demo. Static, self-contained. Checkout is simulated in JS (test mode)
@@ -24,10 +29,10 @@
   <div class="intro-word brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></div>
 </div>
 
-<div class="demo-flag" role="note"><span class="dot"></span><span data-i18n="demo_flag">Demo store - sample prices - test checkout</span></div>
+<div class="demo-flag" role="note"><span class="dot"></span><span class="flag-full" data-i18n="demo_flag">Demo store - sample prices - test checkout</span><span class="flag-clean" data-i18n="demo_flag_short">Demo store · test checkout</span></div>
 
 <header class="top" id="top">
-  <a class="brand" href="#hero" aria-label="Age-Less Medicine, home">
+  <a class="brand" href="#main" aria-label="Age-Less Medicine, home">
     <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
       <g fill="currentColor"><circle cx="24" cy="24" r="3.1"/><ellipse cx="24" cy="13.2" rx="3.2" ry="7.2"/><ellipse cx="24" cy="34.8" rx="3.2" ry="7.2"/><ellipse cx="13.2" cy="24" rx="7.2" ry="3.2"/><ellipse cx="34.8" cy="24" rx="7.2" ry="3.2"/></g>
@@ -36,7 +41,7 @@
   </a>
   <nav class="nav" aria-label="Main">
     <a href="#shop" data-i18n="nav_shop">Shop</a>
-    <a href="#routine" data-i18n="nav_routine">Morning routine</a>
+    <a class="nav-full" href="#routine" data-i18n="nav_routine">Morning routine</a>
     <a href="#about" data-i18n="nav_about">Dr. Linda</a>
     <a href="#visit" data-i18n="nav_visit">Visit</a>
   </nav>
@@ -65,8 +70,108 @@
 </div>
 
 <main id="main">
+  <!-- CLEAN HERO (default): one headline, one line, one button, one straight photo. -->
+  <section class="hero-clean" id="heroClean" aria-labelledby="heroCleanTitle">
+    <div class="hc-copy">
+      <h1 id="heroCleanTitle" class="display"><span data-i18n="hero_title_1">Age-less,</span> <em data-i18n="hero_title_2">by Dr. Linda.</em></h1>
+      <p class="hc-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+      <div class="hc-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+    </div>
+    <figure class="hc-media">
+      <a class="hc-photo" href="#shop">
+        <img src="assets/img/hero-lineup.webp" srcset="assets/img/hero-lineup-800.webp 800w, assets/img/hero-lineup.webp 1227w" sizes="(max-width: 860px) 92vw, 660px" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+" width="1227" height="920" fetchpriority="high">
+      </a>
+      <figcaption><span data-i18n="hc_cap">The Age-Less collection</span><a class="hc-cap-link" href="#shop" data-i18n="hc_cap_link">Shop all</a></figcaption>
+    </figure>
+  </section>
+
+  <!-- HERO MOCKUP A "Ivory": warm ivory, deep green type, gold button, large photo. -->
+  <section class="hv hv-a" id="heroA" aria-labelledby="heroTA">
+    <div class="hv-copy">
+      <p class="hv-eyebrow"><span data-i18n="hv_tag">Live well. Age beautifully.</span></p>
+      <h1 id="heroTA" class="display hv-title"><span data-i18n="hero_title_1">Age-less,</span> <em data-i18n="hero_title_2">by Dr. Linda.</em></h1>
+      <p class="hv-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+      <div class="hv-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+    </div>
+    <figure class="hv-media">
+      <a class="hv-photo" href="#shop"><img src="assets/img/hero-ed-43.webp" srcset="assets/img/hero-ed-43-820.webp 820w, assets/img/hero-ed-43.webp 1400w" sizes="(max-width: 860px) 92vw, 760px" width="1400" height="1050" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+"></a>
+      <figcaption><span data-i18n="hc_cap">The Age-Less collection</span><a class="hc-cap-link" href="#shop" data-i18n="hc_cap_link">Shop all</a></figcaption>
+    </figure>
+  </section>
+
+  <!-- HERO MOCKUP B "Editorial": full-bleed campaign photo, type set on the counter. -->
+  <section class="hv hv-b" id="heroB" aria-labelledby="heroTB">
+    <a class="hv-photo" href="#shop" tabindex="-1">
+      <picture>
+        <source media="(max-width: 860px)" srcset="assets/img/hero-ed-sq-780.webp 780w, assets/img/hero-ed-sq.webp 1050w" sizes="100vw">
+        <img src="assets/img/hero-editorial.webp" srcset="assets/img/hero-editorial-1400.webp 1400w, assets/img/hero-editorial.webp 2256w" sizes="100vw" width="2256" height="1270" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+">
+      </picture>
+    </a>
+    <div class="hv-copy">
+      <h1 id="heroTB" class="display hv-title"><span data-i18n="hero_title_1">Age-less,</span> <em data-i18n="hero_title_2">by Dr. Linda.</em></h1>
+      <p class="hv-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+      <div class="hv-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO MOCKUP C "Stone Split": 50/50, stone panel with type, photo edge to edge. -->
+  <section class="hv hv-c" id="heroC" aria-labelledby="heroTC">
+    <div class="hv-panel">
+      <div class="hv-copy">
+        <p class="hv-eyebrow"><span data-i18n="hv_who">Dr. Linda McClintock</span><i aria-hidden="true"></i><span data-i18n="hv_where">Tampa, Florida</span></p>
+        <h1 id="heroTC" class="display hv-title"><span data-i18n="hero_title_1">Age-less,</span> <em data-i18n="hero_title_2">by Dr. Linda.</em></h1>
+        <p class="hv-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+        <div class="hv-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+      </div>
+      <p class="hv-note" data-i18n="hv_tag">Live well. Age beautifully.</p>
+    </div>
+    <a class="hv-photo" href="#shop"><img src="assets/img/hero-tall.webp" srcset="assets/img/hero-tall-780.webp 780w, assets/img/hero-tall.webp 1227w" sizes="(max-width: 860px) 100vw, 50vw" width="1227" height="1636" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+"></a>
+  </section>
+
+  <!-- HERO MOCKUP D "Eucalyptus": soft sage monochrome, cream type, arched photo, airy. -->
+  <section class="hv hv-d" id="heroD" aria-labelledby="heroTD">
+    <a class="hv-photo" href="#shop"><img src="assets/img/hero-arch.webp" srcset="assets/img/hero-arch-700.webp 700w, assets/img/hero-arch.webp 1167w" sizes="(max-width: 860px) 84vw, 560px" width="1167" height="1400" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+"></a>
+    <div class="hv-copy">
+      <p class="hv-eyebrow"><span data-i18n="hv_tag">Live well. Age beautifully.</span></p>
+      <h1 id="heroTD" class="display hv-title"><span data-i18n="hero_title_1">Age-less,</span> <em data-i18n="hero_title_2">by Dr. Linda.</em></h1>
+      <p class="hv-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+      <div class="hv-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO MOCKUP E "Atelier": centered, her tagline as the headline, gold hairlines, panoramic lineup. -->
+  <section class="hv hv-e" id="heroE" aria-labelledby="heroTE">
+    <div class="hv-copy">
+      <p class="hv-eyebrow"><i aria-hidden="true"></i><span data-i18n="hv_e_eyebrow">Age-Less Medicine by Dr. Linda</span><i aria-hidden="true"></i></p>
+      <h1 id="heroTE" class="display hv-title"><span data-i18n="hv_e_t1">Live well.</span> <em data-i18n="hv_e_t2">Age beautifully.</em></h1>
+      <p class="hv-sub" data-i18n="hc_sub">Medical-grade skin care from her Tampa practice, sent to your door.</p>
+      <div class="hv-actions">
+        <a class="btn gold" href="#shop" data-i18n="hc_cta">Shop the collection</a>
+        <a class="hc-link" href="#about" data-i18n="hc_link">Meet Dr. Linda</a>
+      </div>
+    </div>
+    <figure class="hv-media">
+      <a class="hv-photo" href="#shop"><img src="assets/img/hero-ed-wide.webp" srcset="assets/img/hero-ed-wide-1000.webp 1000w, assets/img/hero-ed-wide.webp 1643w" sizes="(max-width: 860px) 100vw, 1000px" width="1643" height="822" data-i18n-alt="hc_alt" alt="Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R &amp; R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+"></a>
+      <figcaption><span data-i18n="hc_cap">The Age-Less collection</span><a class="hc-cap-link" href="#shop" data-i18n="hc_cap_link">Shop all</a></figcaption>
+    </figure>
+  </section>
   <!-- HERO: one authored moment. Peptide RX rises out of the dark and turns as you scroll. -->
-  <section class="hero" id="hero" aria-labelledby="heroTitle">
+  <section class="hero hero-full" id="hero" aria-labelledby="heroTitle">
     <div class="hero-sticky">
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
@@ -116,6 +221,19 @@
       </div>
       <p class="picks" id="picks" aria-live="polite"></p>
       <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- INGREDIENTS (clean layout): the hero callouts, moved down here as a quiet row -->
+  <section class="ingr" id="ingredients" aria-labelledby="ingrTitle">
+    <div class="wrap">
+      <h2 id="ingrTitle" class="ingr-title" data-i18n="ingr_title">Inside Peptide RX</h2>
+      <ul class="ingr-list">
+        <li><b data-i18n="call_1">Peptides</b><span data-i18n="call_1b">Visibly firm and tighten</span></li>
+        <li><b data-i18n="call_2">CoQ10</b><span data-i18n="call_2b">Calming antioxidant</span></li>
+        <li><b data-i18n="call_3">Hyaluronic acid</b><span data-i18n="call_3b">Moisture that stays</span></li>
+        <li><b data-i18n="call_4">Botanicals</b><span data-i18n="call_4b">Cucumber, chamomile, kelp</span></li>
+      </ul>
     </div>
   </section>
 
@@ -304,6 +422,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="assets/js/data.js"></script>
+<script src="assets/js/heroes.js"></script>
 <script src="assets/js/shopify.js"></script>
 <script src="assets/js/motion.js"></script>
 <script src="assets/js/app.js"></script>

@@ -120,7 +120,7 @@ window.AL_EYE_CHART = {
 window.AL_I18N = {
   en: {
     skip: 'Skip to the shop', back_main: 'Back to Age-Less Medicine', nav_shop: 'Shop', nav_routine: 'Morning routine', nav_about: 'Dr. Linda', nav_visit: 'Visit',
-    hear: 'Hear Dr. Linda', bag: 'Bag', demo_flag: 'Demo store - sample prices - test checkout',
+    hear: 'Hear Dr. Linda', bag: 'Bag', demo_flag_short: 'Demo store \u00b7 test checkout', hc_sub: 'Medical-grade skin care from her Tampa practice, sent to your door.', hc_cta: 'Shop the collection', hc_link: 'Meet Dr. Linda', hc_cap: 'The Age-Less collection', hc_cap_link: 'Shop all', hc_alt: 'Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+', ingr_title: 'Inside Peptide RX', demo_flag: 'Demo store - sample prices - test checkout',
     hero_kicker_line: 'Medical-grade skin care from her Tampa practice',
     hero_title_1: 'Age-less,', hero_title_2: 'by Dr. Linda.',
     hero_sub: 'The same products she trusts in the treatment room, chosen for your skin and sent to your door.',
@@ -155,7 +155,7 @@ window.AL_I18N = {
   },
   es: {
     skip: 'Ir a la tienda', back_main: 'Volver a Age-Less Medicine', nav_shop: 'Tienda', nav_routine: 'Rutina de mañana', nav_about: 'Dra. Linda', nav_visit: 'Visítanos',
-    hear: 'Escucha a la Dra. Linda', bag: 'Bolsa', demo_flag: 'Tienda demo - precios de muestra - pago de prueba',
+    hear: 'Escucha a la Dra. Linda', bag: 'Bolsa', demo_flag_short: 'Tienda demo \u00b7 pago de prueba', hc_sub: 'Cuidado de la piel de grado médico desde su consultorio en Tampa, directo a tu puerta.', hc_cta: 'Ver la colección', hc_link: 'Conoce a la Dra. Linda', hc_cap: 'La colección Age-Less', hc_cap_link: 'Ver todo', hc_alt: 'Línea de cuidado de la piel Age-Less Medicine sobre una encimera de mármol: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist y Protective Antioxidant Sunscreen 50+', ingr_title: 'Dentro de Peptide RX', demo_flag: 'Tienda demo - precios de muestra - pago de prueba',
     hero_kicker_line: 'Cuidado de la piel de grado médico, desde su consultorio en Tampa',
     hero_title_1: 'Age-less,', hero_title_2: 'por la Dra. Linda.',
     hero_sub: 'Los mismos productos en los que confía en su consultorio, elegidos para tu piel y enviados a tu puerta.',

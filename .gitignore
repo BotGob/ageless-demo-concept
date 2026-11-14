@@ -7,3 +7,4 @@ compare-themes.py
 polish-shots.py
 shopify/
 .sf_token
+__pycache__/

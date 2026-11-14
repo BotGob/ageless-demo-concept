@@ -680,3 +680,129 @@ h2.display.md[data-i18n] { transition: none; }
   .step { transform: none; }
   .celebrate { display: none; }
 }
+
+/* =================== CLEAN LANDING (2026-11-14, default) ===================
+   html[data-layout="clean"] is the default. ?layout=full shows the original hero, intro and header.
+   Clean = slim header, quiet demo flag, one headline / one line / one button, one straight photo,
+   a single soft entrance. Ingredients move to a quiet row under the shop. */
+.hero-clean, .ingr, .flag-clean { display: none; }
+:root[data-layout="clean"] .hero-full,
+:root[data-layout="clean"] .intro,
+:root[data-layout="clean"] .flag-full,
+:root[data-layout="clean"] .nav .nav-full,
+:root[data-layout="clean"] .top .back-main { display: none; }
+:root[data-layout="clean"] .flag-clean { display: inline; }
+:root[data-layout="clean"] .ingr { display: block; }
+:root[data-layout="clean"] { --flag-h: 0px; }
+
+/* Demo flag: small pill, bottom left, still always visible */
+:root[data-layout="clean"] .demo-flag { top: auto; right: auto; left: 16px; bottom: 16px; height: 28px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.66rem; letter-spacing: 0.1em; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--soft); }
+:root[data-layout="clean"] .demo-flag .dot { width: 5px; height: 5px; }
+
+/* Slim header: lighter weight, no pill borders */
+:root[data-layout="clean"] .top { height: 68px; }
+:root[data-layout="clean"] .nav { gap: clamp(20px, 2.6vw, 40px); }
+:root[data-layout="clean"] .tools { gap: 6px; }
+:root[data-layout="clean"] .voice-btn { border-color: transparent; padding: 0; width: 42px; justify-content: center; }
+:root[data-layout="clean"] .voice-btn .lbl { display: none; }
+:root[data-layout="clean"] .voice-btn .bars i { animation: none; }
+:root[data-layout="clean"] .voice-btn .bars i:nth-child(1) { height: 40%; } :root[data-layout="clean"] .voice-btn .bars i:nth-child(2) { height: 85%; }
+:root[data-layout="clean"] .voice-btn .bars i:nth-child(3) { height: 60%; } :root[data-layout="clean"] .voice-btn .bars i:nth-child(4) { height: 30%; }
+:root[data-layout="clean"] .lang { border-color: transparent; }
+:root[data-layout="clean"] .lang button { min-width: 34px; font-size: 0.76rem; }
+:root[data-layout="clean"] .bag-btn { border-color: transparent; }
+@media (hover: hover) and (pointer: fine) { :root[data-layout="clean"] .voice-btn:hover .bars i { animation: eq 1.2s ease-in-out infinite; } }
+
+/* Hero */
+:root[data-theme="mixed"] .hero-clean { --bg: #16392f; --bg-2: #1a4236; --surface: #1c4237; --surface-2: #224a3e; --ink: #f3ecdf; --muted: #d5cebf; --soft: #a9b3a6; --gold-2: #dcbb80; --line: rgba(216, 181, 122, 0.34); --line-2: rgba(243, 236, 223, 0.14); background: var(--bg); color: var(--ink); }
+.hero-clean { position: relative; min-height: 100vh; min-height: 100svh; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 110px); padding: 100px clamp(24px, 6vw, 96px) 56px; background: var(--bg); }
+:root[data-layout="clean"] .hero-clean { display: grid; }
+.hc-copy { max-width: 560px; }
+.hero-clean h1 { font-size: clamp(3.2rem, 6.2vw, 6rem); line-height: 0.98; }
+.hero-clean h1 em { display: block; }
+.hc-sub { margin: 26px 0 36px; max-width: 36ch; font-size: clamp(1.02rem, 1.3vw, 1.15rem); color: var(--muted); }
+.hero-clean .btn.gold { box-shadow: none; min-height: 52px; padding: 0 30px; }
+.hc-media { margin: 0; justify-self: end; width: min(100%, 470px); }
+.hc-photo { display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: 6px; overflow: hidden; aspect-ratio: 4 / 5; max-height: calc(100svh - 210px); }
+.hc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transition: transform 900ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .hc-photo:hover img { transform: scale(1.025); } }
+.hc-media figcaption { display: flex; justify-content: space-between; margin-top: 14px; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+/* The one entrance: copy and photo fade up together */
+:root[data-layout="clean"] .hc-copy, :root[data-layout="clean"] .hc-media { opacity: 0; transform: translateY(14px); }
+:root[data-layout="clean"] .ready .hc-copy, :root[data-layout="clean"] .ready .hc-media { opacity: 1; transform: none; transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out); }
+:root[data-layout="clean"] .ready .hc-media { transition-delay: 90ms; }
+
+/* Ingredients row (moved down from the hero) */
+.ingr { padding: clamp(56px, 7vw, 96px) 0; border-top: 1px solid var(--line-2); background: var(--bg-2); }
+.ingr-title { margin: 0 0 28px; font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 2.6vw, 2.4rem); letter-spacing: -0.01em; }
+.ingr-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.ingr-list li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid var(--line); }
+.ingr-list b { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; }
+.ingr-list span { color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 860px) {
+  :root[data-layout="clean"] .top { height: 60px; }
+  .hero-clean { grid-template-columns: 1fr; align-content: start; gap: 28px; padding: 88px 22px 40px; }
+  .hero-clean h1 { font-size: clamp(2.9rem, 13vw, 4rem); }
+  .hc-sub { margin: 16px 0 24px; }
+  .hc-media { justify-self: stretch; width: 100%; }
+  .hc-photo { aspect-ratio: 4 / 4.4; max-height: none; }
+  .ingr-list { grid-template-columns: 1fr 1fr; gap: 22px 18px; }
+  :root[data-layout="clean"] .demo-flag { left: 12px; bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-layout="clean"] .hc-copy, :root[data-layout="clean"] .hc-media { opacity: 1; transform: none; }
+}
+/* Clean landing, round 2: stronger type scale, quiet secondary link, photo reveal as the one motion moment */
+.hero-clean h1 { font-size: clamp(3.2rem, 7vw, 7.2rem); letter-spacing: -0.03em; }
+.hc-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 30px; }
+.hc-link { font-size: 0.95rem; text-decoration: none; color: var(--ink); padding: 6px 0; background: linear-gradient(var(--gold), var(--gold)) 0 100% / 100% 1px no-repeat; transition: background-size 300ms var(--ease-out), color 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .hc-link:hover { color: var(--gold-2); background-size: 0% 1px; background-position: 100% 100%; } }
+.hc-photo img { filter: contrast(1.06) saturate(0.92); }
+.hc-media { width: min(100%, 500px); }
+:root[data-layout="clean"] .hc-media { opacity: 1; transform: none; }
+:root[data-layout="clean"] .hc-photo { clip-path: inset(100% 0 0 0 round 6px); }
+:root[data-layout="clean"] .hc-photo img { transform: scale(1.08); }
+:root[data-layout="clean"] .hc-media figcaption { opacity: 0; }
+:root[data-layout="clean"] .ready .hc-photo { clip-path: inset(0 0 0 0 round 6px); transition: clip-path 1200ms var(--ease-in-out) 150ms; }
+:root[data-layout="clean"] .ready .hc-photo img { transform: none; transition: transform 1800ms var(--ease-out) 150ms; }
+:root[data-layout="clean"] .ready .hc-media figcaption { opacity: 1; transition: opacity 700ms ease 1000ms; }
+@media (hover: hover) and (pointer: fine) { :root[data-layout="clean"] .ready .hc-photo:hover img { transform: scale(1.025); transition-delay: 0ms; transition-duration: 900ms; } }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-layout="clean"] .hc-photo { clip-path: none; }
+  :root[data-layout="clean"] .hc-photo img { transform: none; }
+  :root[data-layout="clean"] .hc-media figcaption { opacity: 1; }
+}
+/* Clean landing, round 3: keep the gold line on one line in both languages; header language switch matches the clinic site (underline, no pill) */
+.hero-clean h1 { font-size: clamp(3rem, 5.8vw, 6.4rem); }
+.hc-copy { max-width: 640px; }
+@media (min-width: 861px) { .hero-clean h1 em { white-space: nowrap; } }
+.hc-media { width: min(100%, 520px); }
+:root[data-layout="clean"] .lang button { position: relative; background: transparent; color: var(--soft); }
+:root[data-layout="clean"] .lang button[aria-pressed="true"],
+:root[data-layout="clean"][data-theme="mixed"] .top:not(.on-dark) .lang button[aria-pressed="true"],
+:root[data-layout="clean"][data-theme="light"] .lang button[aria-pressed="true"] { background: transparent; color: var(--ink); }
+:root[data-layout="clean"] .lang button[aria-pressed="true"]::after { content: ""; position: absolute; left: 9px; right: 9px; bottom: 7px; height: 1px; background: var(--gold); }
+@media (max-width: 860px) {
+  .hc-photo { aspect-ratio: 1 / 1; }
+  .hero-clean { gap: 24px; }
+  .hc-photo img { object-position: 50% 55%; }
+}
+.ingr-list li { align-content: start; }
+/* Clean landing, round 4: hero is the real Age-Less lineup (landscape). Wider photo column, 4:3 frame, caption links to the shop. */
+@media (min-width: 861px) { .hero-clean { grid-template-columns: minmax(0, 1fr) minmax(0, 1.22fr); gap: clamp(32px, 5vw, 88px); } }
+.hc-media { width: 100%; max-width: 700px; }
+.hc-photo { aspect-ratio: 4 / 3; max-height: calc(100svh - 230px); border-radius: 4px; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.55); text-decoration: none; }
+.hc-photo img { object-position: 50% 50%; filter: none; }
+:root[data-layout="clean"] .hc-photo { clip-path: inset(100% 0 0 0 round 4px); }
+:root[data-layout="clean"] .ready .hc-photo { clip-path: inset(0 0 0 0 round 4px); }
+.hc-media figcaption { align-items: baseline; margin-top: 16px; }
+.hc-cap-link { color: var(--gold-2); text-decoration: none; padding: 4px 0; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size 300ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .hc-cap-link:hover { background-size: 0% 1px; background-position: 100% 100%; } }
+@media (min-width: 861px) and (max-width: 1180px) { .hero-clean { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 860px) {
+  .hc-media { max-width: none; }
+  .hc-photo { aspect-ratio: 5 / 4; max-height: none; }
+  .hc-photo img { object-position: 50% 50%; }
+}
+@media (prefers-reduced-motion: reduce) { :root[data-layout="clean"] .hc-photo { clip-path: none; } }

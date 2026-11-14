@@ -41,8 +41,9 @@
   function applyLang() {
     document.documentElement.lang = lang;
     $$('[data-i18n]').forEach(function (el) { var v = t(el.getAttribute('data-i18n')); if (v) el.textContent = v; });
+    $$('[data-i18n-alt]').forEach(function (el) { var v = t(el.getAttribute('data-i18n-alt')); if (v) el.setAttribute('alt', v); });
     $$('[data-price]').forEach(function (el) { el.textContent = money(+el.getAttribute('data-price')); });
-    $$('[data-main-site]').forEach(function (a) { a.setAttribute('aria-label', t('back_main')); });
+    $$('[data-main-site]').forEach(function (a) { a.setAttribute('aria-label', t('back_main')); a.setAttribute('href', '../index.html?lang=' + lang); });
     $$('.voice-btn').forEach(function (b) { b.setAttribute('aria-label', t('hear')); });
     $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     document.title = lang === 'es' ? 'Age-Less Medicine | Cuidado de la piel por la Dra. Linda McClintock' : 'Age-Less Medicine | Skin care by Dr. Linda McClintock';
@@ -63,15 +64,18 @@
   }); });
 
   /* ---------- Intro + hero ---------- */
+  // Layout: "clean" (default) has no intro curtain and no pinned hero. ?layout=full brings back the original.
+  var FULL = document.documentElement.getAttribute('data-layout') === 'full';
   var intro = $('#intro');
-  function ready() { document.body.classList.add('ready'); heroIn(); }
-  if (reduce || sessionStorage.getItem('al-intro')) { intro.classList.add('gone'); setTimeout(ready, 0); }
+  function ready() { document.body.classList.add('ready'); if (FULL) heroIn(); }
+  if (!FULL || reduce || sessionStorage.getItem('al-intro')) { intro.classList.add('gone'); setTimeout(ready, 0); }
   else {
     setTimeout(function () { intro.classList.add('lift'); ready(); }, 1150);
     setTimeout(function () { intro.classList.add('gone'); }, 1950);
     try { sessionStorage.setItem('al-intro', '1'); } catch (e) {}
   }
-  var hero = $('#hero'), sticky = $('.hero-sticky'), portal = $('#portal');
+  var HV = document.documentElement.getAttribute('data-hero');
+  var hero = FULL ? $('#hero') : (HV && $('#hero' + HV.toUpperCase())) || $('#heroClean'), sticky = $('.hero-sticky'), portal = $('#portal');
   function heroIn() {
     if (reduce) { sticky.style.setProperty('--in', 1); return; }
     var start = null, dur = 1400;
@@ -84,15 +88,17 @@
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       ticking = false;
-      var r = hero.getBoundingClientRect(), span = hero.offsetHeight - window.innerHeight;
-      var p = Math.min(1, Math.max(0, -r.top / Math.max(1, span)));
-      if (!reduce) sticky.style.setProperty('--p', p.toFixed(4));
-      callouts.forEach(function (c, i) { c.classList.toggle('on', reduce || p > 0.12 + i * 0.1); });
-      revealLine.classList.toggle('on', reduce || p > 0.58);
+      if (FULL) {
+        var r = hero.getBoundingClientRect(), span = hero.offsetHeight - window.innerHeight;
+        var p = Math.min(1, Math.max(0, -r.top / Math.max(1, span)));
+        if (!reduce) sticky.style.setProperty('--p', p.toFixed(4));
+        callouts.forEach(function (c, i) { c.classList.toggle('on', reduce || p > 0.12 + i * 0.1); });
+        revealLine.classList.toggle('on', reduce || p > 0.58);
+      }
       header.classList.toggle('solid', window.scrollY > 40);
       // Mixed theme: header and demo flag stay green while over the hero, cream after
       var overHero = hero.getBoundingClientRect().bottom > header.getBoundingClientRect().bottom;
-      header.classList.toggle('on-dark', overHero); flag.classList.toggle('on-dark', overHero);
+      header.classList.toggle('on-dark', overHero); flag.classList.toggle('on-dark', overHero && FULL);
       routineProgress();
     });
   }
