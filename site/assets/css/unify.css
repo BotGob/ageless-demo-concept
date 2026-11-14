@@ -1,0 +1,148 @@
+/* ===================================================================
+   ONE BRAND (2026-11-14 unify). Loaded last. Matches the clinic site
+   (css/styles.css, "ONE BRAND" block): logo colour, header grid, button
+   system, footer, phone menu and Call / Book bar, 44px tap targets.
+   =================================================================== */
+:root[data-theme="mixed"], :root[data-theme="light"] { --soft: #686155; }
+
+/* ---------- Header: same 1240px grid and height as the clinic header ---------- */
+.top { padding-inline: max(16px, calc((100% - 1240px) / 2)); }
+@media (min-width: 861px) { :root[data-layout="clean"] .top { height: 76px; } }
+.top .brand, .top .tools { position: relative; z-index: 2; }
+.brand-mark { color: #7b5c2c; }
+.top.on-dark .brand-mark, :root[data-hero="d"] .top .brand-mark { color: #c4a36a; }
+.nav { align-items: center; }
+.nav .nav-menu-only { display: none; }
+.top .nav a.nav-book { min-height: 40px; padding: 0 18px; margin-left: 4px; font-size: 0.88rem; letter-spacing: 0.01em; text-transform: none; color: #0d211c !important; background: #c4a36a; border-color: #c4a36a; box-shadow: none; }
+.top .nav a.nav-book::after { display: none; }
+@media (hover: hover) and (pointer: fine) { .top .nav a.nav-book:hover { background: #d8b57a; } }
+
+/* ---------- Buttons: one system on both sites ----------
+   Sentence case, 15px, 48px tall (52px in heroes). Gold = primary, outline = secondary. */
+.btn { min-height: 48px; padding: 0 26px; font-size: 0.95rem; letter-spacing: 0.01em; font-weight: 500; }
+.btn.gold { background: #c4a36a; color: #0d211c; box-shadow: none; }
+@media (hover: hover) and (pointer: fine) { .btn.gold:hover { background: #d8b57a; } }
+:root[data-theme="mixed"] .btn.ghost, :root[data-theme="light"] .btn.ghost { border-color: rgba(22, 51, 44, 0.3); color: #16332c; }
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="mixed"] .btn.ghost:hover, :root[data-theme="light"] .btn.ghost:hover { background: #16332c; border-color: #16332c; color: #f3ecdf; }
+}
+.card-actions .btn { min-height: 48px; font-size: 0.92rem; }
+/* Heroes A to E: primary is gold on every design (was dark green on B and C, cream on D) */
+.hv .btn.gold, .hv-a .btn.gold, .hv-b .btn.gold, .hv-c .btn.gold, .hv-d .btn.gold, .hv-e .btn.gold { background: #c4a36a; color: #0d211c; box-shadow: none; }
+@media (hover: hover) and (pointer: fine) {
+  .hv .btn.gold:hover, .hv-b .btn.gold:hover, .hv-c .btn.gold:hover, .hv-d .btn.gold:hover { background: #d8b57a; color: #0d211c; }
+}
+
+/* ---------- Product cards ---------- */
+:root[data-theme] .badge { background: rgba(255, 252, 246, 0.94); color: #5e4520; border: 1px solid rgba(196, 163, 106, 0.55); font-weight: 500; white-space: nowrap; max-width: calc(100% - 28px); overflow: hidden; text-overflow: ellipsis; }
+/* Morning Routine: real lineup photo, full bleed */
+.media img.photo { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; object-position: 50% 62%; filter: none; }
+.card[data-id="morning-routine"] .media::after { display: none; }
+@media (hover: hover) and (pointer: fine) { .card:hover .media img.photo { transform: scale(1.03); } }
+.d-media.is-photo::before { display: none; }
+.d-media.is-photo img.photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; object-position: 50% 62%; filter: none; }
+.line-item .thumb, .co-summary li .thumb { overflow: hidden; }
+.line-item .thumb img[src*="hero-lineup"], .co-summary li .thumb img[src*="hero-lineup"] { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
+.picks, blockquote cite { color: var(--muted); }
+
+/* ---------- Bag: 44px tap targets ---------- */
+.stepper.sm { height: auto; min-height: 46px; box-sizing: border-box; }
+.stepper.sm button { width: 44px; height: 44px; min-height: 44px; }
+.line-item .rm { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; font-size: 0.85rem; color: var(--muted); }
+.ship-note { margin-top: 6px; }
+:root[data-layout="clean"] .lang button { min-width: 44px; min-height: 44px; }
+:root[data-layout="clean"] .lang button[aria-pressed="true"]::after { left: 13px; right: 13px; bottom: 10px; }
+
+/* ---------- Dr. Linda: her real photo, framed like the clinic site ---------- */
+.about-photo { margin: 0; justify-self: center; width: min(100%, 380px); padding: 26px; background: #16332c; border-radius: 4px; box-shadow: 0 30px 60px -36px rgba(13, 33, 28, 0.6); }
+.about-photo img { display: block; width: 100%; height: auto; aspect-ratio: 302 / 319; object-fit: cover; outline: 1px solid rgba(196, 163, 106, 0.55); outline-offset: 10px; }
+.about-more { margin: 22px 0 0; }
+
+/* ---------- Visit ---------- */
+.visit .where { margin: 22px auto 0; line-height: 1.6; }
+
+/* ---------- Footer: same structure and look as the clinic footer ---------- */
+.site-foot { background: #0d211c; color: rgba(250, 246, 238, 0.78); padding: 48px 0 22px; font-size: 1rem; }
+.site-foot .wrap { width: min(1120px, calc(100% - 2.5rem)); }
+.foot-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 1.8rem; padding-bottom: 1.8rem; border-bottom: 1px solid rgba(196, 163, 106, 0.18); }
+.site-foot p { margin: 0 0 1rem; line-height: 1.6; }
+.site-foot a { color: #d8b57a; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .site-foot a:hover { color: #c4a36a; } }
+.site-foot .brand { color: #f3ecdf; margin-bottom: 0.75rem; display: inline-flex; }
+.site-foot .brand-mark { color: #c4a36a; }
+.site-foot h2 { margin: 0 0 0.65rem; font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #d8b57a; }
+.foot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.foot-list a { display: inline-block; padding: 0.2rem 0; }
+.foot-list--inline { display: flex; flex-wrap: wrap; gap: 0.2rem 1.2rem; margin-top: 0.8rem; }
+.foot-ship { margin-top: 0.9rem !important; font-size: 0.82rem; color: rgba(250, 246, 238, 0.66); }
+.foot-legal { padding: 1.2rem 0 0.2rem; font-size: 0.8rem; color: rgba(250, 246, 238, 0.62); }
+.foot-legal p { max-width: 90ch; margin: 0 0 0.5rem; }
+.foot-legal .demo-note { color: #d8b57a; }
+.site-foot .legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1rem; margin-top: 0.8rem; border-top: 1px solid rgba(196, 163, 106, 0.18); font-size: 0.78rem; color: rgba(250, 246, 238, 0.5); }
+.site-foot .legal p { margin: 0; }
+@media (max-width: 860px) {
+  .foot-grid { grid-template-columns: 1fr; }
+  .foot-list a { padding: 0.45rem 0; }
+}
+
+/* ---------- Phone and tablet menu (same pattern as the clinic site) ---------- */
+.nav-toggle { display: none; width: 44px; height: 44px; border: 0; background: transparent; padding: 0; position: relative; color: inherit; }
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after { display: block; width: 22px; height: 1.5px; background: currentColor; position: relative; transition: transform 0.3s ease, background-color 0.2s ease; margin: 0 auto; }
+.nav-toggle span::before, .nav-toggle span::after { content: ""; position: absolute; left: 0; }
+.nav-toggle span::before { top: -7px; } .nav-toggle span::after { top: 7px; }
+.top.nav-open .nav-toggle span { background: transparent; }
+.top.nav-open .nav-toggle span::before { top: 0; transform: rotate(45deg); }
+.top.nav-open .nav-toggle span::after { top: 0; transform: rotate(-45deg); }
+body.nav-locked { overflow: hidden; }
+@media (max-width: 1080px) {
+  .nav-toggle { display: inline-grid; place-items: center; color: var(--ink); }
+  .top .nav { display: flex; position: fixed; inset: 0; z-index: 1; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; padding: 92px 24px 120px; background: #faf6ee; overflow: auto; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, visibility 0.25s; }
+  .top.nav-open { backdrop-filter: none; -webkit-backdrop-filter: none; background: #faf6ee; border-bottom-color: transparent;
+    --ink: #241f1a !important; --muted: #5c564c !important; --soft: #686155 !important; --line: rgba(196, 163, 106, 0.38) !important; --line-2: rgba(36, 31, 26, 0.12) !important; color: #241f1a; }
+  .top.nav-open .brand-mark { color: #7b5c2c; }
+  .top.nav-open .nav { visibility: visible; opacity: 1; pointer-events: auto; }
+  .top .nav a { display: block; padding: 16px 0; font-size: 0.92rem; letter-spacing: 0.12em; color: #241f1a !important; border-bottom: 1px solid rgba(196, 163, 106, 0.38); }
+  .top .nav a::after { display: none; }
+  :root[data-layout] .top .nav .nav-full, .top .nav .nav-menu-only { display: block !important; }
+  .top .nav a.nav-book { display: inline-flex !important; justify-content: center; margin: 26px 0 0; min-height: 50px; font-size: 0.95rem; border-bottom: 0; }
+}
+
+/* ---------- Phone Call / Book bar (same as the clinic's) ---------- */
+.book-bar { display: none; }
+@media (max-width: 860px) {
+  .book-bar { display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; padding: 11px 16px calc(11px + env(safe-area-inset-bottom)); background: #0d211c; box-shadow: 0 -8px 24px rgba(13, 33, 28, 0.18); }
+  .book-bar .btn { flex: 1; min-height: 48px; padding: 0 12px; }
+  .book-bar .btn.ghost, :root[data-theme] .book-bar .btn.ghost { color: #f3ecdf; border-color: rgba(243, 236, 223, 0.6); background: transparent; }
+  body { padding-bottom: 72px; }
+  body.locked .book-bar, body.nav-locked .book-bar { visibility: hidden; }
+  :root[data-layout="clean"] .demo-flag, :root[data-theme] .demo-flag.on-dark, .demo-flag { height: 24px; left: 0; right: 0; bottom: calc(70px + env(safe-area-inset-bottom)); transform: none; width: auto; max-width: none; justify-content: center; border-radius: 0; border: 0; box-shadow: none; padding: 5px 12px; background: #0d211c; color: #d8b57a; font-size: 0.6rem; z-index: 56; }
+  body { padding-bottom: 96px; }
+  /* Toast sits at the top on phones so it never covers the buy button or the bar */
+  .toast { top: 14px; bottom: auto; transform: translate(-50%, calc(-100% - 40px)); }
+  .toast.on { transform: translate(-50%, 0); }
+}
+
+/* ---------- Phone header fit: logo, Clinic, EN/ES, bag, menu ---------- */
+@media (max-width: 560px) {
+  :root[data-layout="clean"] .tools { gap: 0; }
+  .clinic-link { padding: 0 10px 0 9px; margin-right: 2px; font-size: 0.66rem; }
+  :root[data-layout="clean"] .lang button { min-width: 38px; }
+  :root[data-layout="clean"] .lang button[aria-pressed="true"]::after { left: 10px; right: 10px; }
+  .bag-btn { width: 44px; height: 44px; }
+  /* Product details stay one tap away on phones */
+  .card-actions .btn.ghost { display: inline-flex; min-height: 40px; border: 0; padding: 0; font-size: 0.86rem; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #c4a36a; }
+  .card-actions .btn.ghost:hover { background: transparent; color: inherit; }
+}
+@media (max-width: 380px) {
+  .brand-text .brand-sub { display: none; }
+  .clinic-link svg { display: none; }
+}
+
+/* Tight phones: everything in the header fits inside 390px */
+@media (max-width: 430px) {
+  :root[data-layout="clean"] .top { padding: 0 8px 0 14px; gap: 6px; }
+  .clinic-link svg { display: none; }
+  .clinic-link { padding: 0 11px; }
+  :root[data-layout="clean"] .lang button { min-width: 36px; }
+  :root[data-layout="clean"] .lang button[aria-pressed="true"]::after { left: 9px; right: 9px; }
+}

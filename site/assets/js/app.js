@@ -14,7 +14,7 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var byId = {}; P.forEach(function (p) { byId[p.id] = p; });
 
-  var FREE_SHIP = 75, SHIP = 8, TAX = 0.075; // sample values (Tampa / Hillsborough 7.5% estimate)
+  var FREE_SHIP = 100, SHIP = 9.95, TAX = 0.075; // $9.95 flat, free at $100+ (matches shipping-fulfillment-research.md); tax is a Tampa / Hillsborough 7.5% estimate
   var lang = 'en';
   try { lang = localStorage.getItem('al-lang') || 'en'; } catch (e) {}
   var params = new URLSearchParams(location.search);
@@ -27,6 +27,9 @@
   var cart = [];
   try { cart = JSON.parse(sessionStorage.getItem('al-cart') || '[]').filter(function (l) { return byId[l.id]; }); } catch (e) { cart = []; }
   var concern = 'all';
+  // ?goal=inside (etc.) preselects a skin goal, so the clinic site can link straight to a goal
+  var goalParam = params.get('goal');
+  if (goalParam && document.querySelector('.chip[data-c="' + goalParam.replace(/[^a-z]/g, '') + '"]')) concern = goalParam.replace(/[^a-z]/g, '');
 
   function t(k) { return (T[lang] && T[lang][k] != null) ? T[lang][k] : (T.en[k] || ''); }
   function L(o) { return o ? (o[lang] || o.en) : ''; }
@@ -48,7 +51,8 @@
       // links with visible text keep that text as their name.
       var ak = a.getAttribute('data-main-aria');
       if (ak) a.setAttribute('aria-label', t(ak)); else if (a.classList.contains('back-main')) a.setAttribute('aria-label', t('back_main'));
-      a.setAttribute('href', '../index.html?lang=' + lang);
+      // data-main-path picks a clinic page (default home); data-main-hash adds e.g. #book-skin (opens the clinic booking form)
+      a.setAttribute('href', '../' + (a.getAttribute('data-main-path') || 'index.html') + '?lang=' + lang + (a.getAttribute('data-main-hash') || ''));
     });
     $$('[data-i18n-aria]').forEach(function (el) { var v = t(el.getAttribute('data-i18n-aria')); if (v) el.setAttribute('aria-label', v); });
     $$('.voice-btn').forEach(function (b) { b.setAttribute('aria-label', t('hear')); });
@@ -126,6 +130,7 @@
   /* ---------- Product grid with concern filter ---------- */
   var grid = $('#grid'), picks = $('#picks');
   function mediaHTML(p, cls) {
+    if (p.photo) return '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '" loading="lazy">';
     if (p.bundle) return '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt="" loading="lazy">'; }).join('') + '</div>';
     return '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '" loading="lazy">';
   }
@@ -165,6 +170,17 @@
     var chipLabel = $('.chip[data-c="' + concern + '"]');
     picks.textContent = concern === 'all' ? t('picks_all') : t(match.length === 1 ? 'picks_1' : 'picks_n').replace('{n}', match.length).replace('{c}', chipLabel ? chipLabel.textContent.toLowerCase() : '');
   }
+  if (concern !== 'all') $$('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-c') === concern)); });
+  function setGoal(c) {
+    concern = c;
+    $$('.chip').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-c') === c)); });
+    renderGrid(true);
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('a[data-goal]'); if (!g) return;
+    e.preventDefault(); setGoal(g.getAttribute('data-goal'));
+    $('#shop').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
   $('#chips').addEventListener('click', function (e) {
     var b = e.target.closest('.chip'); if (!b) return;
     concern = b.getAttribute('data-c');
@@ -219,7 +235,7 @@
   function openDrawer(id) { openDrawerId = id; drawerQty = 1; fillDrawer(id); if (drawer.hidden) show(drawer); $('.drawer-body').scrollTop = 0; }
   function fillDrawer(id) {
     var p = byId[id], h = '';
-    h += '<div class="d-media">' + (p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt="">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '">') + '</div>';
+    h += '<div class="d-media' + (p.photo ? ' is-photo' : '') + '">' + (p.photo ? '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '">' : p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt="">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '">') + '</div>';
     h += '<div class="d-info"><span class="tag-lead" style="display:inline-flex">' + esc(L(p.badge)) + '</span>';
     h += '<h2 id="drawerTitle">' + esc(L(p.name)) + (p.supplement ? '*' : '') + '</h2><div class="d-size">' + esc(L(p.size)) + '</div>';
     h += '<div class="price-row" style="margin-top:14px"><span class="price">' + money(p.price) + (p.compareAt ? '<s>' + money(p.compareAt) + '</s>' : '') + '</span><span class="sample">' + esc(t('sample')) + '</span></div>';
@@ -431,6 +447,21 @@
     // LIVE BUILD: play her recorded welcome here, e.g. new Audio('assets/audio/welcome-' + lang + '.mp3').play()
     vp.hidden = false; vp.style.animation = 'none'; void vp.offsetWidth; vp.style.animation = '';
     clearTimeout(vt); vt = setTimeout(function () { vp.hidden = true; }, 3600);
+  }
+
+  /* ---------- Phone menu (same pattern as the clinic site) ---------- */
+  var navToggle = $('.nav-toggle'), topEl = $('#top');
+  function setNav(open) {
+    topEl.classList.toggle('nav-open', open);
+    document.body.classList.toggle('nav-locked', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', t(open ? 'menu_close' : 'menu_open'));
+  }
+  if (navToggle) {
+    navToggle.addEventListener('click', function () { setNav(!topEl.classList.contains('nav-open')); });
+    $('#shopNav').addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && topEl.classList.contains('nav-open')) { setNav(false); navToggle.focus(); } });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1080 && topEl.classList.contains('nav-open')) setNav(false); });
   }
 
   /* ---------- Toast ---------- */

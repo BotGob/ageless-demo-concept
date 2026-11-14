@@ -5,12 +5,12 @@
 window.AL_PRODUCTS = [
   {
     id: 'peptide-rx', img: 'assets/img/peptide-rx.webp', price: 89, shopify: { variantId: null },
-    concerns: ['lines', 'firm'], badge: { en: 'Signature', es: 'Insignia' },
+    concerns: ['lines', 'firm'], badge: { en: 'Her signature', es: 'Su favorito' },
     name: { en: 'Peptide RX', es: 'Peptide RX' },
     size: { en: '1 fl oz (30 ml) airless pump', es: '1 fl oz (30 ml), bomba sin aire' },
     short: { en: 'Peptides and botanicals that visibly firm and smooth.', es: 'Péptidos y botánicos que reafirman y suavizan a la vista.' },
     long: { en: 'Her signature serum. A blend of peptides and botanicals that helps reduce the look of fine lines and wrinkles, and leaves skin looking firmer and tighter right away. Fragrance free, oil free, non-comedogenic.',
-            es: 'Su sérum insignia. Una mezcla de péptidos y botánicos que ayuda a reducir la apariencia de líneas finas y arrugas, y deja la piel más firme y tensa al instante. Sin fragancia, sin aceites, no comedogénico.' },
+            es: 'Su sérum estrella. Una mezcla de péptidos y botánicos que ayuda a reducir la apariencia de líneas finas y arrugas, y deja la piel más firme y tensa al instante. Sin fragancia, sin aceites, no comedogénico.' },
     keys: [
       { en: ['Palmitoyl tripeptide-5', 'Supports the skin\u2019s own collagen'], es: ['Palmitoyl tripéptido-5', 'Apoya el colágeno propio de la piel'] },
       { en: ['CoQ10', 'Calming antioxidant'], es: ['CoQ10', 'Antioxidante calmante'] },
@@ -34,7 +34,7 @@ window.AL_PRODUCTS = [
   },
   {
     id: 'lumineyes', img: 'assets/img/lumineyes.webp', price: 68, shopify: { variantId: null },
-    concerns: ['eyes', 'lines', 'firm'], badge: { en: 'You won\u2019t believe your eyes', es: 'No vas a creer tus ojos' },
+    concerns: ['eyes', 'lines', 'firm'], badge: { en: 'For the eyes', es: 'Para los ojos' },
     name: { en: 'Lumineyes', es: 'Lumineyes' },
     size: { en: '0.5 fl oz (15 ml) pump', es: '0.5 fl oz (15 ml), bomba' },
     short: { en: 'Eye cream for dark circles, puffiness and fine lines.', es: 'Crema de ojos para ojeras, bolsas y líneas finas.' },
@@ -45,7 +45,7 @@ window.AL_PRODUCTS = [
   },
   {
     id: 'firm-neck', img: 'assets/img/firm-neck.webp', price: 78, shopify: { variantId: null },
-    concerns: ['neck', 'firm', 'lines'], badge: { en: 'The neck\u2019s best thing', es: 'Lo mejor para tu cuello' },
+    concerns: ['neck', 'firm', 'lines'], badge: { en: 'Neck and chest', es: 'Cuello y escote' },
     name: { en: 'Firm Neck', es: 'Firm Neck' },
     size: { en: '1.7 oz (50 g) jar', es: 'Frasco de 1.7 oz (50 g)' },
     short: { en: 'Visibly firm, lift and smooth the neck.', es: 'Cuello visiblemente más firme, levantado y suave.' },
@@ -60,7 +60,7 @@ window.AL_PRODUCTS = [
   },
   {
     id: 'greens', img: 'assets/img/greens.webp', price: 46.95, shopify: { variantId: null },
-    concerns: ['inside'], badge: { en: 'From the inside', es: 'Desde adentro' }, supplement: true,
+    concerns: ['inside'], badge: { en: 'From within', es: 'Desde adentro' }, supplement: true,
     name: { en: 'Age-Less Greens', es: 'Age-Less Greens' },
     size: { en: '30 servings, 12.57 oz', es: '30 porciones, 12.57 oz' },
     short: { en: 'Dr. Linda\u2019s daily greens drink mix.', es: 'La mezcla de verdes diaria de la Dra. Linda.' },
@@ -72,7 +72,7 @@ window.AL_PRODUCTS = [
     ]
   },
   {
-    id: 'morning-routine', img: null, price: 235, compareAt: 277, shopify: { variantId: null },
+    id: 'morning-routine', img: 'assets/img/hero-lineup-800.webp', photo: true, price: 235, compareAt: 277, shopify: { variantId: null },
     concerns: ['routine', 'sun', 'lines', 'eyes'], badge: { en: 'Save $42', es: 'Ahorra $42' }, bundle: ['cleanse-repair', 'hydration-mist', 'peptide-rx', 'lumineyes', 'sunscreen-50'],
     name: { en: 'The Morning Routine', es: 'La Rutina de la Mañana' },
     size: { en: '5 pieces: cleanse, mist, treat, eyes, protect', es: '5 piezas: limpiar, hidratar, tratar, ojos, proteger' },
@@ -119,6 +119,12 @@ window.AL_EYE_CHART = {
 
 window.AL_I18N = {
   en: {
+    book_visit: 'Book a visit', book_consult: 'Book a skin consultation', call: 'Call', menu_open: 'Open menu', menu_close: 'Close menu', quick_book: 'Quick booking',
+    visit_hours: 'Monday to Thursday, 10 a.m. to 5 p.m.', ship_note: 'Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.',
+    about_photo_alt: 'Dr. Linda McClintock', about_story: 'Read Dr. Linda\u2019s story',
+    f_director: 'Medical Director and President', f_hours1: 'Monday through Thursday', f_hours2: '10:00 a.m. to 5:00 p.m.', f_hours3: 'Friday through Sunday, closed',
+    f_collection: 'The collection', f_clinic: 'The clinic', f_clinic_home: 'Clinic home', f_about: 'About Dr. Linda', f_skin: 'Skin and facials', f_contact: 'Contact and visit',
+    f_concept: 'Concept by Argus AI.', f_copy: '\u00a9 Age-Less Medicine. Care for women and men in Tampa.',
     skip: 'Skip to the shop', back_main: 'Back to Age-Less Medicine', clinic_site: 'Clinic site', clinic_short: 'Clinic', foot_clinic: 'Visit our clinic site', brand_aria: 'Age-Less Medicine, clinic home', nav_shop: 'Shop', nav_routine: 'Morning routine', nav_about: 'Dr. Linda', nav_visit: 'Visit',
     hear: 'Hear Dr. Linda', bag: 'Bag', demo_flag_short: 'Demo store \u00b7 test checkout', hc_sub: 'Medical-grade skin care from her Tampa practice, sent to your door.', hc_cta: 'Shop the collection', hc_link: 'Meet Dr. Linda', hc_cap: 'The Age-Less collection', hc_cap_link: 'Shop all', hc_alt: 'Age-Less Medicine skin care lineup on a marble counter: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist and Protective Antioxidant Sunscreen 50+', ingr_title: 'Inside Peptide RX', demo_flag: 'Demo store - sample prices - test checkout',
     hero_kicker_line: 'Medical-grade skin care from her Tampa practice',
@@ -139,7 +145,7 @@ window.AL_I18N = {
     photo_ph: 'Dr. Linda\u2019s photo goes here', photo_ph2: 'Her own face and words, not a stock model',
     about_quote: '\u201cLive well. Age beautifully.\u201d', about_sign: 'Dr. Linda McClintock',
     voice_cta: 'Tap to hear Dr. Linda', voice_soon: 'Her welcome, in her own voice, is coming soon.',
-    visit_title: 'Not sure where to start?', visit_body: 'Call the front desk or ask at your next visit. We\u2019ll build a routine around your skin.', visit_call: 'Call 813-286-4404', visit_where: 'Suite 110, One Urban Centre, 4830 W Kennedy Blvd, Tampa',
+    visit_title: 'Not sure where to start?', visit_body: 'Book a skin consultation, call the front desk, or ask at your next visit. We\u2019ll build a routine around your skin.', visit_call: 'Call 813-286-4404', visit_where: 'Suite 110, One Urban Centre, 4830 W Kennedy Blvd, Tampa',
     foot_disc: 'Skin care products are cosmetics and are not intended to diagnose, treat, cure or prevent any disease. Results vary.',
     foot_supp: '*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.',
     foot_demo: 'Demo preview. Prices shown are samples. Checkout is in test mode and no card is charged.',
@@ -154,6 +160,12 @@ window.AL_I18N = {
     co_opening: 'Opening secure checkout...', eye_tap: 'Choose a goal', eye_reset: 'Show all', toast_added: 'added to your bag', close: 'Close', in_box: 'In the box'
   },
   es: {
+    book_visit: 'Pide una cita', book_consult: 'Pide una consulta de piel', call: 'Llamar', menu_open: 'Abrir menú', menu_close: 'Cerrar menú', quick_book: 'Reserva rápida',
+    visit_hours: 'De lunes a jueves, de 10 a. m. a 5 p. m.', ship_note: 'El envío cuesta $9.95 y es gratis en pedidos de $100 o más. Recogida gratis en nuestro consultorio en Tampa.',
+    about_photo_alt: 'Dra. Linda McClintock', about_story: 'Lee la historia de la Dra. Linda',
+    f_director: 'Directora Médica y Presidenta', f_hours1: 'De lunes a jueves', f_hours2: '10:00 a. m. a 5:00 p. m.', f_hours3: 'De viernes a domingo, cerrado',
+    f_collection: 'La colección', f_clinic: 'La clínica', f_clinic_home: 'Inicio de la clínica', f_about: 'Sobre la Dra. Linda', f_skin: 'Piel y faciales', f_contact: 'Contacto y visita',
+    f_concept: 'Concepto de Argus AI.', f_copy: '\u00a9 Age-Less Medicine. Cuidado para mujeres y hombres en Tampa.',
     skip: 'Ir a la tienda', back_main: 'Volver a Age-Less Medicine', clinic_site: 'Sitio de la clínica', clinic_short: 'Clínica', foot_clinic: 'Visita el sitio de nuestra clínica', brand_aria: 'Age-Less Medicine, inicio de la clínica', nav_shop: 'Tienda', nav_routine: 'Rutina de mañana', nav_about: 'Dra. Linda', nav_visit: 'Visítanos',
     hear: 'Escucha a la Dra. Linda', bag: 'Bolsa', demo_flag_short: 'Tienda demo \u00b7 pago de prueba', hc_sub: 'Cuidado de la piel de grado médico desde su consultorio en Tampa, directo a tu puerta.', hc_cta: 'Ver la colección', hc_link: 'Conoce a la Dra. Linda', hc_cap: 'La colección Age-Less', hc_cap_link: 'Ver todo', hc_alt: 'Línea de cuidado de la piel Age-Less Medicine sobre una encimera de mármol: Firm Neck, Facial R & R Treatment, Firming Body Lotion, Peptide RX, Revitalizing Hydration Mist y Protective Antioxidant Sunscreen 50+', ingr_title: 'Dentro de Peptide RX', demo_flag: 'Tienda demo - precios de muestra - pago de prueba',
     hero_kicker_line: 'Cuidado de la piel de grado médico, desde su consultorio en Tampa',
@@ -174,7 +186,7 @@ window.AL_I18N = {
     photo_ph: 'Aquí va la foto de la Dra. Linda', photo_ph2: 'Su propia cara y sus palabras, no una modelo de catálogo',
     about_quote: '\u201cVive bien. Envejece con belleza.\u201d', about_sign: 'Dra. Linda McClintock',
     voice_cta: 'Toca para escuchar a la Dra. Linda', voice_soon: 'Su bienvenida, con su propia voz, llega muy pronto.',
-    visit_title: '¿No sabes por dónde empezar?', visit_body: 'Llama a la recepción o pregunta en tu próxima cita. Armamos una rutina para tu piel.', visit_call: 'Llama al 813-286-4404', visit_where: 'Suite 110, One Urban Centre, 4830 W Kennedy Blvd, Tampa',
+    visit_title: '¿No sabes por dónde empezar?', visit_body: 'Pide una consulta de piel, llama a la recepción o pregunta en tu próxima cita. Armamos una rutina para tu piel.', visit_call: 'Llama al 813-286-4404', visit_where: 'Suite 110, One Urban Centre, 4830 W Kennedy Blvd, Tampa',
     foot_disc: 'Los productos para la piel son cosméticos y no están destinados a diagnosticar, tratar, curar ni prevenir ninguna enfermedad. Los resultados varían.',
     foot_supp: '*Estas declaraciones no han sido evaluadas por la Administración de Alimentos y Medicamentos (FDA). Este producto no está destinado a diagnosticar, tratar, curar ni prevenir ninguna enfermedad.',
     foot_demo: 'Vista previa de demostración. Los precios son de muestra. El pago está en modo de prueba y no se cobra ninguna tarjeta.',

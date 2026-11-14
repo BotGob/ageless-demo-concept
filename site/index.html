@@ -9,9 +9,10 @@
 <meta name="theme-color" content="#07120e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230d211c'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23d8b57a' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/img/hero-lineup.webp" as="image" imagesrcset="assets/img/hero-lineup-800.webp 800w, assets/img/hero-lineup.webp 1227w" imagesizes="(max-width: 860px) 92vw, 660px">
-<link rel="stylesheet" href="assets/fonts.css?v=20261114-polish2">
-<link rel="stylesheet" href="assets/css/style.css?v=20261114-polish2">
-<link rel="stylesheet" href="assets/css/heroes.css?v=20261114-polish2">
+<link rel="stylesheet" href="assets/fonts.css?v=20261114-unify">
+<link rel="stylesheet" href="assets/css/style.css?v=20261114-unify">
+<link rel="stylesheet" href="assets/css/heroes.css?v=20261114-unify">
+<link rel="stylesheet" href="assets/css/unify.css?v=20261114-unify">
 <!-- LAYOUT: clean landing is the default. Add ?layout=full to see the original motion-heavy hero for comparison. -->
 <script>(function(){var q=new URLSearchParams(location.search),d=document.documentElement;d.setAttribute('data-layout', q.get('layout') === 'full' ? 'full' : 'clean');
 /* HERO MOCKUPS (2026-11-14): ?hero=a..e previews five first-screen directions. No param = B (Editorial), Vito's pick 2026-11-14. ?hero=now shows the earlier dark green clean hero. */
@@ -39,11 +40,13 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
     </svg>
     <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
   </a>
-  <nav class="nav" aria-label="Main">
+  <nav class="nav" id="shopNav" aria-label="Main">
     <a href="#shop" data-i18n="nav_shop">Shop</a>
     <a class="nav-full" href="#routine" data-i18n="nav_routine">Morning routine</a>
     <a href="#about" data-i18n="nav_about">Dr. Linda</a>
     <a href="#visit" data-i18n="nav_visit">Visit</a>
+    <a class="nav-menu-only" href="../index.html" data-main-site data-i18n="clinic_site">Clinic site</a>
+    <a class="btn gold nav-book" href="../index.html#book" data-main-site data-main-hash="#book-skin" data-i18n="book_visit">Book a visit</a>
   </nav>
   <!-- MAIN SITE LINK: relative because the shop demo sits inside the main demo folder.
        In her real two-site setup, point this at the clinic site (age-lessmedicine.com). -->
@@ -63,6 +66,7 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span class="count" id="bagCount">0</span>
     </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="shopNav" data-i18n-aria="menu_open" aria-label="Open menu"><span></span></button>
   </div>
 </header>
 
@@ -269,12 +273,8 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
   <!-- DR. LINDA -->
   <section class="about" id="about" aria-labelledby="aboutTitle">
     <div class="wrap about-wrap">
-      <figure class="photo-ph">
-        <div class="ph-inner">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          <strong data-i18n="photo_ph">Dr. Linda's photo goes here</strong>
-          <span data-i18n="photo_ph2">Her own face and words, not a stock model</span>
-        </div>
+      <figure class="about-photo">
+        <img src="assets/img/dr-linda.webp" alt="Dr. Linda McClintock" data-i18n-alt="about_photo_alt" width="302" height="319" loading="lazy" decoding="async">
       </figure>
       <div class="about-copy">
         <h2 id="aboutTitle" class="display md" data-i18n="about_title">Care built around you.</h2>
@@ -285,6 +285,7 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
           <span data-i18n="voice_cta">Tap to hear Dr. Linda</span>
           <span class="wave sm" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
         </button>
+        <p class="about-more"><a class="btn ghost" href="../about.html" data-main-site data-main-path="about.html" data-i18n="about_story">Read Dr. Linda's story</a></p>
       </div>
     </div>
   </section>
@@ -294,22 +295,71 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
       <h2 id="visitTitle" class="display md" data-i18n="visit_title">Not sure where to start?</h2>
       <p class="lede" data-i18n="visit_body"></p>
       <div class="visit-row">
-        <a class="btn gold" href="tel:+18132864404" data-i18n="visit_call">Call 813-286-4404</a>
-        <span class="where" data-i18n="visit_where"></span>
+        <a class="btn gold" href="../index.html#book" data-main-site data-main-hash="#book-skin" data-i18n="book_consult">Book a skin consultation</a>
+        <a class="btn ghost" href="tel:+18132864404" data-i18n="visit_call">Call 813-286-4404</a>
       </div>
+      <p class="where"><span data-i18n="visit_where"></span><br><span data-i18n="visit_hours">Monday to Thursday, 10 a.m. to 5 p.m.</span></p>
     </div>
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-brand">Age-Less Medicine<span>info@age-lessmedicine.com · 813-286-4404</span></div>
+<!-- FOOTER: same structure as the clinic site footer (build.py footer()). Clinic links carry ?lang= via app.js. -->
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand" href="../index.html" data-main-site data-main-aria="brand_aria" aria-label="Age-Less Medicine, clinic home">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g fill="currentColor"><circle cx="24" cy="24" r="3.1"/><ellipse cx="24" cy="13.2" rx="3.2" ry="7.2"/><ellipse cx="24" cy="34.8" rx="3.2" ry="7.2"/><ellipse cx="13.2" cy="24" rx="7.2" ry="3.2"/><ellipse cx="34.8" cy="24" rx="7.2" ry="3.2"/></g>
+        </svg>
+        <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
+      </a>
+      <p>Linda McClintock, M.D.<br><span data-i18n="f_director">Medical Director and President</span></p>
+      <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
+    </div>
+    <div>
+      <h2 data-i18n="nav_visit">Visit</h2>
+      <p><span data-i18n="f_hours1">Monday through Thursday</span><br><span data-i18n="f_hours2">10:00 a.m. to 5:00 p.m.</span><br><span data-i18n="f_hours3">Friday through Sunday, closed</span></p>
+      <p><a href="tel:+18132864404">(813) 286-4404</a><br><a href="mailto:info@age-lessmedicine.com">info@age-lessmedicine.com</a></p>
+    </div>
+    <div>
+      <h2 data-i18n="nav_shop">Shop</h2>
+      <ul class="foot-list">
+        <li><a href="#shop" data-i18n="f_collection">The collection</a></li>
+        <li><a href="#routine" data-i18n="nav_routine">Morning routine</a></li>
+        <li><a href="?goal=inside#shop" data-goal="inside" data-i18n="c_inside">Wellness from within</a></li>
+        <li><a href="#about" data-i18n="nav_about">Dr. Linda</a></li>
+      </ul>
+      <p class="foot-ship" data-i18n="ship_note">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
+    </div>
+    <div>
+      <h2 data-i18n="f_clinic">The clinic</h2>
+      <ul class="foot-list">
+        <li><a href="../index.html" data-main-site data-i18n="f_clinic_home">Clinic home</a></li>
+        <li><a href="../about.html" data-main-site data-main-path="about.html" data-i18n="f_about">About Dr. Linda</a></li>
+        <li><a href="../skin.html" data-main-site data-main-path="skin.html" data-i18n="f_skin">Skin and facials</a></li>
+        <li><a href="../beauty-club.html" data-main-site data-main-path="beauty-club.html">Beauty Club</a></li>
+        <li><a href="../contact.html" data-main-site data-main-path="contact.html" data-i18n="f_contact">Contact and visit</a></li>
+        <li><a href="../index.html#book" data-main-site data-main-hash="#book" data-i18n="book_visit">Book a visit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-legal">
     <p data-i18n="foot_disc"></p>
     <p data-i18n="foot_supp"></p>
     <p class="demo-note" data-i18n="foot_demo"></p>
-    <a class="foot-clinic" href="../index.html" data-main-site><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.2 12 4.5l8 6.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 9.6V19.5h11V9.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-i18n="foot_clinic">Visit our clinic site</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="wrap legal">
+    <p data-i18n="f_concept">Concept by Argus AI.</p>
+    <p data-i18n="f_copy">&copy; Age-Less Medicine. Care for women and men in Tampa.</p>
   </div>
 </footer>
+
+<!-- Phone Call / Book bar, same as the clinic site's -->
+<div class="book-bar" role="region" aria-label="Quick booking" data-i18n-aria="quick_book">
+  <a class="btn ghost" href="tel:+18132864404" data-i18n="call">Call</a>
+  <a class="btn gold" href="../index.html#book" data-main-site data-main-hash="#book-skin" data-i18n="book_visit">Book a visit</a>
+</div>
 
 <!-- Product drawer -->
 <div class="scrim" id="scrim" hidden></div>
@@ -327,6 +377,7 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
   <div class="cart-foot" id="cartFoot">
     <div class="row"><span data-i18n="subtotal">Subtotal</span><b id="cartSub"></b></div>
     <p class="fine"><span data-i18n="taxes_note">Shipping and tax at checkout</span> · <span data-i18n="sample">sample pricing</span></p>
+    <p class="fine ship-note" data-i18n="ship_note">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
     <button class="btn gold wide" type="button" id="toCheckout" data-i18n="checkout">Checkout</button>
   </div>
 </aside>
@@ -423,10 +474,10 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/js/data.js?v=20261114-polish2"></script>
-<script src="assets/js/heroes.js?v=20261114-polish2"></script>
-<script src="assets/js/shopify.js?v=20261114-polish2"></script>
-<script src="assets/js/motion.js?v=20261114-polish2"></script>
-<script src="assets/js/app.js?v=20261114-polish2"></script>
+<script src="assets/js/data.js?v=20261114-unify"></script>
+<script src="assets/js/heroes.js?v=20261114-unify"></script>
+<script src="assets/js/shopify.js?v=20261114-unify"></script>
+<script src="assets/js/motion.js?v=20261114-unify"></script>
+<script src="assets/js/app.js?v=20261114-unify"></script>
 </body>
 </html>

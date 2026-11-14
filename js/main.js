@@ -205,6 +205,8 @@
     });
 
     if (window.location.hash === "#book") openBooking("");
+    // From the shop: "Book a skin consultation" lands here with the visit type preselected
+    if (window.location.hash === "#book-skin") openBooking("Skin and facials");
     if (window.location.hash === "#quiz") openQuizModal();
   }
 

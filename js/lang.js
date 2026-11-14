@@ -49,8 +49,12 @@
   }
   function shopLinks() {
     Array.prototype.forEach.call(document.querySelectorAll('a[href^="site/index.html"]'), function (a) {
-      var u = a.getAttribute("href").split("?")[0].split("#");
-      a.setAttribute("href", u[0] + "?lang=" + lang + (u[1] ? "#" + u[1] : ""));
+      // keep any other query (e.g. ?goal=inside) and the #hash; only set lang
+      var href = a.getAttribute("href"), hash = "", i = href.indexOf("#");
+      if (i > -1) { hash = href.slice(i); href = href.slice(0, i); }
+      var parts = href.split("?"), q = new URLSearchParams(parts[1] || "");
+      q.set("lang", lang);
+      a.setAttribute("href", parts[0] + "?" + q.toString() + hash);
     });
   }
   function sync() {

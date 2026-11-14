@@ -2,6 +2,22 @@
 # Keys are the English text with single spaces, plain hyphens and no non-breaking spaces.
 # Patient reviews are left in their original English on purpose (they are her patients' own words).
 ES = {
+"The skin care collection": "La colección de cuidado de la piel",
+"Morning routine": "Rutina de mañana",
+"Wellness from within": "Bienestar desde adentro",
+"Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.": "El envío cuesta $9.95 y es gratis en pedidos de $100 o más. Recogida gratis en nuestro consultorio en Tampa.",
+"Between visits": "Entre citas",
+"Age-Less skin care": "Cuidado de la piel Age-Less",
+"Dr. Linda's own line of medical-grade skin care, the same products she uses in the treatment room. Order online and we ship it to you, or pick it up free at our office.": "La línea de cuidado de la piel de grado médico de la Dra. Linda, los mismos productos que usa en el consultorio. Pídela en línea y te la enviamos, o recógela gratis en nuestro consultorio.",
+"Dr. Linda also selects other medical grade lines for our shelves. Ask us at your visit.": "La Dra. Linda también elige otras líneas de grado médico para nuestro consultorio. Pregúntanos en tu cita.",
+"Shop the collection": "Ver la colección",
+"See her morning routine": "Ver su rutina de mañana",
+"Shop the Age-Less skin care collection": "Ver la colección de cuidado de la piel Age-Less",
+"The Age-Less Medicine skin care line on a marble counter": "La línea de cuidado de la piel Age-Less Medicine sobre una encimera de mármol",
+"Shop online": "Comprar en línea",
+"Available at our office": "Disponible en nuestro consultorio",
+"Call to ask": "Llama para preguntar",
+"Dr. Linda evaluates every supplement we offer. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.": "La Dra. Linda evalúa cada suplemento que ofrecemos. Age-Less Greens está en nuestra tienda en línea. Para los demás, pregúntanos en tu cita o llámanos.",
 "Page not found | Age-Less Medicine": "Página no encontrada | Age-Less Medicine",
 "Skip to content": "Ir al contenido",
 "Age-Less Medicine home": "Inicio de Age-Less Medicine",

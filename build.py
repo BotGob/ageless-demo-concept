@@ -62,8 +62,8 @@ def header(active):
         <a href="about.html"{cur(active, "about")}>The doctor</a>
         <a href="beauty-club.html"{cur(active, "club")}>Beauty Club</a>
         <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
-        <a href="site/index.html">Shop</a>
         <a href="contact.html"{cur(active, "contact")}>Visit</a>
+        <a class="cross-link" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
         <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
       </nav>
       <div class="lang-switch" role="group" aria-label="Language">
@@ -90,6 +90,10 @@ def footer():
         <p>Monday through Thursday<br>10:00 a.m. to 5:00 p.m.<br>Friday through Sunday, closed</p>
         <p><a href="tel:+18132864404">(813) 286-4404</a><br>
         <a href="mailto:info@age-lessmedicine.com">info@age-lessmedicine.com</a></p>
+        <ul class="footer-list footer-list--inline">
+          <li><a href="https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609" rel="noopener noreferrer" target="_blank">Directions</a></li>
+          <li><a href="https://www.facebook.com/296291637095921" rel="noopener noreferrer" target="_blank">Facebook</a></li>
+        </ul>
       </div>
       <div>
         <h2>Explore</h2>
@@ -106,13 +110,14 @@ def footer():
         </ul>
       </div>
       <div>
-        <h2>Connect</h2>
+        <h2>Shop</h2>
         <ul class="footer-list">
-          <li><a href="site/index.html">Shop skin care</a></li>
-          <li><a href="https://www.facebook.com/296291637095921" rel="noopener noreferrer" target="_blank">Facebook</a></li>
-          <li><a href="https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609" rel="noopener noreferrer" target="_blank">Directions</a></li>
+          <li><a href="site/index.html#shop">The skin care collection</a></li>
+          <li><a href="site/index.html#routine">Morning routine</a></li>
+          <li><a href="site/index.html?goal=inside#shop">Wellness from within</a></li>
           <li><a href="#book" data-open-booking>Book a visit</a></li>
         </ul>
+        <p class="footer-ship">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
       </div>
     </div>
     <div class="wrap legal">
@@ -283,7 +288,7 @@ def page(filename, title, description, active, body, solid=False):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261114-unify">
   <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
 </head>
@@ -297,9 +302,9 @@ def page(filename, title, description, active, body, solid=False):
 {book_bar()}
 {modal()}
 {quiz_modal()}
-  <script src="js/i18n-es.js" defer></script>
-  <script src="js/lang.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/i18n-es.js?v=20261114-unify" defer></script>
+  <script src="js/lang.js?v=20261114-unify" defer></script>
+  <script src="js/main.js?v=20261114-unify" defer></script>
 </body>
 </html>
 """
@@ -357,7 +362,8 @@ def review_cards():
             <footer>{name}</footer>
           </figure>
 """
-    return cards + cards
+    dup = cards.replace('<figure class="quote-card">', '<figure class="quote-card is-dup" aria-hidden="true">')
+    return cards + dup
 
 
 # DRAFT PLACEHOLDER COPY: Dr. Linda's welcome note. Written by Argus AI for the demo only.
@@ -981,10 +987,21 @@ def build_skin():
       </div>
     </section>
     <section class="section section--ivory">
-      <div class="wrap prose" data-reveal>
-        <h2 class="display">Medical grade products</h2>
-        <hr class="gold-rule">
-        <p>Dr. Linda personally selects the skin care we carry. Our shelves include IS Clinical, Neocutis, Proplus, Neova, Mesoestetic, and other medical grade lines.</p>
+      <div class="wrap skin-shop" data-reveal>
+        <div class="skin-shop-copy">
+          <p class="eyebrow">Between visits</p>
+          <h2 class="display">Age-Less skin&nbsp;care</h2>
+          <hr class="gold-rule">
+          <p>Dr. Linda's own line of medical-grade skin care, the same products she uses in the treatment room. Order online and we ship it to you, or pick it up free at our office.</p>
+          <p class="skin-shop-note">Dr. Linda also selects other medical grade lines for our shelves. Ask us at your visit.</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="site/index.html#shop">Shop the collection</a>
+            <a class="btn btn--line" href="site/index.html#routine">See her morning routine</a>
+          </div>
+        </div>
+        <a class="skin-shop-photo" href="site/index.html#shop" aria-label="Shop the Age-Less skin care collection">
+          <img src="site/assets/img/hero-lineup-800.webp" alt="The Age-Less Medicine skin care line on a marble counter" width="800" height="599" loading="lazy" decoding="async">
+        </a>
       </div>
     </section>
     <section class="section">
@@ -1084,21 +1101,21 @@ def build_club():
           <p class="eyebrow">From our dispensary</p>
           <h2 class="display">Shop selected supplements</h2>
           <hr class="gold-rule">
-          <p class="lede">At the request of our clients, we made our nutritional supplements available online. Dr. Linda evaluates the products we offer, and they can be delivered to your door.</p>
+          <p class="lede">Dr. Linda evaluates every supplement we offer. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.</p>
         </div>
         <div class="shop-grid">
-          <a class="product" data-reveal href="https://agelessbydrlinda.com/product/age-less-greens/" rel="noopener noreferrer" target="_blank">
+          <a class="product" data-reveal href="site/index.html?goal=inside#shop">
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p></div>
+            <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p><span class="product-cta">Shop online</span></div>
           </a>
-          <a class="product" data-reveal href="site/index.html">
+          <div class="product product--ask" data-reveal>
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Reds</h3><p class="amt">$49.92</p></div>
-          </a>
-          <a class="product" data-reveal href="site/index.html">
+            <div class="product-body"><h3>Age-Less Reds</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
+          </div>
+          <div class="product product--ask" data-reveal>
             <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Purples</h3><p class="amt">$50.88</p></div>
-          </a>
+            <div class="product-body"><h3>Age-Less Purples</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
+          </div>
         </div>
       </div>
     </section>
