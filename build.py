@@ -15,13 +15,62 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-TREATMENTS = [
-    ("hormones.html", "Hormone and age management", "hormones"),
-    ("weight-loss.html", "Medical weight loss", "weight"),
-    ("injectables.html", "Injectables", "injectables"),
-    ("skin.html", "Skin and facials", "skin"),
-    ("prp.html", "PRP Stem-Cell Facial", "prp"),
+V = "20261115-clinic"
+
+# Image sizes for width/height attributes (stock photos in images/stock/)
+IMG = {
+    "interior-cream": (1800, 1318), "lounge": (1800, 1350), "hallway": (1600, 1048),
+    "hero-spa": (1800, 1200), "palms": (1800, 1200), "still-life": (1600, 1066),
+    "apothecary": (1400, 2100), "leaves-dark": (1238, 2200),
+}
+
+
+def pic(name, alt="", eager=False, cls=""):
+    w, h = IMG[name]
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    c = f' class="{cls}"' if cls else ""
+    return (f'<picture{c}><source type="image/webp" srcset="images/stock/{name}.webp">'
+            f'<img src="images/stock/{name}.jpg" alt="{alt}" width="{w}" height="{h}" {load} decoding="async"></picture>')
+
+
+# Her pamphlet's three pillars. Service names follow the pamphlet wording.
+# WORDING AWAITS DR. LINDA'S APPROVAL (see /workspace/clients/ageless/clinic-rebuild-wording.md).
+PILLARS = [
+    {"n": "01", "key": "longevity", "href": "longevity.html", "title": "Longevity and hormones",
+     "tag": "A foundation for wellness.", "img": "lounge",
+     "img_alt": "A calm sitting room with cream chairs and greenery",
+     "items": [("longevity.html#assessments", "Longevity and wellness assessments"),
+               ("hormones.html", "Hormone optimization"),
+               ("longevity.html#peptides", "Peptide expertise")],
+     "pages": {"longevity", "hormones"}},
+    {"n": "02", "key": "metabolic", "href": "metabolic.html", "title": "Metabolic and IV care",
+     "tag": "Support your health goals.", "img": "leaves-dark",
+     "img_alt": "Deep green leaves",
+     "items": [("weight-loss.html", "Micro-dose GLP-1 weight loss"),
+               ("metabolic.html#iv", "Customized IV therapies")],
+     "pages": {"metabolic", "weight"}},
+    {"n": "03", "key": "aesthetics", "href": "aesthetics.html", "title": "Skin and aesthetics",
+     "tag": "Your beauty. Your way.", "img": "still-life",
+     "img_alt": "A linen towel, a bottle, a candle and tulips",
+     "items": [("injectables.html", "Botox and dermal fillers"),
+               ("skin.html", "Skin and facials"),
+               ("prp.html", "PRP Stem-Cell Facial"),
+               ("aesthetics.html#supplements", "Age-Less vitamins and supplements"),
+               ("site/index.html#shop", "Age-Less skin care")],
+     "pages": {"aesthetics", "injectables", "skin", "prp"}},
 ]
+TREAT_PAGES = set().union(*[p["pages"] for p in PILLARS])
+PAGEKEY = {"hormones.html": "hormones", "weight-loss.html": "weight", "injectables.html": "injectables", "skin.html": "skin", "prp.html": "prp"}
+
+VISIT_TYPES = [
+    "Consultation", "Longevity and wellness assessment", "Hormone optimization", "Peptide consultation",
+    "Micro-dose GLP-1 weight loss", "IV therapy", "Botox and dermal fillers", "Skin and facials",
+    "PRP Stem-Cell Facial", "Beauty Club", "I am not sure yet",
+]
+
+BAG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>'
+MAPS = "https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609"
 
 
 def nowidow(text):
@@ -37,12 +86,23 @@ def cur(page, name):
 
 
 def header(active):
-    treat_current = ' aria-current="page"' if active in {t[2] for t in TREATMENTS} else ""
-    links = "\n".join(
-        f'            <a href="{href}"{cur(active, key)}>{label}</a>'
-        for href, label, key in TREATMENTS
-    )
-    return f"""  <header class="site-header">
+    treat_current = ' aria-current="true"' if active in TREAT_PAGES else ""
+    cols = ""
+    for p in PILLARS:
+        items = "\n".join(
+            f'                <li><a href="{href}"{cur(active, PAGEKEY.get(href, "-"))}>{label}</a></li>'
+            for href, label in p["items"]
+        )
+        head_cur = ' aria-current="page"' if active == p["key"] else ""
+        cols += f"""            <div class="mega-col">
+              <a class="mega-head" href="{p['href']}"{head_cur}><span class="mega-n">{p['n']}</span><span>{p['title']}</span></a>
+              <p class="mega-tag">{p['tag']}</p>
+              <ul>
+{items}
+              </ul>
+            </div>
+"""
+    return f"""  <header class="site-header is-solid">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
         {MARK}
@@ -51,37 +111,45 @@ def header(active):
           <span class="brand-sub">Medicine</span>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu"><span></span></button>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" id="site-nav" aria-label="Primary">
         <div class="has-sub">
-          <button class="nav-label" type="button" aria-expanded="false"{treat_current}>Treatments</button>
-          <div class="subnav">
-{links}
+          <button class="nav-label" type="button" aria-expanded="false" aria-controls="treat-menu"{treat_current}>Treatments</button>
+          <div class="subnav mega" id="treat-menu">
+{cols}            <div class="mega-foot">
+              <a href="index.html#approach">The Age-Less approach</a>
+              <a href="index.html#find-treatment" data-open-quiz>Not sure where to start? Find your treatment</a>
+            </div>
           </div>
         </div>
-        <a href="about.html"{cur(active, "about")}>The doctor</a>
+        <a href="index.html#approach">Our approach</a>
+        <a href="about.html"{cur(active, "about")}>Dr. Linda</a>
         <a href="beauty-club.html"{cur(active, "club")}>Beauty Club</a>
-        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="contact.html"{cur(active, "contact")}>Visit</a>
-        <a class="cross-link" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
-        <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
+        <a class="cross-link nav-shop" href="site/index.html">{BAG}<span>Shop</span></a>
+        <a class="btn btn--gold nav-book" href="#book" data-open-booking>Book a visit</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      <div class="header-tools">
+        <a class="cross-link cross-link--bar" href="site/index.html">{BAG}<span>Shop</span></a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></button>
       </div>
     </div>
   </header>"""
 
 
 def footer():
+    care = "\n".join(f'          <li><a href="{p["href"]}">{p["title"]}</a></li>' for p in PILLARS)
     return f"""  <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div>
-        <a class="brand" href="index.html">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
           {MARK}
           <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
         </a>
+        <p class="footer-tag">Personalized longevity, wellness and aesthetic care.</p>
         <p>Linda McClintock, M.D.<br>Medical Director and President</p>
         <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
       </div>
@@ -91,19 +159,16 @@ def footer():
         <p><a href="tel:+18132864404">(813) 286-4404</a><br>
         <a href="mailto:info@age-lessmedicine.com">info@age-lessmedicine.com</a></p>
         <ul class="footer-list footer-list--inline">
-          <li><a href="https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609" rel="noopener noreferrer" target="_blank">Directions</a></li>
+          <li><a href="{MAPS}" rel="noopener noreferrer" target="_blank">Directions</a></li>
           <li><a href="https://www.facebook.com/296291637095921" rel="noopener noreferrer" target="_blank">Facebook</a></li>
         </ul>
       </div>
       <div>
-        <h2>Explore</h2>
+        <h2>Our care</h2>
         <ul class="footer-list">
+{care}
+          <li><a href="index.html#approach">The Age-Less approach</a></li>
           <li><a href="about.html">About Dr. Linda</a></li>
-          <li><a href="hormones.html">Hormone and age management</a></li>
-          <li><a href="weight-loss.html">Medical weight loss</a></li>
-          <li><a href="injectables.html">Injectables</a></li>
-          <li><a href="skin.html">Skin and facials</a></li>
-          <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
           <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
@@ -120,9 +185,12 @@ def footer():
         <p class="footer-ship">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
       </div>
     </div>
+    <div class="wrap footer-disclaimer">
+      <p>Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary. Results are not guaranteed.</p>
+    </div>
     <div class="wrap legal">
       <p>Concept by Argus AI.</p>
-      <p>&copy; Age-Less Medicine. Care for women and men in Tampa.</p>
+      <p>&copy; Age-Less Medicine. Personalized medicine. Every stage.</p>
     </div>
   </footer>"""
 
@@ -134,16 +202,22 @@ def book_bar():
   </div>"""
 
 
+VOICE_POP = """  <div class="voice-pop" id="voice-pop" role="status" aria-live="polite" hidden>
+    <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p>Her welcome, in her own voice, is coming soon.</p>
+  </div>"""
+
+
+def voice_button():
+    return f"""<button class="voice-big" type="button" data-voice aria-describedby="voice-pop">
+            <span class="play" aria-hidden="true">{PLAY}</span>
+            <span>Tap to hear Dr. Linda</span>
+            <span class="wave sm" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          </button>"""
+
+
 def modal():
-    options = "\n".join(
-        f'            <option value="{label}">{label}</option>'
-        for _, label, _ in [
-            ("", "Consultation", ""),
-            *TREATMENTS,
-            ("", "Beauty Club", ""),
-            ("", "I am not sure yet", ""),
-        ]
-    )
+    options = "\n".join(f'            <option value="{v}">{v}</option>' for v in VISIT_TYPES)
     return f"""  <div class="modal" id="book" aria-hidden="true" role="dialog" aria-labelledby="book-title">
     <div class="modal-backdrop" data-close-booking></div>
     <div class="modal-card">
@@ -215,24 +289,24 @@ def quiz_modal():
 
 RELATED = {
     "prp": [
-        ("skin.html", "images/stock/still-life", "Skin and facials", "Micro-needling, Diamond Tome, Cosmelan, Fire and Ice, and medical grade peels supervised by Dr. Linda."),
-        ("injectables.html", "images/stock/hallway", "Injectables", "Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with a natural look in mind."),
+        ("skin.html", "hero-spa", "Skin and facials", "PRP facials, micro-needling, peels and more, supervised by Dr. Linda."),
+        ("injectables.html", "hallway", "Botox and dermal fillers", "Individualized consultations with an expert injector, focused on facial balance."),
     ],
     "hormones": [
-        ("weight-loss.html", "images/stock/interior-cream", "Medical weight loss", "Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life."),
-        ("beauty-club.html", "images/stock/palms", "Beauty Club", "A monthly Age-less Savings Account that builds Age-less Bucks toward products and services."),
+        ("longevity.html", "lounge", "Longevity and hormones", "Assessments, hormone optimization and peptide expertise, built around your goals."),
+        ("weight-loss.html", "apothecary", "Micro-dose GLP-1 weight loss", "Physician-guided weight management with nutrition guidance and follow-up."),
     ],
     "weight": [
-        ("hormones.html", "images/stock/lounge", "Hormone and age management", "An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise."),
-        ("beauty-club.html", "images/stock/palms", "Beauty Club", "A monthly Age-less Savings Account that builds Age-less Bucks toward products and services."),
+        ("metabolic.html", "leaves-dark", "Metabolic and IV care", "Our GLP-1 program and customized IV therapies, planned around your health."),
+        ("hormones.html", "palms", "Hormone optimization", "An individualized assessment for women and men, with appropriate lab evaluation."),
     ],
     "injectables": [
-        ("skin.html", "images/stock/still-life", "Skin and facials", "PRP facials, micro-needling, peels, and medical grade products chosen by Dr. Linda."),
-        ("prp.html", "images/stock/palms", "PRP Stem-Cell Facial", "A preparation from your own blood, applied with micro-needling."),
+        ("skin.html", "hero-spa", "Skin and facials", "PRP facials, micro-needling, peels and more, supervised by Dr. Linda."),
+        ("aesthetics.html", "still-life", "Skin and aesthetics", "Injectables, facials, Age-Less skin care and supplements in one place."),
     ],
     "skin": [
-        ("prp.html", "images/stock/palms", "PRP Stem-Cell Facial", "A preparation from your own blood, applied with micro-needling."),
-        ("injectables.html", "images/stock/hallway", "Injectables", "Muscle relaxants and dermal fillers, offered with a natural look in mind."),
+        ("prp.html", "palms", "PRP Stem-Cell Facial", "A preparation from your own blood, applied with micro-needling."),
+        ("injectables.html", "hallway", "Botox and dermal fillers", "Individualized consultations with an expert injector, focused on facial balance."),
     ],
 }
 
@@ -241,23 +315,19 @@ def related_section(key):
     cards = ""
     for href, image, title, lede in RELATED[key]:
         cards += f"""          <a class="related-card" href="{href}" data-reveal>
-            <picture>
-              <source type="image/webp" srcset="{image}.webp">
-              <img src="{image}.jpg" alt="" width="900" height="600" loading="lazy" decoding="async">
-            </picture>
-            <div>
+            <div class="related-media">{pic(image)}</div>
+            <div class="related-body">
               <h3>{title}</h3>
               <p>{lede}</p>
-              <span class="treat-more">Explore this visit</span>
+              <span class="more-link">Explore</span>
             </div>
           </a>
 """
-    return f"""    <section class="section section--ivory related">
+    return f"""    <section class="section related">
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Continue exploring</p>
           <h2 class="display">You might also like</h2>
-          <hr class="gold-rule">
         </div>
         <div class="related-grid">
 {cards}        </div>
@@ -273,7 +343,7 @@ def book_block(treatment, label):
         </div>"""
 
 
-def page(filename, title, description, active, body, solid=False):
+def page(filename, title, description, active, body, solid=True):
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,13 +358,15 @@ def page(filename, title, description, active, body, solid=False):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20261114-unify">
+  <link rel="stylesheet" href="css/styles.css?v={V}">
+  <link rel="stylesheet" href="css/clinic.css?v={V}">
   <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
 </head>
-<body{" class='has-solid-header'" if solid else ""}>
+<body class="clinic page-{active}">
   <a class="skip" href="#main">Skip to content</a>
 {header(active)}
+{VOICE_POP}
   <main id="main">
 {body}
   </main>
@@ -302,15 +374,12 @@ def page(filename, title, description, active, body, solid=False):
 {book_bar()}
 {modal()}
 {quiz_modal()}
-  <script src="js/i18n-es.js?v=20261114-unify" defer></script>
-  <script src="js/lang.js?v=20261114-unify" defer></script>
-  <script src="js/main.js?v=20261114-unify" defer></script>
+  <script src="js/i18n-es.js?v={V}" defer></script>
+  <script src="js/lang.js?v={V}" defer></script>
+  <script src="js/main.js?v={V}" defer></script>
 </body>
 </html>
 """
-    # If solid header pages without a hero, mark header as solid via a class on body
-    if solid:
-        html = html.replace('<header class="site-header">', '<header class="site-header is-solid">')
     html = re.sub(
         r'(<(?:h1|h2) class="display"[^>]*>)([^<]+)(</(?:h1|h2)>)',
         lambda m: m.group(1) + nowidow(m.group(2)) + m.group(3),
@@ -320,26 +389,117 @@ def page(filename, title, description, active, body, solid=False):
     print("wrote", filename, len(html))
 
 
-def page_hero(eyebrow, heading, lede, image, image_alt, extra_btn=""):
-    return f"""    <section class="page-hero">
-      <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="{image}.webp">
-          <img src="{image}.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
-        </picture>
-      </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow">{eyebrow}</p>
-        <h1 class="display">{heading}</h1>
-        <hr class="gold-rule">
-        <p class="lede">{lede}</p>
-        <div class="btn-row">
-          <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          {extra_btn}
+def page_hero(eyebrow, heading, lede, image, image_alt="", extra_btn="", book_label="Book a visit", treatment="", media=None):
+    t = f' data-treatment="{treatment}"' if treatment else ""
+    fig = media or f'<figure class="p-hero-media">{pic(image, image_alt, eager=True)}</figure>'
+    return f"""    <section class="p-hero">
+      <div class="wrap p-hero-grid">
+        <div class="p-hero-copy">
+          <p class="eyebrow">{eyebrow}</p>
+          <h1 class="display">{heading}</h1>
+          <p class="lede">{lede}</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="#book" data-open-booking{t}>{book_label}</a>
+            {extra_btn}
+          </div>
         </div>
+        {fig}
       </div>
     </section>"""
+
+
+def section_head(eyebrow, title, lede="", center=False, tag="h2", hid=""):
+    i = f' id="{hid}"' if hid else ""
+    lede_html = f'\n          <p class="lede">{lede}</p>' if lede else ""
+    c = " section-head--center" if center else ""
+    return f"""        <div class="section-head{c}" data-reveal>
+          <p class="eyebrow">{eyebrow}</p>
+          <{tag} class="display"{i}>{title}</{tag}>
+          <hr class="gold-rule">{lede_html}
+        </div>"""
+
+
+def approach_section(compact=False):
+    head = "" if compact else '\n          <p class="approach-foot">Personalized medicine. Every stage.</p>'
+    return f"""    <section class="section approach" id="approach" aria-labelledby="approach-title">
+      <div class="wrap">
+        <div class="approach-grid">
+          <div class="approach-intro" data-reveal>
+            <p class="eyebrow">The Age-Less approach</p>
+            <h2 class="display" id="approach-title">Care built around you.</h2>
+            <hr class="gold-rule">
+            <p class="lede">Your health history, priorities and goals guide a personalized conversation about next steps.</p>{head}
+          </div>
+          <ol class="approach-steps">
+            <li data-reveal><span class="step-n">01</span><h3>Assess</h3><p>Your goals, symptoms and lifestyle, with relevant testing when it helps.</p></li>
+            <li data-reveal><span class="step-n">02</span><h3>Personalize</h3><p>Appropriate options, with their expected benefits and potential risks explained.</p></li>
+            <li data-reveal><span class="step-n">03</span><h3>Follow through</h3><p>We review how you respond and adjust your plan with medical guidance.</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+"""
+
+
+def shop_band(eyebrow="Between visits", title="Age-Less skin&nbsp;care", body="Dr. Linda's own line of medical-grade skin care, the same products she uses in the treatment room. Order online and we ship it to you, or pick it up free at our office.", note=""):
+    note_html = f'\n          <p class="skin-shop-note">{note}</p>' if note else ""
+    return f"""    <section class="section shop-band-section">
+      <div class="wrap skin-shop shop-band" data-reveal>
+        <div class="skin-shop-copy">
+          <p class="eyebrow">{eyebrow}</p>
+          <h2 class="display">{title}</h2>
+          <hr class="gold-rule">
+          <p>{body}</p>{note_html}
+          <div class="btn-row">
+            <a class="btn btn--gold" href="site/index.html#shop">Shop the collection</a>
+            <a class="btn btn--line" href="site/index.html#routine">See her morning routine</a>
+          </div>
+        </div>
+        <a class="skin-shop-photo" href="site/index.html#shop" aria-label="Shop the Age-Less skin care collection">
+          <img src="site/assets/img/hero-lineup-800.webp" alt="The Age-Less Medicine skin care line on a marble counter" width="800" height="599" loading="lazy" decoding="async">
+        </a>
+      </div>
+    </section>
+"""
+
+
+def supplements_grid():
+    return """        <div class="shop-grid">
+          <a class="product" data-reveal href="site/index.html?goal=inside#shop">
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694" loading="lazy" decoding="async"></picture></div>
+            <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p><span class="product-cta">Shop online</span></div>
+          </a>
+          <div class="product product--ask" data-reveal>
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694" loading="lazy" decoding="async"></picture></div>
+            <div class="product-body"><h3>Age-Less Reds</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
+          </div>
+          <div class="product product--ask" data-reveal>
+            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694" loading="lazy" decoding="async"></picture></div>
+            <div class="product-body"><h3>Age-Less Purples</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
+          </div>
+        </div>"""
+
+
+def service_cards(services):
+    out = ""
+    for s in services:
+        sid = f' id="{s["id"]}"' if s.get("id") else ""
+        fine = f'\n            <p class="fine">{s["fine"]}</p>' if s.get("fine") else ""
+        extra = f'\n            <p>{s["extra"]}</p>' if s.get("extra") else ""
+        links = ""
+        if s.get("href"):
+            links += f'<a class="btn btn--line" href="{s["href"]}">{s["cta"]}</a>'
+        if s.get("book"):
+            links += f'<a class="btn btn--gold" href="#book" data-open-booking data-treatment="{s["book"]}">{s["book_label"]}</a>'
+        out += f"""          <article class="service-card"{sid} data-reveal>
+            <p class="service-n">{s["n"]}</p>
+            <h3>{s["title"]}</h3>
+            <p>{s["body"]}</p>{extra}{fine}
+            <div class="btn-row">{links}</div>
+          </article>
+"""
+    return f"""        <div class="service-grid">
+{out}        </div>"""
 
 
 REVIEWS = [
@@ -373,24 +533,23 @@ WELCOME = {
     "es": "Te doy la bienvenida, y gracias por estar aquí. Quiero que cada persona que cruza nuestra puerta se sienta escuchada, cuidada y sin prisas. Ya sea que vengas con una meta clara o solo con una pregunta, nos tomaremos el tiempo para entender lo que es importante para ti. Será un gusto conocerte.",
 }
 
-WELCOME_SECTION = f"""    <!-- WELCOME NOTE: DRAFT placeholder copy for Dr. Linda to approve or rewrite. Not her words yet.
-         Audio: the play button shows "coming soon" until her recording is added (see js/main.js initVoiceNote). -->
+def welcome_section(story_link=True):
+    story = '\n          <a class="btn btn--line" href="about.html">Read Dr. Linda’s story</a>' if story_link else ""
+    return f"""    <!-- WELCOME NOTE: DRAFT placeholder copy for Dr. Linda to approve or rewrite. Not her words yet.
+         Audio: the play button shows "coming soon" (same as the shop) until her recording is added (js/main.js initVoice). -->
     <section class="welcome" id="welcome" aria-labelledby="welcome-title">
-      <div class="wrap welcome-grid" data-reveal>
-        <div class="welcome-head">
+      <div class="wrap welcome-grid">
+        <figure class="welcome-photo" data-reveal>
+          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
+        </figure>
+        <div class="welcome-copy" data-reveal>
           <p class="eyebrow" id="welcome-title">A welcome from Dr. Linda</p>
-          <hr class="gold-rule">
-        </div>
-        <div class="welcome-body">
           <p class="welcome-text">{WELCOME["en"]}</p>
-          <div class="welcome-foot">
-            <p class="welcome-sign">Dr. Linda McClintock</p>
-            <button class="voice-note-btn" type="button" data-voice-note aria-controls="voice-note">
-              <span class="vn-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg></span>
-              <span>Hear it from Dr. Linda</span>
-            </button>
+          <p class="welcome-sign">Dr. Linda McClintock</p>
+          <p class="welcome-role">Medical Director and President</p>
+          <div class="welcome-actions">
+          {voice_button()}{story}
           </div>
-          <p class="voice-note" id="voice-note" role="status" aria-live="polite" hidden>Her welcome, in her own voice, is coming soon.</p>
         </div>
       </div>
     </section>
@@ -408,139 +567,73 @@ def build_es_js():
     print("wrote js/i18n-es.js", len(data), "strings")
 
 
+def pillar_cards():
+    out = ""
+    for p in PILLARS:
+        items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in p["items"])
+        out += f"""          <article class="pillar-card" data-reveal>
+            <a class="pillar-media" href="{p['href']}" tabindex="-1" aria-hidden="true">{pic(p['img'], '')}</a>
+            <div class="pillar-body">
+              <p class="pillar-n">{p['n']}</p>
+              <h3><a href="{p['href']}">{p['title']}</a></h3>
+              <p class="pillar-tag">{p['tag']}</p>
+              <ul class="pillar-list">{items}</ul>
+              <a class="more-link" href="{p['href']}">Explore this area</a>
+            </div>
+          </article>
+"""
+    return out
+
+
 def build_home():
-    body = f"""    <section class="hero" data-hero-video>
-      <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" muted loop playsinline webkit-playsinline autoplay preload="none" poster="images/stock/hero-video-poster.jpg"></video>
-        <picture class="hero-fallback">
-          <source type="image/webp" srcset="images/stock/hero-video-poster.webp">
-          <img src="images/stock/hero-video-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
-        </picture>
-      </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow">Tampa  ·  Founded 2006</p>
-        <h1 class="display">Aging is not optional, but youthfulness is.</h1>
-        <hr class="gold-rule">
-        <p class="lede lede--full">We opened Age-Less Medicine so you can look and feel your very best. Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
-        <p class="lede lede--compact">Dr. Linda McClintock leads our Tampa practice in age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments for women and men.</p>
-        <div class="btn-row">
-          <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          <a class="btn btn--ghost" href="#find-treatment" data-open-quiz>Find your treatment</a>
+    body = f"""    <section class="c-hero">
+      <div class="wrap c-hero-grid">
+        <div class="c-hero-copy">
+          <p class="eyebrow">Science. Experience. Individual care.</p>
+          <h1 class="display c-hero-title"><span>Live well.</span> <em>Age beautifully.</em></h1>
+          <p class="lede">Personalized longevity, wellness and aesthetic care with Dr. Linda McClintock in Tampa.</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Consultation">Book a consultation</a>
+            <a class="btn btn--line" href="#care">Explore our care</a>
+          </div>
+          <ul class="c-hero-facts">
+            <li>Physician-led since 2006</li>
+            <li>English and Spanish</li>
+            <li>Westshore, Tampa</li>
+          </ul>
         </div>
+        <figure class="c-hero-media">
+          {pic("interior-cream", "A calm, sunlit sitting room in soft cream tones", eager=True)}
+        </figure>
       </div>
     </section>
 
-{WELCOME_SECTION}
-    <section class="intro-strip section--tight">
-      <div class="wrap intro-grid" data-reveal>
-        <p class="intro-quote">We believe every person has a chronological age and a biological age.</p>
-        <div class="stat"><dt>Our beginning</dt><dd>Founded in 2006 by Linda McClintock, M.D.</dd></div>
-        <div class="stat"><dt>Our home</dt><dd>Suite 110, One Urban Centre, Westshore</dd></div>
-        <div class="stat"><dt>Who we see</dt><dd>Thoughtful care for women and men</dd></div>
-      </div>
-    </section>
-
-    <section class="section section--ivory" id="treatments">
+{welcome_section()}
+    <section class="section pillars" id="care">
       <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">How we can help</p>
-          <h2 class="display">Care from the inside out</h2>
-          <hr class="gold-rule">
-          <p class="lede">Beauty is not only skin deep. The way you feel, eat, rest, and care for your hormones can shape how you age. We offer medical weight management, skin rejuvenation, and age management through bio-identical hormone care.</p>
-        </div>
-        <div class="treat-grid">
-          <a class="treat-card" href="hormones.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="A calm sitting room with cream chairs and greenery" width="1800" height="1350" loading="lazy" decoding="async"></picture>
-            <div class="treat-body">
-              <h3>Hormone and age management</h3>
-              <p>An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise.</p>
-              <span class="treat-more">Explore this visit</span>
-            </div>
-          </a>
-          <a class="treat-card" href="weight-loss.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/interior-cream.webp"><img src="images/stock/interior-cream.jpg" alt="A cream-toned sitting room with linen textures" width="1800" height="1318" loading="lazy" decoding="async"></picture>
-            <div class="treat-body">
-              <h3>Medical weight loss</h3>
-              <p>Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life, not a cookie-cutter diet.</p>
-              <span class="treat-more">See how it works</span>
-            </div>
-          </a>
-          <a class="treat-card" href="injectables.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/hallway.webp"><img src="images/stock/hallway.jpg" alt="A quiet interior with a cream mirror" width="1600" height="1048" loading="lazy" decoding="async"></picture>
-            <div class="treat-body">
-              <h3>Injectables</h3>
-              <p>Dr. Linda offers Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with an eye toward a natural look.</p>
-              <span class="treat-more">View injectables</span>
-            </div>
-          </a>
-          <a class="treat-card" href="skin.html" data-reveal>
-            <picture><source type="image/webp" srcset="images/stock/still-life.webp"><img src="images/stock/still-life.jpg" alt="A linen towel, bottle, candle, and tulips" width="1600" height="1066" loading="lazy" decoding="async"></picture>
-            <div class="treat-body">
-              <h3>Skin and facials</h3>
-              <p>PRP facials, micro-needling, Diamond Tome microdermabrasion, Dermawave, Cosmelan, Fire and Ice, and medical grade peels.</p>
-              <span class="treat-more">Browse skin care</span>
-            </div>
-          </a>
-        </div>
+{section_head("How we can help", "Three areas of care, one plan for you", "Every plan starts with a conversation about your health history, your priorities and your goals.")}
+        <div class="pillar-grid">
+{pillar_cards()}        </div>
       </div>
     </section>
 
-
+{approach_section()}
+{shop_band(eyebrow="Age-Less skin care", title="Her skin care, between&nbsp;visits", body="Medical-grade skin care from Dr. Linda's practice, with a personalized regimen for your skin concerns and daily routine. Order online and we ship it to you, or pick it up free at our office.")}
     <section class="section" id="find-treatment">
-      <div class="wrap quiz-intro" data-reveal>
-        <p class="eyebrow">A simple starting point</p>
-        <h2 class="display">Find your treatment</h2>
-        <hr class="gold-rule">
-        <p class="lede">Answer two short questions about what brings you in. We will point you toward a visit that may fit. No medical details are collected.</p>
-        <div class="btn-row" style="margin-top:1.5rem">
+      <div class="wrap quiz-band" data-reveal>
+        <div>
+          <p class="eyebrow">A simple starting point</p>
+          <h2 class="display">Not sure where to start?</h2>
+          <p class="lede">Answer two short questions and we will point you toward a visit that may fit. No medical details are collected.</p>
+        </div>
+        <div class="btn-row">
           <a class="btn btn--gold" href="#find-treatment" data-open-quiz>Find your treatment</a>
+          <a class="btn btn--line" href="tel:+18132864404">Or call us</a>
         </div>
       </div>
     </section>
 
-    <section class="section" data-reveal>
-      <div class="wrap">
-        <article class="signature">
-          <div class="signature-media">
-            <picture>
-              <source type="image/webp" srcset="images/stock/palms.webp">
-              <img src="images/stock/palms.jpg" alt="Dark green palm leaves" width="1800" height="1200" loading="lazy" decoding="async">
-            </picture>
-          </div>
-          <div class="signature-copy">
-            <p class="eyebrow">Signature treatment</p>
-            <h2 class="display">The PRP Stem-Cell Facial</h2>
-            <hr class="gold-rule">
-            <p>A PRP facial uses a preparation made from a small sample of your own blood. We draw the sample, prepare the serum in a centrifuge, and apply it to your skin with micro-needling.</p>
-            <div class="btn-row" style="margin-top:1.4rem">
-              <a class="btn btn--gold" href="prp.html">Learn about the PRP facial</a>
-              <a class="btn btn--ghost" href="#book" data-open-booking data-treatment="PRP Stem-Cell Facial">Book this visit</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section--ivory">
-      <div class="wrap about-grid">
-        <div class="portrait-frame" data-reveal>
-          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
-        </div>
-        <div data-reveal>
-          <p class="eyebrow">Medical director</p>
-          <h2 class="display">Meet Dr. Linda McClintock</h2>
-          <hr class="gold-rule">
-          <p class="lede">Dr. Linda is our medical director and president. She founded Age-Less Medicine in 2006 around quality-of-life medicine: helping people look and feel their very best.</p>
-          <p>For more than a decade she appeared as a health correspondent for Bay News 9. She oversees every part of your care and medically supervises our aestheticians. She is fluent in Spanish, and we welcome patients in English and Spanish.</p>
-          <div class="btn-row" style="margin-top:1.4rem">
-            <a class="btn btn--line" href="about.html">Read Dr. Linda’s story</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="reviews section">
+    <section class="reviews section section--ivory">
       <div class="wrap section-head" data-reveal>
         <p class="eyebrow">Kind words</p>
         <h2 class="display">What our patients say</h2>
@@ -553,14 +646,9 @@ def build_home():
       </div>
     </section>
 
-    <section class="section section--ivory">
+    <section class="section">
       <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Membership</p>
-          <h2 class="display">The Beauty Club</h2>
-          <hr class="gold-rule">
-          <p class="lede">Dr. Linda’s Age-less Savings Account lets you set aside a monthly amount and build Age-less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.</p>
-        </div>
+{section_head("Membership", "The Beauty Club", "Dr. Linda’s Age-less Savings Account lets you set aside a monthly amount and build Age-less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.")}
         <div class="tiers">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
@@ -596,48 +684,133 @@ def build_home():
       </div>
     </section>
 
-    <section class="section" id="visit">
-      <div class="wrap visit-grid">
-        <div data-reveal>
-          <p class="eyebrow">Westshore, Tampa</p>
-          <h2 class="display">Come see us</h2>
-          <hr class="gold-rule">
-          <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
-          <p style="margin-top:1rem"><a href="tel:+18132864404">(813) 286-4404</a><br>
-          <a href="mailto:info@age-lessmedicine.com">info@age-lessmedicine.com</a></p>
-          <p style="margin-top:1rem">Monday through Thursday, 10:00 a.m. to 5:00 p.m.<br>Friday through Sunday, closed</p>
-          <div class="btn-row" style="margin-top:1.5rem">
-            <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-            <a class="btn btn--line" href="tel:+18132864404">Call</a>
-            <a class="btn btn--line" href="https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609" rel="noopener noreferrer" target="_blank">Directions</a>
-          </div>
-        </div>
-        <div class="visit-visual" data-reveal>
-          <figure class="building-photo">
-            <img src="images/clinic/urban-centre.jpg" alt="The glass towers of Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220" loading="lazy" decoding="async">
-            <figcaption>One Urban Centre, 4830 West Kennedy Boulevard</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-"""
+{next_chapter()}"""
     page(
         "index.html",
-        "Age-Less Medicine | Tampa Age and Aesthetic Care",
-        "Age-Less Medicine in Tampa offers physician-led age management, bio-identical hormone care, medically supervised weight loss, and aesthetic skin treatments with Dr. Linda McClintock.",
+        "Age-Less Medicine | Live well. Age beautifully.",
+        "Personalized longevity, wellness and aesthetic care with Dr. Linda McClintock in Tampa: longevity and hormones, metabolic and IV care, and skin and aesthetics.",
         "home",
         body,
     )
 
 
+def next_chapter():
+    return f"""    <section class="section next-chapter" id="visit">
+      <div class="wrap next-grid">
+        <div data-reveal>
+          <p class="eyebrow">Begin your next chapter</p>
+          <h2 class="display">A thoughtful plan. A healthier outlook.</h2>
+          <hr class="gold-rule">
+          <p class="lede">Schedule your personalized consultation. We are also happy to answer questions by phone.</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Consultation">Book a consultation</a>
+            <a class="btn btn--line" href="tel:+18132864404">Call (813) 286-4404</a>
+          </div>
+        </div>
+        <div class="visit-card-lite" data-reveal>
+          <h3>Visit us</h3>
+          <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
+          <h3>Hours</h3>
+          <p>Monday through Thursday, 10:00 a.m. to 5:00 p.m.<br>Friday through Sunday, closed</p>
+          <p class="visit-links"><a href="{MAPS}" rel="noopener noreferrer" target="_blank">Directions</a><a href="mailto:info@age-lessmedicine.com">info@age-lessmedicine.com</a></p>
+        </div>
+      </div>
+    </section>
+"""
+
+
+def pillar_page(filename, key, n, title, tagline, lede, image, alt, services, after="", treatment="Consultation", desc=""):
+    hero = page_hero(f"{n} · Our care", title, lede, image, alt,
+                     '<a class="btn btn--line" href="#services">See the services</a>',
+                     "Book a consultation", treatment)
+    body = f"""{hero}
+    <section class="section" id="services">
+      <div class="wrap">
+{section_head(title, tagline)}
+{service_cards(services)}
+      </div>
+    </section>
+{after}{approach_section(compact=True)}
+{next_chapter()}"""
+    page(filename, f"{title} | Age-Less Medicine", desc, key, body)
+
+
+def build_longevity():
+    pillar_page(
+        "longevity.html", "longevity", "01", "Longevity and hormones", "A foundation for wellness.",
+        "Care that starts with your health history, your lifestyle and what matters most to you.",
+        "lounge", "A calm sitting room with cream chairs and greenery",
+        [
+            {"id": "assessments", "n": "Assess", "title": "Longevity and wellness assessments",
+             "body": "A personalized review of your health history, lifestyle and wellness priorities, with testing guided by clinical needs.",
+             "extra": "When it helps, testing may include Spectracell micronutrient analysis or ALCAT food sensitivity testing.",
+             "book": "Longevity and wellness assessment", "book_label": "Book an assessment"},
+            {"n": "Balance", "title": "Hormone optimization",
+             "body": "An individualized assessment for women and men, including symptoms, appropriate lab evaluation and a discussion of treatment options.",
+             "href": "hormones.html", "cta": "About hormone care"},
+            {"id": "peptides", "n": "Understand", "title": "Peptide expertise",
+             "body": "Over two decades of peptide expertise to help you understand your options, the evidence, safety and whether a peptide is suitable for you.",
+             "fine": "Peptide options differ in evidence and regulatory status. Recommendations depend on the specific product and clinical indication.",
+             "book": "Peptide consultation", "book_label": "Ask about peptides"},
+        ],
+        desc="Longevity and wellness assessments, hormone optimization and peptide expertise with Dr. Linda McClintock at Age-Less Medicine in Tampa.",
+    )
+
+
+def build_metabolic():
+    pillar_page(
+        "metabolic.html", "metabolic", "02", "Metabolic and IV care", "Support your health goals.",
+        "Physician-guided programs planned around your health, your needs and your goals.",
+        "leaves-dark", "Deep green leaves",
+        [
+            {"n": "Weight", "title": "Micro-dose GLP-1 weight loss program",
+             "body": "Physician-guided weight management with individualized dosing discussions, nutrition guidance and follow-up for eligible patients.",
+             "fine": "“Micro-dose” is not a standardized FDA-approved dosing regimen. Medication choice and dosing require a medical evaluation.",
+             "href": "weight-loss.html", "cta": "How the program works"},
+            {"id": "iv", "n": "Infusion", "title": "Customized IV therapies",
+             "body": "Personalized IV formulations, selected after a review of your medical history, your needs and whether treatment is suitable for you.",
+             "book": "IV therapy", "book_label": "Ask about IV therapy"},
+        ],
+        desc="Micro-dose GLP-1 weight loss and customized IV therapies, physician guided by Dr. Linda McClintock at Age-Less Medicine in Tampa.",
+    )
+
+
+def build_aesthetics():
+    after = f"""    <section class="section section--ivory" id="supplements">
+      <div class="wrap">
+{section_head("From within", "Age-Less vitamins and supplements", "Personalized guidance on Age-Less vitamins and supplements to complement your nutrition and wellness plan. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.")}
+{supplements_grid()}
+      </div>
+    </section>
+{shop_band()}"""
+    pillar_page(
+        "aesthetics.html", "aesthetics", "03", "Skin and aesthetics", "Your beauty. Your way.",
+        "Aesthetic care and medical-grade skin care, planned around your features and your preferences.",
+        "still-life", "A linen towel, a bottle, a candle and tulips",
+        [
+            {"n": "Injectables", "title": "Expert Botox and dermal filler injector",
+             "body": "Individualized aesthetic consultations with an expert injector, and treatment planning focused on facial balance and your personal preferences.",
+             "href": "injectables.html", "cta": "About Botox and fillers"},
+            {"n": "In the office", "title": "Skin and facials",
+             "body": "Our PRP Stem-Cell Facial, micro-needling, Diamond Tome microdermabrasion, Cosmelan and medical grade peels, supervised by Dr. Linda.",
+             "href": "skin.html", "cta": "See skin treatments"},
+            {"n": "At home", "title": "Medical-grade skin care",
+             "body": "Explore Age-Less Medicine skin care products and a personalized regimen for your skin concerns and daily routine.",
+             "href": "site/index.html#shop", "cta": "Shop the collection"},
+        ],
+        after=after,
+        desc="Botox and dermal fillers, skin treatments, Age-Less Medicine skin care and supplements with Dr. Linda McClintock in Tampa.",
+    )
+
+
 def build_prp():
     body = f"""{page_hero(
-        "Skin care",
+        "03 · Skin and aesthetics",
         "The PRP Stem-Cell Facial",
-        "A facial that uses your own blood's natural growth factors, paired with micro-needling, to refresh and renew your skin.",
-        "images/stock/palms",
-        "",
-        '<a class="btn btn--ghost" href="skin.html">See all skin treatments</a>',
+        "A facial that uses a preparation from your own blood, paired with micro-needling, to refresh the look of your skin.",
+        "palms", "",
+        '<a class="btn btn--line" href="skin.html">See all skin treatments</a>',
+        "Book a PRP facial", "PRP Stem-Cell Facial",
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
@@ -738,35 +911,20 @@ def build_prp():
 
 def build_hormones():
     body = f"""{page_hero(
-        "Inside out",
-        "Hormone and age management",
-        "Age management, for us, is the science of youthful aging: helping you maintain health and energy for as long as possible.",
-        "images/stock/lounge",
-        "",
-        '<a class="btn btn--ghost" href="weight-loss.html">Explore weight management</a>',
+        "01 · Longevity and hormones",
+        "Hormone optimization",
+        "An individualized assessment for women and men, including symptoms, appropriate lab evaluation and a discussion of treatment options.",
+        "palms", "",
+        '<a class="btn btn--line" href="longevity.html">Longevity and hormones</a>',
+        "Book this visit", "Hormone optimization",
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
-        <p>Your first visits with Dr. Linda begin with a careful look at your medical history, blood analysis, and other biological markers. From there she creates an individualized program that may include bio-identical hormone care, nutrition, and exercise.</p>
+        <p>Your first visits with Dr. Linda begin with a careful look at your medical history, blood analysis and other biological markers. From there she creates an individualized program that may include bio-identical hormone care, nutrition and exercise.</p>
         <p>We see this work as a partnership. The goal is a plan that fits your life, reviewed over time as your needs change.</p>
       </div>
     </section>
-    <section class="section">
-      <div class="wrap prose" data-reveal>
-        <h2 class="display">Specialized testing</h2>
-        <hr class="gold-rule">
-        <p>When it is helpful, we also offer specialized testing. Spectracell analysis looks at selected vitamins, minerals, antioxidants, and other micronutrients inside your white blood cells. ALCAT testing can identify foods that may be a problem for you. After your results return, you meet with Dr. Linda, and you may also meet with our nutritionist.</p>
-      </div>
-    </section>
     <section class="section section--ivory">
-      <div class="wrap prose" data-reveal>
-        <p class="eyebrow">Is this visit right for you?</p>
-        <h2 class="display">Who it is for</h2>
-        <hr class="gold-rule">
-        <p>We welcome women and men who want a thoughtful look at how they age and how they feel. Dr. Linda creates an individualized program that may include bio-identical hormone care, nutrition, and exercise, based on your history, labs, and goals.</p>
-      </div>
-    </section>
-    <section class="section">
       <div class="wrap" data-reveal>
         <div class="section-head">
           <p class="eyebrow">Your visit</p>
@@ -788,15 +946,16 @@ def build_hormones():
             <p>Follow-up visits are typically scheduled every three to four months. Labs are repeated as needed, or as Dr. Linda recommends.</p>
           </article>
         </div>
-        {book_block("Hormone and age management", "Book this visit")}
+        {book_block("Hormone optimization", "Book this visit")}
+        <p class="fine fine--block">Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary.</p>
       </div>
     </section>
 {related_section("hormones")}
 """
     page(
         "hormones.html",
-        "Hormone and Age Management | Age-Less Medicine",
-        "Bio-identical hormone care and age management with Dr. Linda McClintock in Tampa, including labs, EKG, body fat analysis, and a nutritional consult.",
+        "Hormone Optimization | Age-Less Medicine",
+        "Individualized hormone assessment for women and men with Dr. Linda McClintock in Tampa, including appropriate lab evaluation and a discussion of treatment options.",
         "hormones",
         body,
     )
@@ -804,81 +963,56 @@ def build_hormones():
 
 def build_weight():
     body = f"""{page_hero(
-        "Couture Lifestyle Modification",
-        "Medical weight loss",
-        "We personally tailor each plan to your dietary and lifestyle needs. No more cookie-cutter diets.",
-        "images/stock/interior-cream",
-        "",
-        '<a class="btn btn--ghost" href="hormones.html">Hormone and age care</a>',
+        "02 · Metabolic and IV care",
+        "Micro-dose GLP-1 weight loss",
+        "Physician-guided weight management with individualized dosing discussions, nutrition guidance and follow-up for eligible patients.",
+        "apothecary", "",
+        '<a class="btn btn--line" href="metabolic.html">Metabolic and IV care</a>',
+        "Book a consultation", "Micro-dose GLP-1 weight loss",
     )}
     <section class="section">
-      <div class="wrap prose" data-reveal>
-        <p>Our medically supervised weight program is a three-step plan. Dr. Linda designed it to give you knowledge, support, and a pace that can be maintained. Appetite suppressants, vitamins, and minerals may be included when they are medically appropriate. In some cases, hormone care may also be part of understanding what led to weight gain.</p>
-      </div>
-    </section>
-    <section class="section section--ivory">
       <div class="wrap">
+{section_head("How the program works", "A plan that fits your life", "Weight care works best when it is personal. Dr. Linda guides each step and adjusts the plan with you over time.")}
         <div class="steps">
           <article class="step-card" data-reveal>
             <p class="n">01</p>
-            <h3>Acute phase</h3>
-            <p>A carbohydrate and calorie-restricted diet begins this stage. We may add appetite suppressants, vitamins, and minerals when they are appropriate.</p>
+            <h3>Evaluate</h3>
+            <p>A medical evaluation to understand your health, your goals and whether the program is a good fit for you.</p>
           </article>
           <article class="step-card" data-reveal>
             <p class="n">02</p>
-            <h3>Transition</h3>
-            <p>Medication is often decreased, some carbohydrates return, and we begin to encourage regular exercise.</p>
+            <h3>Personalize</h3>
+            <p>Individualized dosing discussions and nutrition guidance that fit your daily life.</p>
           </article>
           <article class="step-card" data-reveal>
             <p class="n">03</p>
-            <h3>Maintenance</h3>
-            <p>The final stage is about support and guidance so you can stay with the habits that fit your life.</p>
+            <h3>Follow up</h3>
+            <p>Regular follow-up visits to review your progress and adjust the plan with medical guidance.</p>
           </article>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section section--ivory">
       <div class="wrap detail-grid">
         <article class="detail" data-reveal>
-          <h3>Your first visit</h3>
-          <ul>
-            <li>Labs</li>
-            <li>An EKG</li>
-            <li>Vitamin injections</li>
-            <li>A thorough nutritional consult</li>
-          </ul>
+          <h3>Who it is for</h3>
+          <p>Adults who want physician-guided weight management. Eligibility is decided after a medical evaluation.</p>
         </article>
         <article class="detail" data-reveal>
-          <h3>Weekly visits</h3>
-          <p>Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
+          <h3>Good to know</h3>
+          <p>“Micro-dose” is not a standardized FDA-approved dosing regimen. Medication choice and dosing require a medical evaluation.</p>
         </article>
       </div>
-    </section>
-    <section class="section section--ivory">
-      <div class="wrap prose" data-reveal>
-        <p class="eyebrow">Is this visit right for you?</p>
-        <h2 class="display">Who it is for</h2>
-        <hr class="gold-rule">
-        <p>This program is for people who want a medically supervised plan tailored to their dietary and lifestyle needs, not a cookie-cutter diet. Appetite suppressants, vitamins, and minerals may be included when they are medically appropriate. In some cases, hormone care may also be part of understanding what led to weight gain.</p>
-      </div>
-    </section>
-    <section class="section">
-      <div class="wrap" data-reveal>
-        <div class="section-head">
-          <p class="eyebrow">Your visit</p>
-          <h2 class="display">What to expect</h2>
-          <hr class="gold-rule">
-          <p class="lede">Your first visit typically includes labs, an EKG, vitamin injections, and a thorough nutritional consult. Follow-up visits typically include a weigh-in, injections, and medication when it is needed.</p>
-        </div>
-        {book_block("Medical weight loss", "Book a weight management visit")}
+      <div class="wrap">
+        {book_block("Micro-dose GLP-1 weight loss", "Book a consultation")}
       </div>
     </section>
 {related_section("weight")}
 """
     page(
         "weight-loss.html",
-        "Medical Weight Loss | Age-Less Medicine",
-        "Couture Lifestyle Modification is Age-Less Medicine’s three-step, medically supervised weight program in Tampa, personalized by Dr. Linda McClintock.",
+        "Micro-dose GLP-1 Weight Loss | Age-Less Medicine",
+        "Physician-guided weight management with individualized dosing discussions, nutrition guidance and follow-up, with Dr. Linda McClintock in Tampa.",
         "weight",
         body,
     )
@@ -886,12 +1020,12 @@ def build_weight():
 
 def build_injectables():
     body = f"""{page_hero(
-        "Facial rejuvenation",
-        "Injectables",
-        "Dr. Linda is internationally trained in facial rejuvenation with dermal fillers and muscle relaxants.",
-        "images/stock/hallway",
-        "",
-        '<a class="btn btn--ghost" href="skin.html">Skin and facials</a>',
+        "03 · Skin and aesthetics",
+        "Botox and dermal fillers",
+        "Individualized aesthetic consultations with an expert injector, and treatment planning focused on facial balance and your personal preferences.",
+        "hallway", "",
+        '<a class="btn btn--line" href="aesthetics.html">Skin and aesthetics</a>',
+        "Book a consultation", "Botox and dermal fillers",
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
@@ -934,14 +1068,14 @@ def build_injectables():
           <hr class="gold-rule">
           <p class="lede">Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
         </div>
-        {book_block("Injectables", "Book an injectable visit")}
+        {book_block("Botox and dermal fillers", "Book a consultation")}
       </div>
     </section>
 {related_section("injectables")}
 """
     page(
         "injectables.html",
-        "Injectables | Age-Less Medicine",
+        "Botox and Dermal Fillers | Age-Less Medicine",
         "Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments with Dr. Linda McClintock at Age-Less Medicine in Tampa.",
         "injectables",
         body,
@@ -950,12 +1084,12 @@ def build_injectables():
 
 def build_skin():
     body = f"""{page_hero(
-        "Skin care",
+        "03 · Skin and aesthetics",
         "Skin and facials",
-        "From our PRP Stem-Cell Facial to peels and medical grade products, our skin treatments are chosen and supervised by Dr. Linda.",
-        "images/stock/still-life",
-        "",
-        '<a class="btn btn--ghost" href="prp.html">The PRP facial</a>',
+        "From our PRP Stem-Cell Facial to peels and medical-grade skin care, our skin treatments are chosen and supervised by Dr. Linda.",
+        "hero-spa", "",
+        '<a class="btn btn--line" href="prp.html">The PRP facial</a>',
+        "Book a skin visit", "Skin and facials",
     )}
     <section class="section">
       <div class="wrap detail-grid">
@@ -986,25 +1120,7 @@ def build_skin():
         </article>
       </div>
     </section>
-    <section class="section section--ivory">
-      <div class="wrap skin-shop" data-reveal>
-        <div class="skin-shop-copy">
-          <p class="eyebrow">Between visits</p>
-          <h2 class="display">Age-Less skin&nbsp;care</h2>
-          <hr class="gold-rule">
-          <p>Dr. Linda's own line of medical-grade skin care, the same products she uses in the treatment room. Order online and we ship it to you, or pick it up free at our office.</p>
-          <p class="skin-shop-note">Dr. Linda also selects other medical grade lines for our shelves. Ask us at your visit.</p>
-          <div class="btn-row">
-            <a class="btn btn--gold" href="site/index.html#shop">Shop the collection</a>
-            <a class="btn btn--line" href="site/index.html#routine">See her morning routine</a>
-          </div>
-        </div>
-        <a class="skin-shop-photo" href="site/index.html#shop" aria-label="Shop the Age-Less skin care collection">
-          <img src="site/assets/img/hero-lineup-800.webp" alt="The Age-Less Medicine skin care line on a marble counter" width="800" height="599" loading="lazy" decoding="async">
-        </a>
-      </div>
-    </section>
-    <section class="section">
+{shop_band(note="Dr. Linda also selects other medical grade lines for our shelves. Ask us at your visit.")}    <section class="section">
       <div class="wrap prose" data-reveal>
         <p class="eyebrow">Is this visit right for you?</p>
         <h2 class="display">Who it is for</h2>
@@ -1039,9 +1155,9 @@ def build_club():
         "Membership",
         "The Beauty Club",
         "Dr. Linda’s Age-less Savings Account is a simple way to invest in your care each month and build Age-less Bucks toward our products and services.",
-        "images/stock/palms",
-        "",
-        '<a class="btn btn--ghost" href="site/index.html">Visit the shop</a>',
+        "apothecary", "",
+        '<a class="btn btn--line" href="site/index.html">Visit the shop</a>',
+        "Ask about joining", "Beauty Club",
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
@@ -1103,20 +1219,7 @@ def build_club():
           <hr class="gold-rule">
           <p class="lede">Dr. Linda evaluates every supplement we offer. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.</p>
         </div>
-        <div class="shop-grid">
-          <a class="product" data-reveal href="site/index.html?goal=inside#shop">
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/greens.webp"><img src="images/products/greens.jpg" alt="A jar of Age-Less Greens" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Greens</h3><p class="amt">$46.95</p><span class="product-cta">Shop online</span></div>
-          </a>
-          <div class="product product--ask" data-reveal>
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/reds.webp"><img src="images/products/reds.jpg" alt="A jar of Age-Less Reds" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Reds</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
-          </div>
-          <div class="product product--ask" data-reveal>
-            <div class="product-photo"><picture><source type="image/webp" srcset="images/products/purples.webp"><img src="images/products/purples.jpg" alt="A jar of Age-Less Purples" width="470" height="694" loading="lazy" decoding="async"></picture></div>
-            <div class="product-body"><h3>Age-Less Purples</h3><p class="amt-note">Available at our office</p><a class="product-cta" href="tel:+18132864404">Call to ask</a></div>
-          </div>
-        </div>
+{supplements_grid()}
       </div>
     </section>
 """
@@ -1134,10 +1237,11 @@ def build_about():
         "Our physician",
         "Dr. Linda McClintock",
         "Medical director and president of Age-Less Medicine, and a familiar health voice in Tampa Bay.",
-        "images/stock/lounge",
-        "",
-        '<a class="btn btn--ghost" href="contact.html">Visit the office</a>',
+        "lounge", "",
+        '<a class="btn btn--line" href="contact.html">Visit the office</a>',
+        media='<figure class="p-hero-media p-hero-portrait"><img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" fetchpriority="high" decoding="async"></figure>',
     )}
+{welcome_section(story_link=False)}
     <section class="section">
       <div class="wrap about-grid">
         <div class="portrait-frame" data-reveal>
@@ -1181,9 +1285,8 @@ def build_contact():
         "One Urban Centre",
         "Visit our Tampa office",
         "We would be glad to see you in Suite 110. Call, write, or send a visit request and we will help you find a time.",
-        "images/stock/hero-spa",
-        "",
-        '<a class="btn btn--ghost" href="tel:+18132864404">Call (813) 286-4404</a>',
+        "interior-cream", "",
+        '<a class="btn btn--line" href="tel:+18132864404">Call (813) 286-4404</a>',
     )}
     <section class="section">
       <div class="wrap visit-grid">
@@ -1257,6 +1360,9 @@ def build_404():
 if __name__ == "__main__":
     build_es_js()
     build_home()
+    build_longevity()
+    build_metabolic()
+    build_aesthetics()
     build_prp()
     build_hormones()
     build_weight()

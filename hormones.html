@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="view-transition" content="same-origin">
-  <title>Hormone and Age Management | Age-Less Medicine</title>
+  <title>Hormone Optimization | Age-Less Medicine</title>
   <style>html,body{background:#faf6ee}</style>
-  <meta name="description" content="Bio-identical hormone care and age management with Dr. Linda McClintock in Tampa, including labs, EKG, body fat analysis, and a nutritional consult.">
+  <meta name="description" content="Individualized hormone assessment for women and men with Dr. Linda McClintock in Tampa, including appropriate lab evaluation and a discussion of treatment options.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20261114-unify">
+  <link rel="stylesheet" href="css/styles.css?v=20261115-clinic">
+  <link rel="stylesheet" href="css/clinic.css?v=20261115-clinic">
   <noscript><style>[data-reveal]{opacity:1;transform:none}</style></noscript>
   <script>(function(){var l=new URLSearchParams(location.search).get("lang");try{l=l||localStorage.getItem("al-lang")}catch(e){}if(l==="es"){document.documentElement.classList.add("lang-pending");setTimeout(function(){document.documentElement.classList.remove("lang-pending")},1500)}})();</script>
 </head>
-<body>
+<body class="clinic page-hormones">
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
+  <header class="site-header is-solid">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
         <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
@@ -36,73 +37,87 @@
           <span class="brand-sub">Medicine</span>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu"><span></span></button>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" id="site-nav" aria-label="Primary">
         <div class="has-sub">
-          <button class="nav-label" type="button" aria-expanded="false" aria-current="page">Treatments</button>
-          <div class="subnav">
-            <a href="hormones.html" aria-current="page">Hormone and age management</a>
-            <a href="weight-loss.html">Medical weight loss</a>
-            <a href="injectables.html">Injectables</a>
-            <a href="skin.html">Skin and facials</a>
-            <a href="prp.html">PRP Stem-Cell Facial</a>
+          <button class="nav-label" type="button" aria-expanded="false" aria-controls="treat-menu" aria-current="true">Treatments</button>
+          <div class="subnav mega" id="treat-menu">
+            <div class="mega-col">
+              <a class="mega-head" href="longevity.html"><span class="mega-n">01</span><span>Longevity and hormones</span></a>
+              <p class="mega-tag">A foundation for wellness.</p>
+              <ul>
+                <li><a href="longevity.html#assessments">Longevity and wellness assessments</a></li>
+                <li><a href="hormones.html" aria-current="page">Hormone optimization</a></li>
+                <li><a href="longevity.html#peptides">Peptide expertise</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-head" href="metabolic.html"><span class="mega-n">02</span><span>Metabolic and IV care</span></a>
+              <p class="mega-tag">Support your health goals.</p>
+              <ul>
+                <li><a href="weight-loss.html">Micro-dose GLP-1 weight loss</a></li>
+                <li><a href="metabolic.html#iv">Customized IV therapies</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-head" href="aesthetics.html"><span class="mega-n">03</span><span>Skin and aesthetics</span></a>
+              <p class="mega-tag">Your beauty. Your way.</p>
+              <ul>
+                <li><a href="injectables.html">Botox and dermal fillers</a></li>
+                <li><a href="skin.html">Skin and facials</a></li>
+                <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
+                <li><a href="aesthetics.html#supplements">Age-Less vitamins and supplements</a></li>
+                <li><a href="site/index.html#shop">Age-Less skin care</a></li>
+              </ul>
+            </div>
+            <div class="mega-foot">
+              <a href="index.html#approach">The Age-Less approach</a>
+              <a href="index.html#find-treatment" data-open-quiz>Not sure where to start? Find your treatment</a>
+            </div>
           </div>
         </div>
-        <a href="about.html">The doctor</a>
+        <a href="index.html#approach">Our approach</a>
+        <a href="about.html">Dr. Linda</a>
         <a href="beauty-club.html">Beauty Club</a>
-        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="contact.html">Visit</a>
-        <a class="cross-link" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
-        <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
+        <a class="cross-link nav-shop" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
+        <a class="btn btn--gold nav-book" href="#book" data-open-booking>Book a visit</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      <div class="header-tools">
+        <a class="cross-link cross-link--bar" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></button>
       </div>
     </div>
   </header>
+  <div class="voice-pop" id="voice-pop" role="status" aria-live="polite" hidden>
+    <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p>Her welcome, in her own voice, is coming soon.</p>
+  </div>
   <main id="main">
-    <section class="page-hero">
-      <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="images/stock/lounge.webp">
-          <img src="images/stock/lounge.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
-        </picture>
-      </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow">Inside out</p>
-        <h1 class="display">Hormone and age&nbsp;management</h1>
-        <hr class="gold-rule">
-        <p class="lede">Age management, for us, is the science of youthful aging: helping you maintain health and energy for as long as possible.</p>
-        <div class="btn-row">
-          <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          <a class="btn btn--ghost" href="weight-loss.html">Explore weight management</a>
+    <section class="p-hero">
+      <div class="wrap p-hero-grid">
+        <div class="p-hero-copy">
+          <p class="eyebrow">01 · Longevity and hormones</p>
+          <h1 class="display">Hormone&nbsp;optimization</h1>
+          <p class="lede">An individualized assessment for women and men, including symptoms, appropriate lab evaluation and a discussion of treatment options.</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Hormone optimization">Book this visit</a>
+            <a class="btn btn--line" href="longevity.html">Longevity and hormones</a>
+          </div>
         </div>
+        <figure class="p-hero-media"><picture><source type="image/webp" srcset="images/stock/palms.webp"><img src="images/stock/palms.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async"></picture></figure>
       </div>
     </section>
     <section class="section">
       <div class="wrap prose" data-reveal>
-        <p>Your first visits with Dr. Linda begin with a careful look at your medical history, blood analysis, and other biological markers. From there she creates an individualized program that may include bio-identical hormone care, nutrition, and exercise.</p>
+        <p>Your first visits with Dr. Linda begin with a careful look at your medical history, blood analysis and other biological markers. From there she creates an individualized program that may include bio-identical hormone care, nutrition and exercise.</p>
         <p>We see this work as a partnership. The goal is a plan that fits your life, reviewed over time as your needs change.</p>
       </div>
     </section>
-    <section class="section">
-      <div class="wrap prose" data-reveal>
-        <h2 class="display">Specialized&nbsp;testing</h2>
-        <hr class="gold-rule">
-        <p>When it is helpful, we also offer specialized testing. Spectracell analysis looks at selected vitamins, minerals, antioxidants, and other micronutrients inside your white blood cells. ALCAT testing can identify foods that may be a problem for you. After your results return, you meet with Dr. Linda, and you may also meet with our nutritionist.</p>
-      </div>
-    </section>
     <section class="section section--ivory">
-      <div class="wrap prose" data-reveal>
-        <p class="eyebrow">Is this visit right for you?</p>
-        <h2 class="display">Who it is&nbsp;for</h2>
-        <hr class="gold-rule">
-        <p>We welcome women and men who want a thoughtful look at how they age and how they feel. Dr. Linda creates an individualized program that may include bio-identical hormone care, nutrition, and exercise, based on your history, labs, and goals.</p>
-      </div>
-    </section>
-    <section class="section">
       <div class="wrap" data-reveal>
         <div class="section-head">
           <p class="eyebrow">Your visit</p>
@@ -125,39 +140,33 @@
           </article>
         </div>
                 <div class="btn-row" style="margin-top:2rem">
-          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Hormone and age management">Book this visit</a>
+          <a class="btn btn--gold" href="#book" data-open-booking data-treatment="Hormone optimization">Book this visit</a>
           <a class="btn btn--line" href="contact.html">Visit our office</a>
         </div>
+        <p class="fine fine--block">Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary.</p>
       </div>
     </section>
-    <section class="section section--ivory related">
+    <section class="section related">
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Continue exploring</p>
           <h2 class="display">You might also&nbsp;like</h2>
-          <hr class="gold-rule">
         </div>
         <div class="related-grid">
-          <a class="related-card" href="weight-loss.html" data-reveal>
-            <picture>
-              <source type="image/webp" srcset="images/stock/interior-cream.webp">
-              <img src="images/stock/interior-cream.jpg" alt="" width="900" height="600" loading="lazy" decoding="async">
-            </picture>
-            <div>
-              <h3>Medical weight loss</h3>
-              <p>Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life.</p>
-              <span class="treat-more">Explore this visit</span>
+          <a class="related-card" href="longevity.html" data-reveal>
+            <div class="related-media"><picture><source type="image/webp" srcset="images/stock/lounge.webp"><img src="images/stock/lounge.jpg" alt="" width="1800" height="1350" loading="lazy" decoding="async"></picture></div>
+            <div class="related-body">
+              <h3>Longevity and hormones</h3>
+              <p>Assessments, hormone optimization and peptide expertise, built around your goals.</p>
+              <span class="more-link">Explore</span>
             </div>
           </a>
-          <a class="related-card" href="beauty-club.html" data-reveal>
-            <picture>
-              <source type="image/webp" srcset="images/stock/palms.webp">
-              <img src="images/stock/palms.jpg" alt="" width="900" height="600" loading="lazy" decoding="async">
-            </picture>
-            <div>
-              <h3>Beauty Club</h3>
-              <p>A monthly Age-less Savings Account that builds Age-less Bucks toward products and services.</p>
-              <span class="treat-more">Explore this visit</span>
+          <a class="related-card" href="weight-loss.html" data-reveal>
+            <div class="related-media"><picture><source type="image/webp" srcset="images/stock/apothecary.webp"><img src="images/stock/apothecary.jpg" alt="" width="1400" height="2100" loading="lazy" decoding="async"></picture></div>
+            <div class="related-body">
+              <h3>Micro-dose GLP-1 weight loss</h3>
+              <p>Physician-guided weight management with nutrition guidance and follow-up.</p>
+              <span class="more-link">Explore</span>
             </div>
           </a>
         </div>
@@ -168,8 +177,8 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div>
-        <a class="brand" href="index.html">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
           <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
           <g fill="currentColor">
@@ -182,6 +191,7 @@
         </svg>
           <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
         </a>
+        <p class="footer-tag">Personalized longevity, wellness and aesthetic care.</p>
         <p>Linda McClintock, M.D.<br>Medical Director and President</p>
         <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
       </div>
@@ -196,14 +206,13 @@
         </ul>
       </div>
       <div>
-        <h2>Explore</h2>
+        <h2>Our care</h2>
         <ul class="footer-list">
+          <li><a href="longevity.html">Longevity and hormones</a></li>
+          <li><a href="metabolic.html">Metabolic and IV care</a></li>
+          <li><a href="aesthetics.html">Skin and aesthetics</a></li>
+          <li><a href="index.html#approach">The Age-Less approach</a></li>
           <li><a href="about.html">About Dr. Linda</a></li>
-          <li><a href="hormones.html">Hormone and age management</a></li>
-          <li><a href="weight-loss.html">Medical weight loss</a></li>
-          <li><a href="injectables.html">Injectables</a></li>
-          <li><a href="skin.html">Skin and facials</a></li>
-          <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
           <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
@@ -220,9 +229,12 @@
         <p class="footer-ship">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
       </div>
     </div>
+    <div class="wrap footer-disclaimer">
+      <p>Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary. Results are not guaranteed.</p>
+    </div>
     <div class="wrap legal">
       <p>Concept by Argus AI.</p>
-      <p>&copy; Age-Less Medicine. Care for women and men in Tampa.</p>
+      <p>&copy; Age-Less Medicine. Personalized medicine. Every stage.</p>
     </div>
   </footer>
   <div class="book-bar" role="region" aria-label="Quick booking">
@@ -244,9 +256,12 @@
             <select id="visit-treatment" name="treatment" required>
               <option value="" disabled selected>Select a visit type</option>
             <option value="Consultation">Consultation</option>
-            <option value="Hormone and age management">Hormone and age management</option>
-            <option value="Medical weight loss">Medical weight loss</option>
-            <option value="Injectables">Injectables</option>
+            <option value="Longevity and wellness assessment">Longevity and wellness assessment</option>
+            <option value="Hormone optimization">Hormone optimization</option>
+            <option value="Peptide consultation">Peptide consultation</option>
+            <option value="Micro-dose GLP-1 weight loss">Micro-dose GLP-1 weight loss</option>
+            <option value="IV therapy">IV therapy</option>
+            <option value="Botox and dermal fillers">Botox and dermal fillers</option>
             <option value="Skin and facials">Skin and facials</option>
             <option value="PRP Stem-Cell Facial">PRP Stem-Cell Facial</option>
             <option value="Beauty Club">Beauty Club</option>
@@ -299,8 +314,8 @@
       <div id="quiz-app"></div>
     </div>
   </div>
-  <script src="js/i18n-es.js?v=20261114-unify" defer></script>
-  <script src="js/lang.js?v=20261114-unify" defer></script>
-  <script src="js/main.js?v=20261114-unify" defer></script>
+  <script src="js/i18n-es.js?v=20261115-clinic" defer></script>
+  <script src="js/lang.js?v=20261115-clinic" defer></script>
+  <script src="js/main.js?v=20261115-clinic" defer></script>
 </body>
 </html>

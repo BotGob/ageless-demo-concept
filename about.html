@@ -12,13 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20261114-unify">
+  <link rel="stylesheet" href="css/styles.css?v=20261115-clinic">
+  <link rel="stylesheet" href="css/clinic.css?v=20261115-clinic">
   <noscript><style>[data-reveal]{opacity:1;transform:none}</style></noscript>
   <script>(function(){var l=new URLSearchParams(location.search).get("lang");try{l=l||localStorage.getItem("al-lang")}catch(e){}if(l==="es"){document.documentElement.classList.add("lang-pending");setTimeout(function(){document.documentElement.classList.remove("lang-pending")},1500)}})();</script>
 </head>
-<body>
+<body class="clinic page-about">
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
+  <header class="site-header is-solid">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
         <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
@@ -36,51 +37,103 @@
           <span class="brand-sub">Medicine</span>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu"><span></span></button>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" id="site-nav" aria-label="Primary">
         <div class="has-sub">
-          <button class="nav-label" type="button" aria-expanded="false">Treatments</button>
-          <div class="subnav">
-            <a href="hormones.html">Hormone and age management</a>
-            <a href="weight-loss.html">Medical weight loss</a>
-            <a href="injectables.html">Injectables</a>
-            <a href="skin.html">Skin and facials</a>
-            <a href="prp.html">PRP Stem-Cell Facial</a>
+          <button class="nav-label" type="button" aria-expanded="false" aria-controls="treat-menu">Treatments</button>
+          <div class="subnav mega" id="treat-menu">
+            <div class="mega-col">
+              <a class="mega-head" href="longevity.html"><span class="mega-n">01</span><span>Longevity and hormones</span></a>
+              <p class="mega-tag">A foundation for wellness.</p>
+              <ul>
+                <li><a href="longevity.html#assessments">Longevity and wellness assessments</a></li>
+                <li><a href="hormones.html">Hormone optimization</a></li>
+                <li><a href="longevity.html#peptides">Peptide expertise</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-head" href="metabolic.html"><span class="mega-n">02</span><span>Metabolic and IV care</span></a>
+              <p class="mega-tag">Support your health goals.</p>
+              <ul>
+                <li><a href="weight-loss.html">Micro-dose GLP-1 weight loss</a></li>
+                <li><a href="metabolic.html#iv">Customized IV therapies</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-head" href="aesthetics.html"><span class="mega-n">03</span><span>Skin and aesthetics</span></a>
+              <p class="mega-tag">Your beauty. Your way.</p>
+              <ul>
+                <li><a href="injectables.html">Botox and dermal fillers</a></li>
+                <li><a href="skin.html">Skin and facials</a></li>
+                <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
+                <li><a href="aesthetics.html#supplements">Age-Less vitamins and supplements</a></li>
+                <li><a href="site/index.html#shop">Age-Less skin care</a></li>
+              </ul>
+            </div>
+            <div class="mega-foot">
+              <a href="index.html#approach">The Age-Less approach</a>
+              <a href="index.html#find-treatment" data-open-quiz>Not sure where to start? Find your treatment</a>
+            </div>
           </div>
         </div>
-        <a href="about.html" aria-current="page">The doctor</a>
+        <a href="index.html#approach">Our approach</a>
+        <a href="about.html" aria-current="page">Dr. Linda</a>
         <a href="beauty-club.html">Beauty Club</a>
-        <a href="index.html#find-treatment" data-open-quiz>Find your treatment</a>
         <a href="contact.html">Visit</a>
-        <a class="cross-link" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
-        <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
+        <a class="cross-link nav-shop" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
+        <a class="btn btn--gold nav-book" href="#book" data-open-booking>Book a visit</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      <div class="header-tools">
+        <a class="cross-link cross-link--bar" href="site/index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Shop</span></a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></button>
       </div>
     </div>
   </header>
+  <div class="voice-pop" id="voice-pop" role="status" aria-live="polite" hidden>
+    <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p>Her welcome, in her own voice, is coming soon.</p>
+  </div>
   <main id="main">
-    <section class="page-hero">
-      <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="images/stock/lounge.webp">
-          <img src="images/stock/lounge.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
-        </picture>
+    <section class="p-hero">
+      <div class="wrap p-hero-grid">
+        <div class="p-hero-copy">
+          <p class="eyebrow">Our physician</p>
+          <h1 class="display">Dr. Linda&nbsp;McClintock</h1>
+          <p class="lede">Medical director and president of Age-Less Medicine, and a familiar health voice in Tampa Bay.</p>
+          <div class="btn-row">
+            <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
+            <a class="btn btn--line" href="contact.html">Visit the office</a>
+          </div>
+        </div>
+        <figure class="p-hero-media p-hero-portrait"><img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" fetchpriority="high" decoding="async"></figure>
       </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow">Our physician</p>
-        <h1 class="display">Dr. Linda&nbsp;McClintock</h1>
-        <hr class="gold-rule">
-        <p class="lede">Medical director and president of Age-Less Medicine, and a familiar health voice in Tampa Bay.</p>
-        <div class="btn-row">
-          <a class="btn btn--gold" href="#book" data-open-booking>Book a visit</a>
-          <a class="btn btn--ghost" href="contact.html">Visit the office</a>
+    </section>
+    <!-- WELCOME NOTE: DRAFT placeholder copy for Dr. Linda to approve or rewrite. Not her words yet.
+         Audio: the play button shows "coming soon" (same as the shop) until her recording is added (js/main.js initVoice). -->
+    <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+      <div class="wrap welcome-grid">
+        <figure class="welcome-photo" data-reveal>
+          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
+        </figure>
+        <div class="welcome-copy" data-reveal>
+          <p class="eyebrow" id="welcome-title">A welcome from Dr. Linda</p>
+          <p class="welcome-text">Welcome, and thank you for being here. I want everyone who walks through our door to feel heard, cared for, and never rushed. Whether you come in with a clear goal or simply a question, we will take the time to understand what matters to you. I look forward to meeting you.</p>
+          <p class="welcome-sign">Dr. Linda McClintock</p>
+          <p class="welcome-role">Medical Director and President</p>
+          <div class="welcome-actions">
+          <button class="voice-big" type="button" data-voice aria-describedby="voice-pop">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg></span>
+            <span>Tap to hear Dr. Linda</span>
+            <span class="wave sm" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          </button>
+          </div>
         </div>
       </div>
     </section>
+
     <section class="section">
       <div class="wrap about-grid">
         <div class="portrait-frame" data-reveal>
@@ -113,8 +166,8 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div>
-        <a class="brand" href="index.html">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Age-Less Medicine home">
           <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
           <g fill="currentColor">
@@ -127,6 +180,7 @@
         </svg>
           <span class="brand-text"><span class="brand-name">Age-Less</span><span class="brand-sub">Medicine</span></span>
         </a>
+        <p class="footer-tag">Personalized longevity, wellness and aesthetic care.</p>
         <p>Linda McClintock, M.D.<br>Medical Director and President</p>
         <p>One Urban Centre<br>4830 West Kennedy Boulevard, Suite 110<br>Tampa, Florida 33609</p>
       </div>
@@ -141,14 +195,13 @@
         </ul>
       </div>
       <div>
-        <h2>Explore</h2>
+        <h2>Our care</h2>
         <ul class="footer-list">
+          <li><a href="longevity.html">Longevity and hormones</a></li>
+          <li><a href="metabolic.html">Metabolic and IV care</a></li>
+          <li><a href="aesthetics.html">Skin and aesthetics</a></li>
+          <li><a href="index.html#approach">The Age-Less approach</a></li>
           <li><a href="about.html">About Dr. Linda</a></li>
-          <li><a href="hormones.html">Hormone and age management</a></li>
-          <li><a href="weight-loss.html">Medical weight loss</a></li>
-          <li><a href="injectables.html">Injectables</a></li>
-          <li><a href="skin.html">Skin and facials</a></li>
-          <li><a href="prp.html">PRP Stem-Cell Facial</a></li>
           <li><a href="beauty-club.html">Beauty Club</a></li>
           <li><a href="index.html#find-treatment" data-open-quiz>Find your treatment</a></li>
           <li><a href="contact.html">Contact and visit</a></li>
@@ -165,9 +218,12 @@
         <p class="footer-ship">Shipping is $9.95, free on orders of $100 or more. Free pickup at our Tampa office.</p>
       </div>
     </div>
+    <div class="wrap footer-disclaimer">
+      <p>Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary. Results are not guaranteed.</p>
+    </div>
     <div class="wrap legal">
       <p>Concept by Argus AI.</p>
-      <p>&copy; Age-Less Medicine. Care for women and men in Tampa.</p>
+      <p>&copy; Age-Less Medicine. Personalized medicine. Every stage.</p>
     </div>
   </footer>
   <div class="book-bar" role="region" aria-label="Quick booking">
@@ -189,9 +245,12 @@
             <select id="visit-treatment" name="treatment" required>
               <option value="" disabled selected>Select a visit type</option>
             <option value="Consultation">Consultation</option>
-            <option value="Hormone and age management">Hormone and age management</option>
-            <option value="Medical weight loss">Medical weight loss</option>
-            <option value="Injectables">Injectables</option>
+            <option value="Longevity and wellness assessment">Longevity and wellness assessment</option>
+            <option value="Hormone optimization">Hormone optimization</option>
+            <option value="Peptide consultation">Peptide consultation</option>
+            <option value="Micro-dose GLP-1 weight loss">Micro-dose GLP-1 weight loss</option>
+            <option value="IV therapy">IV therapy</option>
+            <option value="Botox and dermal fillers">Botox and dermal fillers</option>
             <option value="Skin and facials">Skin and facials</option>
             <option value="PRP Stem-Cell Facial">PRP Stem-Cell Facial</option>
             <option value="Beauty Club">Beauty Club</option>
@@ -244,8 +303,8 @@
       <div id="quiz-app"></div>
     </div>
   </div>
-  <script src="js/i18n-es.js?v=20261114-unify" defer></script>
-  <script src="js/lang.js?v=20261114-unify" defer></script>
-  <script src="js/main.js?v=20261114-unify" defer></script>
+  <script src="js/i18n-es.js?v=20261115-clinic" defer></script>
+  <script src="js/lang.js?v=20261115-clinic" defer></script>
+  <script src="js/main.js?v=20261115-clinic" defer></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 (function () {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var lastOpener = null;
+  var NAV_MQ = "(max-width: 1080px)";
   var trapCleanup = null;
 
   function ready(fn) {
@@ -129,14 +130,30 @@
       });
     }
     if (submenu && subButton) {
+      var setSub = function (open) {
+        submenu.classList.toggle("is-open", open);
+        subButton.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+      // Phone: accordion inside the menu. Desktop: click or keyboard opens the Treatments panel
+      // (hover still previews it). Escape or a click outside closes it.
       subButton.addEventListener("click", function (event) {
-        if (window.matchMedia("(max-width: 900px)").matches) {
-          event.preventDefault();
-          submenu.classList.toggle("is-open");
-          subButton.setAttribute("aria-expanded", submenu.classList.contains("is-open") ? "true" : "false");
+        event.preventDefault();
+        setSub(!submenu.classList.contains("is-open"));
+      });
+      document.addEventListener("click", function (event) {
+        if (!submenu.contains(event.target) && !window.matchMedia(NAV_MQ).matches) setSub(false);
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && submenu.classList.contains("is-open") && !window.matchMedia(NAV_MQ).matches) {
+          setSub(false);
+          subButton.focus();
         }
       });
+      submenu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setSub(false); }); });
     }
+    window.addEventListener("resize", function () {
+      if (!window.matchMedia(NAV_MQ).matches && header && header.classList.contains("nav-open")) closeNav();
+    });
   }
 
   function initReveals() {
@@ -339,15 +356,22 @@
   /* Welcome note: placeholder until Dr. Linda records her welcome.
      LIVE BUILD: play her recording here, e.g. new Audio("audio/welcome-" + lang + ".mp3").play() */
   function initVoiceNote() {
-    var btn = document.querySelector("[data-voice-note]");
-    var note = document.getElementById("voice-note");
-    if (!btn || !note) return;
-    var timer = null;
-    btn.addEventListener("click", function () {
-      note.hidden = false;
+    // Same behaviour as the shop's "Tap to hear Dr. Linda": a small "coming soon" card with a moving
+    // waveform for a few seconds. LIVE BUILD: play her recording here instead, e.g.
+    // new Audio("audio/welcome-" + (window.ALi18n ? ALi18n.lang() : "en") + ".mp3").play()
+    var pop = document.getElementById("voice-pop");
+    if (!pop) return;
+    var timer = null, active = null;
+    document.addEventListener("click", function (event) {
+      var btn = event.target.closest("[data-voice]");
+      if (!btn) return;
+      if (active) active.classList.remove("is-playing");
+      active = btn;
       btn.classList.add("is-playing");
+      pop.hidden = false;
+      pop.style.animation = "none"; void pop.offsetWidth; pop.style.animation = "";
       clearTimeout(timer);
-      timer = setTimeout(function () { note.hidden = true; btn.classList.remove("is-playing"); }, 4200);
+      timer = setTimeout(function () { pop.hidden = true; btn.classList.remove("is-playing"); }, 3600);
     });
   }
 
@@ -355,43 +379,78 @@
     first: {
       title: "What brings you in?",
       options: [
-        { id: "skin", label: "Skin and facials" },
-        { id: "weight", label: "Weight" },
-        { id: "energy", label: "Energy and hormones" },
-        { id: "lines", label: "Smoothing lines" }
+        { id: "energy", label: "Energy, hormones and healthy aging" },
+        { id: "weight", label: "Weight and metabolic health" },
+        { id: "lines", label: "Smoothing lines" },
+        { id: "skin", label: "Skin and facials" }
       ]
     },
     second: {
+      energy: {
+        title: "Where would you like to begin?",
+        options: [
+          { id: "longevity", label: "A longevity and wellness assessment" },
+          { id: "hormones", label: "Hormone optimization with Dr. Linda" }
+        ]
+      },
+      weight: {
+        title: "What would you like to explore first?",
+        options: [
+          { id: "weight", label: "Our micro-dose GLP-1 weight loss program" },
+          { id: "iv", label: "Customized IV therapies" }
+        ]
+      },
+      lines: {
+        title: "Which approach sounds closer?",
+        options: [
+          { id: "injectables", label: "Botox and dermal fillers" },
+          { id: "skin", label: "Skin treatments and facials" }
+        ]
+      },
       skin: {
         title: "What kind of skin visit interests you?",
         options: [
           { id: "prp", label: "A PRP facial using a preparation from your own blood" },
           { id: "skin", label: "Our wider range of facials and skin treatments" }
         ]
-      },
-      weight: {
-        title: "What would you like to explore first?",
-        options: [
-          { id: "weight", label: "Our medically supervised weight program" },
-          { id: "hormones", label: "Hormone and age care that may also play a part" }
-        ]
-      },
-      energy: {
-        title: "Where would you like to begin?",
-        options: [
-          { id: "hormones", label: "Hormone and age management with Dr. Linda" },
-          { id: "weight", label: "Medically supervised weight care" }
-        ]
-      },
-      lines: {
-        title: "Which approach sounds closer?",
-        options: [
-          { id: "injectables", label: "Injectables such as muscle relaxants and fillers" },
-          { id: "skin", label: "Skin treatments and facials" }
-        ]
       }
     },
     results: {
+      longevity: {
+        title: "Longevity and wellness assessment",
+        lede: "A personalized review of your health history, lifestyle and wellness priorities, with testing guided by clinical needs.",
+        href: "longevity.html#assessments",
+        treatment: "Longevity and wellness assessment",
+        cta: "Explore longevity and hormones"
+      },
+      hormones: {
+        title: "Hormone optimization",
+        lede: "An individualized assessment for women and men, including symptoms, appropriate lab evaluation and a discussion of treatment options.",
+        href: "hormones.html",
+        treatment: "Hormone optimization",
+        cta: "Explore this visit"
+      },
+      weight: {
+        title: "Micro-dose GLP-1 weight loss",
+        lede: "Physician-guided weight management with individualized dosing discussions, nutrition guidance and follow-up for eligible patients.",
+        href: "weight-loss.html",
+        treatment: "Micro-dose GLP-1 weight loss",
+        cta: "See how it works"
+      },
+      iv: {
+        title: "Customized IV therapies",
+        lede: "Personalized IV formulations, selected after a review of your medical history, your needs and whether treatment is suitable for you.",
+        href: "metabolic.html#iv",
+        treatment: "IV therapy",
+        cta: "Explore metabolic and IV care"
+      },
+      injectables: {
+        title: "Botox and dermal fillers",
+        lede: "Individualized aesthetic consultations with an expert injector, and treatment planning focused on facial balance and your personal preferences.",
+        href: "injectables.html",
+        treatment: "Botox and dermal fillers",
+        cta: "Explore this visit"
+      },
       prp: {
         title: "The PRP Stem\u2011Cell\u00a0Facial",
         lede: "A facial that uses a preparation from your own blood, applied with micro-needling.",
@@ -401,31 +460,10 @@
       },
       skin: {
         title: "Skin and facials",
-        lede: "PRP facials, micro-needling, Diamond Tome microdermabrasion, Dermawave, Cosmelan, and Fire and Ice, chosen and supervised by Dr. Linda.",
+        lede: "PRP facials, micro-needling, Diamond Tome microdermabrasion, Cosmelan and medical grade peels, chosen and supervised by Dr. Linda.",
         href: "skin.html",
         treatment: "Skin and facials",
         cta: "Explore skin treatments"
-      },
-      weight: {
-        title: "Medical weight loss",
-        lede: "Our Couture Lifestyle Modification program is a three-step, medically supervised plan tailored to your life.",
-        href: "weight-loss.html",
-        treatment: "Medical weight loss",
-        cta: "See how it works"
-      },
-      hormones: {
-        title: "Hormone and age management",
-        lede: "An individualized plan based on your history, labs, and goals, with attention to hormones, nutrition, and exercise.",
-        href: "hormones.html",
-        treatment: "Hormone and age management",
-        cta: "Explore this visit"
-      },
-      injectables: {
-        title: "Injectables",
-        lede: "Muscle relaxants and dermal fillers, including Botox, Dysport, Restylane, Juvederm, Radiesse, and liquid facelift treatments.",
-        href: "injectables.html",
-        treatment: "Injectables",
-        cta: "View injectables"
       }
     }
   };
@@ -551,7 +589,7 @@
       return;
     }
 
-    var mobile = window.matchMedia("(max-width: 900px)").matches;
+    var mobile = window.matchMedia(NAV_MQ).matches;
     var webm = video.canPlayType('video/webm; codecs="vp9"') || video.canPlayType("video/webm");
     var src = mobile
       ? (webm ? "images/stock/hero-ambient-sm.webm" : "images/stock/hero-ambient-sm.mp4")
