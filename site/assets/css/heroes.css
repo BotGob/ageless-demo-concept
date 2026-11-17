@@ -148,7 +148,7 @@
   .hv-b .hv-photo { position: relative; inset: auto; aspect-ratio: 4 / 4.3; }
   .hv-b .hv-photo img { object-position: 50% 78%; }
   .hv-b::after { display: none; }
-  .hv-b .hv-copy { padding: 30px 22px 44px; }
+  .hv-b .hv-copy { padding: 30px 22px calc(28px + 96px + env(safe-area-inset-bottom)); }
   .hv-b .hv-title { font-size: clamp(2.7rem, 12.4vw, 3.8rem); }
 
   .hv-c { height: auto; min-height: 0; grid-template-columns: 1fr; }
@@ -209,7 +209,7 @@
 .hv-b .hv-title { font-size: clamp(3rem, 5.4vw, 5.6rem); }
 .hv-b .hv-sub { color: #463f37; }
 .hv-b .hv-photo img { object-position: 40% 50%; }
-@media (max-width: 860px) { .hv-b .hv-copy { padding: 30px 22px 44px; } .hv-b .hv-photo img { object-position: 50% 80%; } }
+@media (max-width: 860px) { .hv-b .hv-copy { padding: 30px 22px calc(28px + 96px + env(safe-area-inset-bottom)); } .hv-b .hv-photo img { object-position: 50% 80%; } }
 .hv-b .hv-title em { color: #6e5326; }
 .hv-b .hv-sub { color: #3a342d; }
 .hv-b .hv-copy::before { content: ""; position: absolute; z-index: -1; left: -10%; right: -20%; top: 10%; bottom: -10%; background: radial-gradient(closest-side, rgba(246, 240, 230, 0.5), rgba(246, 240, 230, 0)); pointer-events: none; }

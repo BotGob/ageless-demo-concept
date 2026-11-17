@@ -129,10 +129,24 @@
 
   /* ---------- Product grid with concern filter ---------- */
   var grid = $('#grid'), picks = $('#picks');
+  var IMG_WH = {
+    'assets/img/peptide-rx.webp': [451, 900],
+    'assets/img/sunscreen-50.webp': [442, 900],
+    'assets/img/lumineyes.webp': [423, 900],
+    'assets/img/firm-neck.webp': [700, 618],
+    'assets/img/greens.webp': [470, 694],
+    'assets/img/hero-lineup-800.webp': [800, 599],
+    'assets/img/cleanse-repair.webp': [458, 900],
+    'assets/img/hydration-mist.webp': [294, 900]
+  };
+  function imgWH(src) {
+    var d = IMG_WH[src];
+    return d ? ' width="' + d[0] + '" height="' + d[1] + '"' : '';
+  }
   function mediaHTML(p, cls) {
-    if (p.photo) return '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '" loading="lazy">';
-    if (p.bundle) return '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt="" loading="lazy">'; }).join('') + '</div>';
-    return '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '" loading="lazy">';
+    if (p.photo) return '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' loading="lazy" decoding="async">';
+    if (p.bundle) return '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt=""' + imgWH(PIECES[k].img) + ' loading="lazy" decoding="async">'; }).join('') + '</div>';
+    return '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' loading="lazy" decoding="async">';
   }
   function cardHTML(p, isLead, dim) {
     var price = '<span class="price"><span>' + money(p.price) + '</span>' + (p.compareAt ? '<s>' + money(p.compareAt) + '</s>' : '') + '</span>';
@@ -235,7 +249,7 @@
   function openDrawer(id) { openDrawerId = id; drawerQty = 1; fillDrawer(id); if (drawer.hidden) show(drawer); $('.drawer-body').scrollTop = 0; }
   function fillDrawer(id) {
     var p = byId[id], h = '';
-    h += '<div class="d-media' + (p.photo ? ' is-photo' : '') + '">' + (p.photo ? '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '">' : p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt="">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '">') + '</div>';
+    h += '<div class="d-media' + (p.photo ? ' is-photo' : '') + '">' + (p.photo ? '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">' : p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt=""' + imgWH(PIECES[k].img) + ' decoding="async">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">') + '</div>';
     h += '<div class="d-info"><span class="tag-lead" style="display:inline-flex">' + esc(L(p.badge)) + '</span>';
     h += '<h2 id="drawerTitle">' + esc(L(p.name)) + (p.supplement ? '*' : '') + '</h2><div class="d-size">' + esc(L(p.size)) + '</div>';
     h += '<div class="price-row" style="margin-top:14px"><span class="price">' + money(p.price) + (p.compareAt ? '<s>' + money(p.compareAt) + '</s>' : '') + '</span><span class="sample">' + esc(t('sample')) + '</span></div>';
@@ -252,7 +266,7 @@
     }
     if (p.keys && p.keys.length) h += '<ul class="d-keys">' + p.keys.map(function (k) { var v = k[lang] || k.en; return '<li><b>' + esc(v[0]) + '</b><span>' + esc(v[1]) + '</span></li>'; }).join('') + '</ul>';
     if (p.bundle) {
-      h += '<div class="box"><h3>' + esc(t('in_box')) + '</h3><ol>' + p.bundle.map(function (k) { var x = PIECES[k]; return '<li><img src="' + x.img + '" alt=""><div><b>' + esc(L(x.name)) + '</b><span>' + esc(L(x.note)) + '</span></div></li>'; }).join('') + '</ol></div>';
+      h += '<div class="box"><h3>' + esc(t('in_box')) + '</h3><ol>' + p.bundle.map(function (k) { var x = PIECES[k]; return '<li><img src="' + x.img + '" alt=""' + imgWH(x.img) + ' loading="lazy" decoding="async"><div><b>' + esc(L(x.name)) + '</b><span>' + esc(L(x.note)) + '</span></div></li>'; }).join('') + '</ol></div>';
     }
     if (p.supplement) h += '<p class="d-sub">' + esc(t('foot_supp')) + '</p>';
     h += '</div><div class="d-buy"><div class="stepper" role="group" aria-label="' + esc(t('qty')) + '"><button type="button" data-dq="-1" aria-label="-">&minus;</button><output id="dQty">' + drawerQty + '</output><button type="button" data-dq="1" aria-label="+">+</button></div>' +
@@ -319,7 +333,7 @@
     cartEl.classList.toggle('empty', n === 0);
     $('#cartLines').innerHTML = cart.map(function (l) {
       var p = byId[l.id];
-      return '<li class="line-item" data-line="' + l.id + '"><div class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""></div><div><h4>' + esc(L(p.name)) + '</h4>' +
+      return '<li class="line-item" data-line="' + l.id + '"><div class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""' + imgWH(p.img || PIECES['peptide-rx'].img) + ' loading="lazy" decoding="async"></div><div><h4>' + esc(L(p.name)) + '</h4>' +
         '<div class="meta"><div class="stepper sm" role="group" aria-label="' + esc(t('qty')) + '"><button type="button" data-q="-1" aria-label="-">&minus;</button><output>' + l.qty + '</output><button type="button" data-q="1" aria-label="+">+</button></div>' +
         '<button type="button" class="rm" data-rm>' + esc(t('remove')) + '</button></div></div><span class="lp">' + money2(p.price * l.qty) + '</span></li>';
     }).join('');
@@ -358,7 +372,7 @@
   function totals() { var s = subtotal(), sh = shipCost(), tx = Math.round(s * TAX * 100) / 100; return { s: s, sh: sh, tx: tx, total: s + sh + tx }; }
   function renderSummary() {
     var x = totals();
-    $('#coLines').innerHTML = cart.map(function (l) { var p = byId[l.id]; return '<li><span class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""><span class="q">' + l.qty + '</span></span><span>' + esc(L(p.name)) + '</span><span class="tnum">' + money2(p.price * l.qty) + '</span></li>'; }).join('');
+    $('#coLines').innerHTML = cart.map(function (l) { var p = byId[l.id]; return '<li><span class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""' + imgWH(p.img || PIECES['peptide-rx'].img) + ' loading="lazy" decoding="async"><span class="q">' + l.qty + '</span></span><span>' + esc(L(p.name)) + '</span><span class="tnum">' + money2(p.price * l.qty) + '</span></li>'; }).join('');
     $('#coSub').textContent = money2(x.s); $('#coShip').textContent = x.sh ? money2(x.sh) : t('free');
     $('#coTax').textContent = money2(x.tx); $('#coTotal').textContent = money2(x.total);
     $('#shipCost').textContent = subtotal() >= FREE_SHIP ? t('free') : money2(SHIP);

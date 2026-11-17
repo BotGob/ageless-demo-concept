@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261115-clinic"
+V = "20261116-polish"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -25,12 +25,27 @@ IMG = {
 }
 
 
-def pic(name, alt="", eager=False, cls=""):
+def _srcset(name, ext):
+    """Build a srcset from any 800/1200 derivatives that exist, plus the original."""
+    w, _ = IMG[name]
+    parts = []
+    for tw in (800, 1200):
+        if (ROOT / f"images/stock/{name}-{tw}.{ext}").exists():
+            parts.append(f"images/stock/{name}-{tw}.{ext} {tw}w")
+    parts.append(f"images/stock/{name}.{ext} {w}w")
+    return ", ".join(parts)
+
+
+def pic(name, alt="", eager=False, cls="", sizes="(max-width: 700px) 92vw, (max-width: 1080px) 48vw, 620px"):
     w, h = IMG[name]
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
     c = f' class="{cls}"' if cls else ""
-    return (f'<picture{c}><source type="image/webp" srcset="images/stock/{name}.webp">'
-            f'<img src="images/stock/{name}.jpg" alt="{alt}" width="{w}" height="{h}" {load} decoding="async"></picture>')
+    return (
+        f'<picture{c}>'
+        f'<source type="image/webp" srcset="{_srcset(name, "webp")}" sizes="{sizes}">'
+        f'<img src="images/stock/{name}.jpg" srcset="{_srcset(name, "jpg")}" sizes="{sizes}" '
+        f'alt="{alt}" width="{w}" height="{h}" {load} decoding="async"></picture>'
+    )
 
 
 # Her pamphlet's three pillars. Service names follow the pamphlet wording.
@@ -343,24 +358,25 @@ def book_block(treatment, label):
         </div>"""
 
 
-def page(filename, title, description, active, body, solid=True):
+def page(filename, title, description, active, body, solid=True, extra_head=""):
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
   <meta name="view-transition" content="same-origin">
   <title>{title}</title>
   <style>html,body{{background:#faf6ee}}</style>
   <meta name="description" content="{description}">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="site/assets/fonts/CormorantGaramond-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="site/assets/fonts/CormorantGaramond-500i.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="site/assets/fonts/Outfit-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css?v={V}">
   <link rel="stylesheet" href="css/styles.css?v={V}">
   <link rel="stylesheet" href="css/clinic.css?v={V}">
-  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
+{extra_head}  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
 </head>
 <body class="clinic page-{active}">
@@ -391,7 +407,7 @@ def page(filename, title, description, active, body, solid=True):
 
 def page_hero(eyebrow, heading, lede, image, image_alt="", extra_btn="", book_label="Book a visit", treatment="", media=None):
     t = f' data-treatment="{treatment}"' if treatment else ""
-    fig = media or f'<figure class="p-hero-media">{pic(image, image_alt, eager=True)}</figure>'
+    fig = media or f'<figure class="p-hero-media">{pic(image, image_alt, eager=True, sizes="(max-width: 1080px) 92vw, 560px")}</figure>'
     return f"""    <section class="p-hero">
       <div class="wrap p-hero-grid">
         <div class="p-hero-copy">
@@ -603,7 +619,7 @@ def build_home():
           </ul>
         </div>
         <figure class="c-hero-media">
-          {pic("interior-cream", "A calm, sunlit sitting room in soft cream tones", eager=True)}
+          {pic("interior-cream", "A calm, sunlit sitting room in soft cream tones", eager=True, sizes="(max-width: 1080px) 92vw, 520px")}
         </figure>
       </div>
     </section>
@@ -691,6 +707,11 @@ def build_home():
         "Personalized longevity, wellness and aesthetic care with Dr. Linda McClintock in Tampa: longevity and hormones, metabolic and IV care, and skin and aesthetics.",
         "home",
         body,
+        extra_head=(
+            '  <link rel="preload" as="image" type="image/webp" href="images/stock/interior-cream-1200.webp" '
+            'imagesrcset="images/stock/interior-cream-800.webp 800w, images/stock/interior-cream-1200.webp 1200w, images/stock/interior-cream.webp 1800w" '
+            'imagesizes="(max-width: 1080px) 92vw, 520px">\n'
+        ),
     )
 
 
