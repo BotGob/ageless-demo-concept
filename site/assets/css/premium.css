@@ -17,7 +17,7 @@ body { font-kerning: normal; font-optical-sizing: auto; }
 ::selection { background: rgba(196, 163, 106, 0.32); }
 
 /* ---------- Hero: slow ambient drift and desktop parallax ---------- */
-html.pm .hv .hv-photo img { animation: pm-drift 32s 0.4s ease-in-out infinite alternate; transform-origin: 60% 50%; }
+html.pm .hv .hv-photo img { animation: pm-drift 32s 1.5s ease-in-out infinite alternate; transform-origin: 60% 50%; }
 @keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -0.8%, 0); } }
 .hv-b .hv-photo picture { display: block; height: 100%; }
 .pm-still img { animation-play-state: paused !important; }

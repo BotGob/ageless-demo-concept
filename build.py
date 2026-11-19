@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261119-smooth"
+V = "20261119-firstpaint"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -39,12 +39,13 @@ def _srcset(name, ext):
 def pic(name, alt="", eager=False, cls="", sizes="(max-width: 700px) 92vw, (max-width: 1080px) 48vw, 620px"):
     w, h = IMG[name]
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    dec = "sync" if eager else "async"
     c = f' class="{cls}"' if cls else ""
     return (
         f'<picture{c}>'
         f'<source type="image/webp" srcset="{_srcset(name, "webp")}" sizes="{sizes}">'
         f'<img src="images/stock/{name}.jpg" srcset="{_srcset(name, "jpg")}" sizes="{sizes}" '
-        f'alt="{alt}" width="{w}" height="{h}" {load} decoding="async"></picture>'
+        f'alt="{alt}" width="{w}" height="{h}" {load} decoding="{dec}"></picture>'
     )
 
 
@@ -358,7 +359,21 @@ def book_block(treatment, label):
         </div>"""
 
 
+def hero_preload(body):
+    """Preload the first hero photo so it is in the first paint (no pop-in)."""
+    m = re.search(r'class="p-hero-media[^"]*">\s*(?:<picture[^>]*>)?\s*(<source type="image/webp" srcset="([^"]+)" sizes="([^"]+)">|<img src="([^"]+)")', body)
+    if not m:
+        return ""
+    if m.group(2):
+        first = m.group(2).split(",")[0].split()[0]
+        return (f'  <link rel="preload" as="image" type="image/webp" href="{first}" '
+                f'imagesrcset="{m.group(2)}" imagesizes="{m.group(3)}">\n')
+    return f'  <link rel="preload" as="image" href="{m.group(4)}">\n'
+
+
 def page(filename, title, description, active, body, solid=True, extra_head=""):
+    if not extra_head:
+        extra_head = hero_preload(body)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -379,7 +394,6 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
   <link rel="stylesheet" href="css/premium.css?v={V}">
 {extra_head}  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
-  <script>(function(){{try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]intro=off/.test(location.search)&&!sessionStorage.getItem("al-pm-intro")){{document.documentElement.classList.add("pm-intro");sessionStorage.setItem("al-pm-intro","1")}}}}catch(e){{}}}})();</script>
 </head>
 <body class="clinic page-{active}">
   <a class="skip" href="#main">Skip to content</a>
@@ -1267,7 +1281,7 @@ def build_about():
         "Medical director and president of Age-Less Medicine, and a familiar health voice in Tampa Bay.",
         "lounge", "",
         '<a class="btn btn--line" href="contact.html">Visit the office</a>',
-        media='<figure class="p-hero-media p-hero-portrait"><img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" fetchpriority="high" decoding="async"></figure>',
+        media='<figure class="p-hero-media p-hero-portrait"><img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" fetchpriority="high" decoding="sync"></figure>',
     )}
 {welcome_section(story_link=False)}
     <section class="section">

@@ -75,7 +75,7 @@ a:hover > .more-link::after, .more-link:hover::after { transform: translateX(4px
 .c-hero-facts li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
 .c-hero-media { justify-self: end; width: min(100%, 520px); aspect-ratio: 4 / 5; max-height: calc(100svh - var(--header-h) - 5rem); border-radius: 999px 999px var(--r) var(--r); overflow: hidden; box-shadow: 0 40px 80px -40px rgba(13, 33, 28, 0.45); }
 .c-hero-media picture, .c-hero-media img { width: 100%; height: 100%; }
-.c-hero-media img { object-fit: cover; object-position: 30% 50%; animation: c-rise 1.1s var(--ease) both; }
+.c-hero-media img { object-fit: cover; object-position: 30% 50%; }
 @keyframes c-rise { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
 
 /* ---------- Inner page hero ---------- */
@@ -87,7 +87,7 @@ a:hover > .more-link::after, .more-link:hover::after { transform: translateX(4px
 .p-hero .btn { min-height: 3.25rem; }
 .p-hero-media { aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; box-shadow: 0 30px 60px -36px rgba(13, 33, 28, 0.5); }
 .p-hero-media picture, .p-hero-media img { width: 100%; height: 100%; }
-.p-hero-media img { object-fit: cover; animation: c-rise 1s var(--ease) both; }
+.p-hero-media img { object-fit: cover; }
 .p-hero-portrait { justify-self: center; aspect-ratio: auto; width: min(100%, 360px); padding: 24px; background: var(--green); border-radius: 4px; }
 .p-hero-portrait img { height: auto; border-radius: 2px; }
 
