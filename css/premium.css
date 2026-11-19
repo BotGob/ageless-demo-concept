@@ -42,8 +42,8 @@ body { font-kerning: normal; font-optical-sizing: auto; }
 @media (max-width: 900px) { .pm-band { height: clamp(220px, 40vh, 360px); } .pm-band picture { inset: 0; } }
 
 /* ---------- Opening headline: slow ambient drift on the hero photo ---------- */
-html.pm .c-hero-media img { animation: pm-drift 30s 1.5s ease-in-out infinite alternate; }
-html.pm .p-hero-media img { animation: pm-drift 34s 1.5s ease-in-out infinite alternate; }
+html.pm .c-hero-media img { animation: pm-drift 30s ease-in-out infinite alternate; }
+html.pm .p-hero-media img { animation: pm-drift 34s ease-in-out infinite alternate; }
 @keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.075) translate3d(-1.2%, -1%, 0); } }
 
 /* Ambient drift pauses when the photo is off-screen (no idle compositor work) */

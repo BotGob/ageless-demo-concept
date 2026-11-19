@@ -51,14 +51,15 @@
 :root[data-hero] .shop { padding-top: clamp(72px, 9vw, 120px); }
 
 /* The one entrance. Animation forwards is a safety net if .ready never lands. */
-@keyframes hvIn { to { opacity: 1; transform: none; } }
-:root[data-hero] .hv-copy { opacity: 0; transform: translateY(14px); animation: hvIn 1000ms var(--ease-out) 120ms forwards; }
-:root[data-hero] .ready .hv-copy { opacity: 1; transform: none; transition: opacity 1000ms var(--ease-out) 120ms, transform 1000ms var(--ease-out) 120ms; }
+/* One clean fade for the headline. Explicit from/to with fill both: it used to have only a "to"
+   keyframe plus a competing .ready transition, so the text jumped from hidden to fully visible. */
+@keyframes hvIn { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+:root[data-hero] .hv-copy { animation: hvIn 900ms var(--ease-out) 60ms both; }
 /* Hero photos are simply present from the first paint: no wipe, zoom or fade. */
 :root[data-hero] .hv figcaption { opacity: 0; }
 :root[data-hero] .ready .hv figcaption { opacity: 1; transition: opacity 700ms ease 1100ms; }
 @media (prefers-reduced-motion: reduce) {
-  :root[data-hero] .hv-copy, :root[data-hero] .hv figcaption { opacity: 1; transform: none; }
+  :root[data-hero] .hv-copy, :root[data-hero] .hv figcaption { opacity: 1; transform: none; animation: none; }
   :root[data-hero] .hv-photo { clip-path: none; }
   :root[data-hero] .hv-photo img { transform: none; }
 }

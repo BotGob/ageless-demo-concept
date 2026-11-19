@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261119-firstpaint"
+V = "20261119-photos"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {

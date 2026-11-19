@@ -17,7 +17,7 @@ body { font-kerning: normal; font-optical-sizing: auto; }
 ::selection { background: rgba(196, 163, 106, 0.32); }
 
 /* ---------- Hero: slow ambient drift and desktop parallax ---------- */
-html.pm .hv .hv-photo img { animation: pm-drift 32s 1.5s ease-in-out infinite alternate; transform-origin: 60% 50%; }
+html.pm .hv .hv-photo img { animation: pm-drift 32s ease-in-out infinite alternate; transform-origin: 60% 50%; }
 @keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -0.8%, 0); } }
 .hv-b .hv-photo picture { display: block; height: 100%; }
 .pm-still img { animation-play-state: paused !important; }
@@ -111,4 +111,23 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
   .card::after, .btn.gold::after { display: none; }
   .pm-tick { display: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+}
+
+/* ---------- Product photos: always whole and centered (no cropping) ---------- */
+/* Panel: a taller frame; every product image is contained and centered on the soft cream ground. */
+.d-media { height: clamp(360px, 50vh, 480px); }
+.d-media > img, .d-media.is-photo img.photo {
+  position: absolute; inset: 28px; z-index: 1; width: calc(100% - 56px); height: calc(100% - 56px);
+  max-width: none; max-height: none; object-fit: contain; object-position: 50% 50%;
+}
+.d-media.is-photo img.photo { inset: 20px; width: calc(100% - 40px); height: calc(100% - 40px); filter: none; }
+.d-media .cluster { height: 80%; max-width: calc(100% - 56px); justify-content: center; }
+.d-media .cluster img { height: 80%; width: auto; object-fit: contain; }
+/* Grid cards and cart thumbnails: the lineup photo shows in full too. */
+.card .media img.photo { inset: 7% 6%; width: 88%; height: 86%; object-fit: contain; object-position: 50% 50%; }
+.line-item .thumb img[src*="hero-lineup"], .co-summary li .thumb img[src*="hero-lineup"] { object-fit: contain; }
+@media (max-width: 860px) {
+  .d-media { height: min(42svh, 340px); }
+  .d-media > img { inset: 18px; width: calc(100% - 36px); height: calc(100% - 36px); }
+  .d-media.is-photo img.photo { inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }
 }
