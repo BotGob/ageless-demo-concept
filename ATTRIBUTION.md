@@ -20,6 +20,7 @@ Membership figures on the homepage were read from the practice's published Beaut
 Unsplash License: https://unsplash.com/license
 
 - `images/stock/hero-spa.jpg` — Unsplash `photo-1507652313519-d4e9174996dd` (spa bath with stone tub and palm).
+- `images/stock/band-spa-1000.webp`, `band-spa-1440.webp`, `band-spa-1200.jpg`: 2:1 crops of the same Unsplash photo, compressed for the home page photo band (added 18 November 2026).
 - `images/stock/leaves-dark.jpg` — Unsplash `photo-1518531933037-91b2f5f229cc` (green foliage).
 - `images/stock/interior-cream.jpg` — Unsplash `photo-1631679706909-1844bbd07221` (cream interior).
 - `images/stock/still-life.jpg` — Unsplash `photo-1540555700478-4be289fbecef` (towel, bottle, tulips, candle).
@@ -34,3 +35,7 @@ Pexels License: https://www.pexels.com/license/
 - `images/stock/hero-ambient.webm`, `hero-ambient.mp4`, `hero-ambient-sm.webm`, `hero-ambient-sm.mp4`, and `hero-video-poster.jpg` / `.webp` — Pexels video 2876754, “Water Droplets On A Leaf Of Plant,” by Edie Reed. Downloaded 6 November 2026 from https://www.pexels.com/video/slow-motion-video-of-water-droplets-falling-on-green-leaf-2876754/. Pexels License: https://www.pexels.com/license/. No people, faces, or text appear in the clip. Trimmed and compressed locally for the home hero (12 seconds, 1080p desktop and 854x480 mobile, muted).
 
 No generated portraits or generated skin were used.
+
+## Code
+
+- `site/assets/js/vendor/lenis.min.js`: Lenis 1.3.27 by darkroom.engineering, MIT License (copy in `site/assets/js/vendor/LENIS-LICENSE.txt`). Smooth wheel scrolling on desktop only, loaded on demand by `site/assets/js/premium.js`.

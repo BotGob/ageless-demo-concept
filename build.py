@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261116-polish"
+V = "20261118-premium"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -376,8 +376,10 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
   <link rel="stylesheet" href="css/fonts.css?v={V}">
   <link rel="stylesheet" href="css/styles.css?v={V}">
   <link rel="stylesheet" href="css/clinic.css?v={V}">
+  <link rel="stylesheet" href="css/premium.css?v={V}">
 {extra_head}  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
+  <script>(function(){{try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]intro=off/.test(location.search)&&!sessionStorage.getItem("al-pm-intro")){{document.documentElement.classList.add("pm-intro");sessionStorage.setItem("al-pm-intro","1")}}}}catch(e){{}}}})();</script>
 </head>
 <body class="clinic page-{active}">
   <a class="skip" href="#main">Skip to content</a>
@@ -393,6 +395,7 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
   <script src="js/i18n-es.js?v={V}" defer></script>
   <script src="js/lang.js?v={V}" defer></script>
   <script src="js/main.js?v={V}" defer></script>
+  <script src="site/assets/js/premium.js?v={V}" defer></script>
 </body>
 </html>
 """
@@ -631,6 +634,10 @@ def build_home():
         <div class="pillar-grid">
 {pillar_cards()}        </div>
       </div>
+    </section>
+
+    <section class="pm-band" aria-hidden="true">
+      <picture><source type="image/webp" srcset="images/stock/band-spa-1000.webp 1000w, images/stock/band-spa-1440.webp 1440w" sizes="100vw"><img src="images/stock/band-spa-1200.jpg" alt="" width="1440" height="720" loading="lazy" decoding="async"></picture>
     </section>
 
 {approach_section()}

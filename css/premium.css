@@ -1,0 +1,116 @@
+/* ===================================================================
+   PREMIUM LAYER (2026-11-18). Loaded after clinic.css. Works with
+   site/assets/js/premium.js. Motion is transform / opacity / clip only
+   and is switched off for prefers-reduced-motion.
+   =================================================================== */
+:root {
+  --lux: cubic-bezier(0.16, 1, 0.3, 1);
+  --lux-soft: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --gold-ink: #7b5c2c;
+}
+
+/* ---------- Inertial scroll (Lenis) housekeeping ---------- */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* ---------- Typography refinement (same faces, finer setting) ---------- */
+body { font-kerning: normal; font-optical-sizing: auto; }
+.display, h1, h2, h3 { font-feature-settings: "kern" 1, "liga" 1, "calt" 1; }
+.c-hero-title { letter-spacing: -0.032em; }
+.p-hero h1, .clinic .section-head h2, .approach h2, .next-chapter h2, .quiz-band h2 { letter-spacing: -0.022em; }
+.clinic .eyebrow { letter-spacing: 0.24em; }
+.clinic p, .clinic li { text-wrap: pretty; }
+.clinic .prose p, .clinic .detail p { max-width: 68ch; }
+.tier .price, .clinic .price { font-variant-numeric: lining-nums; }
+::selection { background: rgba(196, 163, 106, 0.32); color: var(--green-2); }
+
+/* ---------- Whitespace rhythm (desktop gets more air) ---------- */
+@media (min-width: 901px) {
+  .clinic .section { padding: clamp(5rem, 8.5vw, 8rem) 0; }
+  .clinic .welcome { padding: clamp(5rem, 8.5vw, 8rem) 0; }
+  .clinic .section-head { margin-bottom: clamp(2.4rem, 4.4vw, 3.6rem); }
+}
+
+/* ---------- Full-bleed photo band (home) ---------- */
+.pm-band { position: relative; height: clamp(320px, 64vh, 680px); overflow: hidden; background: var(--green-2); }
+.pm-band picture { display: block; position: absolute; inset: -12% 0; }
+.pm-band img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.pm-band::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(250, 246, 238, 0.18) 0%, rgba(13, 33, 28, 0) 30%, rgba(13, 33, 28, 0) 62%, rgba(22, 51, 44, 0.55) 100%); }
+@media (max-width: 900px) { .pm-band { height: clamp(220px, 40vh, 360px); } .pm-band picture { inset: 0; } }
+
+/* ---------- Opening headline: slow ambient drift on the hero photo ---------- */
+html.pm .c-hero-media img { animation: c-rise 1.1s var(--ease) both, pm-drift 30s 1.1s ease-in-out infinite alternate; }
+html.pm .p-hero-media img { animation: c-rise 1s var(--ease) both, pm-drift 34s 1s ease-in-out infinite alternate; }
+@keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.075) translate3d(-1.2%, -1%, 0); } }
+
+/* Desktop parallax: the picture sits a touch larger so it never shows an edge */
+html.pm-par-on .pm-par { display: block; scale: 1.1; will-change: translate; }
+html.pm-par-on .pm-band .pm-par { scale: 1; }
+.c-hero-media picture, .p-hero-media picture { display: block; }
+
+/* ---------- Reveals: softer, longer ease and a gentle stagger ---------- */
+html.pm [data-reveal].pm-reveal { transition: opacity 1.05s var(--lux) var(--pm-d, 0ms), transform 1.25s var(--lux) var(--pm-d, 0ms) !important; }
+html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 34px, 0); }
+
+/* Photos wipe up and settle as they arrive */
+html.pm img.pm-img { clip-path: inset(0 0 16% 0); transform: scale(1.1); transition: clip-path 1.3s var(--lux), transform 1.7s var(--lux), filter 0.6s var(--ease), opacity 0.5s var(--ease) !important; }
+html.pm img.pm-img.pm-in { clip-path: inset(0 0 0 0); transform: none; }
+
+/* ---------- Micro-interactions ---------- */
+.clinic .btn { transition: transform 0.45s var(--lux), box-shadow 0.45s var(--lux), background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .clinic .btn:hover { transform: translateY(-2px); }
+  .clinic .btn--gold:hover { box-shadow: 0 16px 32px -16px rgba(123, 92, 44, 0.65); }
+  .clinic .btn--line:hover { box-shadow: 0 16px 32px -18px rgba(13, 33, 28, 0.55); }
+  .clinic .btn--gold::after { transition: transform 0.9s var(--lux); }
+  .clinic .nav > a.nav-book:hover { transform: translateY(-1px); }
+  .pillar-card, .clinic .related-card, .tier, .service-card, .detail, .clinic .visit-card-lite { transition: transform 0.6s var(--lux), box-shadow 0.6s var(--lux), border-color 0.4s var(--ease); }
+  .pillar-card:hover, .clinic .related-card:hover { transform: translateY(-6px); box-shadow: 0 36px 70px -40px rgba(13, 33, 28, 0.5), 0 0 0 1px rgba(196, 163, 106, 0.45); }
+  .tier:hover, .service-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -38px rgba(13, 33, 28, 0.45); }
+  .pillar-card .pillar-media img, .clinic .related-card .related-media img { transition: transform 1.4s var(--lux) !important; }
+  .pillar-card:hover .pillar-media img, .clinic .related-card:hover .related-media img { transform: scale(1.06); }
+  /* Gold sheen glides across cards on hover */
+  .pillar-card, .clinic .related-card { position: relative; }
+  .pillar-card::after, .clinic .related-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    background: linear-gradient(115deg, transparent 35%, rgba(216, 181, 122, 0.16) 50%, transparent 65%); background-size: 260% 100%; background-position: 120% 0; opacity: 0; transition: background-position 1.2s var(--lux), opacity 0.4s var(--ease); }
+  .pillar-card:hover::after, .clinic .related-card:hover::after { opacity: 1; background-position: -20% 0; }
+}
+.clinic .btn:active { transform: translateY(0) scale(0.98); transition-duration: 0.12s; }
+
+/* Focus: crisp gold ring with a soft halo, readable on cream and on green */
+.clinic a:focus-visible, .clinic button:focus-visible, .clinic select:focus-visible, .clinic input:focus-visible, .clinic textarea:focus-visible, .clinic [tabindex]:focus-visible {
+  outline: 2px solid var(--gold-ink); outline-offset: 3px; box-shadow: 0 0 0 6px rgba(196, 163, 106, 0.24);
+}
+.clinic .approach :focus-visible, .clinic .site-footer :focus-visible, .clinic .section--dark :focus-visible, .clinic .book-bar :focus-visible { outline-color: var(--gold-2); box-shadow: 0 0 0 6px rgba(216, 181, 122, 0.22); }
+
+/* ---------- Page to page: header and phone bar stay put, content cross-fades and lifts ---------- */
+.clinic .site-header { view-transition-name: pm-header; }
+@media (max-width: 900px) { .clinic .book-bar { view-transition-name: pm-bookbar; } }
+::view-transition-old(root) { animation: pm-vt-out 0.36s var(--lux-soft) both; }
+::view-transition-new(root) { animation: pm-vt-in 0.62s var(--lux) both; }
+::view-transition-group(pm-header), ::view-transition-group(pm-bookbar) { animation-duration: 0.4s; }
+@keyframes pm-vt-out { to { opacity: 0; transform: translate3d(0, -10px, 0); } }
+@keyframes pm-vt-in { from { opacity: 0; transform: translate3d(0, 18px, 0); } }
+
+/* ---------- First visit of the session: a brief mark on cream, then the page ---------- */
+html.pm-intro body::before, html.pm-intro body::after { content: ""; position: fixed; z-index: 2147483000; pointer-events: none; }
+html.pm-intro body::before { inset: 0; background: #faf6ee; animation: pm-intro-out 0.38s 0.42s var(--lux-soft) forwards; }
+html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22.2' fill='none' stroke='%23c4a36a' stroke-width='0.9'/%3E%3Cg fill='%23c4a36a'%3E%3Ccircle cx='24' cy='24' r='3.1'/%3E%3Cellipse cx='24' cy='13.2' rx='3.2' ry='7.2'/%3E%3Cellipse cx='24' cy='34.8' rx='3.2' ry='7.2'/%3E%3Cellipse cx='13.2' cy='24' rx='7.2' ry='3.2'/%3E%3Cellipse cx='34.8' cy='24' rx='7.2' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  animation: pm-intro-mark 0.8s var(--lux) forwards; }
+@keyframes pm-intro-out { to { opacity: 0; visibility: hidden; } }
+@keyframes pm-intro-mark { 0% { opacity: 0; transform: scale(0.86) rotate(-20deg); } 45% { opacity: 1; transform: none; } 70% { opacity: 1; } 100% { opacity: 0; transform: scale(1.04); visibility: hidden; } }
+
+/* ---------- Reduced motion: everything above stands still ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.pm-intro body::before, html.pm-intro body::after { display: none; }
+  .c-hero-media img, .p-hero-media img { animation: none !important; }
+  .pm-par { translate: none !important; scale: none !important; }
+  img.pm-img { clip-path: none !important; transform: none !important; }
+  .pillar-card:hover, .clinic .related-card:hover, .tier:hover, .service-card:hover, .clinic .btn:hover { transform: none !important; }
+  .pillar-card::after, .clinic .related-card::after { display: none; }
+  ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(*) { animation: none !important; }
+}
