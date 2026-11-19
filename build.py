@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261119-photos"
+V = "20261119-audit"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -566,15 +566,15 @@ WELCOME = {
     "es": "Te doy la bienvenida, y gracias por estar aquí. Quiero que cada persona que cruza nuestra puerta se sienta escuchada, cuidada y sin prisas. Ya sea que vengas con una meta clara o solo con una pregunta, nos tomaremos el tiempo para entender lo que es importante para ti. Será un gusto conocerte.",
 }
 
-def welcome_section(story_link=True):
+def welcome_section(story_link=True, photo=True):
     story = '\n          <a class="btn btn--line" href="about.html">Read Dr. Linda’s story</a>' if story_link else ""
     return f"""    <!-- WELCOME NOTE: DRAFT placeholder copy for Dr. Linda to approve or rewrite. Not her words yet.
          Audio: the play button shows "coming soon" (same as the shop) until her recording is added (js/main.js initVoice). -->
     <section class="welcome" id="welcome" aria-labelledby="welcome-title">
-      <div class="wrap welcome-grid">
+      <div class="wrap welcome-grid{"" if photo else " welcome-grid--text"}">{"" if not photo else """
         <figure class="welcome-photo" data-reveal>
           <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock, medical director of Age-Less Medicine" width="302" height="319" loading="lazy" decoding="async">
-        </figure>
+        </figure>"""}
         <div class="welcome-copy" data-reveal>
           <p class="eyebrow" id="welcome-title">A welcome from Dr. Linda</p>
           <p class="welcome-text">{WELCOME["en"]}</p>
@@ -1283,12 +1283,9 @@ def build_about():
         '<a class="btn btn--line" href="contact.html">Visit the office</a>',
         media='<figure class="p-hero-media p-hero-portrait"><img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" fetchpriority="high" decoding="sync"></figure>',
     )}
-{welcome_section(story_link=False)}
+{welcome_section(story_link=False, photo=False)}
     <section class="section">
-      <div class="wrap about-grid">
-        <div class="portrait-frame" data-reveal>
-          <img src="images/clinic/dr-linda.jpg" alt="Dr. Linda McClintock" width="302" height="319" loading="lazy" decoding="async">
-        </div>
+      <div class="wrap about-grid about-grid--text">
         <div class="prose" data-reveal>
           <p>Dr. Linda founded Age-Less Medicine in 2006. She leads the practice by hand and supervises every part of the care we deliver, from hormone and weight programs to injectables and skin treatments.</p>
           <p>For more than a decade she appeared as a health correspondent for Bay News 9. She is a member of the American Academy of Anti-Aging Medicine and the Hillsborough County Medical Association, and she completed in-depth age management training at Cenegenics Medical Institute.</p>

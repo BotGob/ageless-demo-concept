@@ -137,3 +137,23 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
   .pillar-card::after, .clinic .related-card::after { display: none; }
   ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(*) { animation: none !important; }
 }
+
+/* ---------- Calm reviews and clean product shots (anti-template pass) ---------- */
+/* Patient remarks sit still in an even grid instead of an endless ticker. Phones swipe. */
+.reviews .marquee { overflow: visible; }
+.reviews .marquee-track { animation: none; transform: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem;
+  width: min(1200px, calc(100% - 2.5rem)); margin-inline: auto; }
+.reviews .quote-card { width: auto; }
+.reviews .quote-card.is-dup { display: none; }
+@media (max-width: 1080px) { .reviews .marquee-track { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .reviews .marquee { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 0.5rem; }
+  .reviews .marquee::-webkit-scrollbar { display: none; }
+  .reviews .marquee-track { display: flex; width: max-content; padding-inline: 1.25rem; margin: 0; }
+  .reviews .quote-card { width: 78vw; scroll-snap-align: center; }
+}
+/* Supplement jars were photographed on white: blend the white into the ivory ground so there is no box in a box. */
+.product-photo img { mix-blend-mode: multiply; }
+/* About: her portrait appears once (in the page hero), not three times. */
+.clinic .welcome-grid--text, .welcome-grid--text { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-inline: auto; }
+.clinic .about-grid--text, .about-grid--text { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-inline: auto; }
