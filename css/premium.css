@@ -1,5 +1,5 @@
 /* ===================================================================
-   PREMIUM LAYER (2026-11-18). Loaded after clinic.css. Works with
+   PREMIUM LAYER (v2, 2026-11-19). Loaded after clinic.css. Works with
    site/assets/js/premium.js. Motion is transform / opacity / clip only
    and is switched off for prefers-reduced-motion.
    =================================================================== */
@@ -46,18 +46,41 @@ html.pm .c-hero-media img { animation: c-rise 1.1s var(--ease) both, pm-drift 30
 html.pm .p-hero-media img { animation: c-rise 1s var(--ease) both, pm-drift 34s 1s ease-in-out infinite alternate; }
 @keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.075) translate3d(-1.2%, -1%, 0); } }
 
-/* Desktop parallax: the picture sits a touch larger so it never shows an edge */
-html.pm-par-on .pm-par { display: block; scale: 1.1; will-change: translate; }
-html.pm-par-on .pm-band .pm-par { scale: 1; }
+/* Ambient drift pauses when the photo is off-screen (no idle compositor work) */
+.pm-still img { animation-play-state: paused !important; }
+
+/* Desktop parallax. JS fallback writes transform only; the picture sits a touch larger so no edge shows */
 .c-hero-media picture, .p-hero-media picture { display: block; }
+html.pm-par-on .pm-par { will-change: transform; }
+html.pm-par-on .c-hero-media .pm-par, html.pm-par-on .p-hero-media .pm-par { transform: scale(1.08); }
+/* Modern browsers: scroll-driven parallax on the compositor, in step with the scroll, no JS */
+@supports (animation-timeline: view()) {
+  @media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+    html.pm-sda .c-hero-media, html.pm-sda .p-hero-media, html.pm-sda .pm-band { view-timeline-name: --pm-host; }
+    html.pm-sda .c-hero-media picture { animation: pm-par-24 linear both; animation-timeline: --pm-host; animation-range: cover; }
+    html.pm-sda .p-hero-media picture { animation: pm-par-20 linear both; animation-timeline: --pm-host; animation-range: cover; }
+    html.pm-sda .pm-band picture { animation: pm-par-64 linear both; animation-timeline: --pm-host; animation-range: cover; }
+  }
+}
+@keyframes pm-par-24 { from { transform: translate3d(0, 24px, 0) scale(1.08); } to { transform: translate3d(0, -24px, 0) scale(1.08); } }
+@keyframes pm-par-20 { from { transform: translate3d(0, 20px, 0) scale(1.08); } to { transform: translate3d(0, -20px, 0) scale(1.08); } }
+@keyframes pm-par-64 { from { transform: translate3d(0, 64px, 0); } to { transform: translate3d(0, -64px, 0); } }
+
+/* Smoothness: nothing expensive repaints while the page scrolls */
+.wave i { height: 100%; transform: scaleY(0.3); animation-name: pm-eq; } /* was animating height: layout every frame */
+.wave.pm-still i { animation-play-state: paused !important; }
+@keyframes pm-eq { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+.clinic .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(250, 246, 238, 0.985); } /* was a 16px blur behind a 98% opaque bar: invisible, but re-rendered every frame */
+html.pm img.js-blur { filter: none; } /* images still fade in where they load; the blur filter was the costly part */
+html.pm-scrolling main, html.pm-scrolling .site-footer { pointer-events: none; } /* hover lifts wait until scrolling stops */
 
 /* ---------- Reveals: softer, longer ease and a gentle stagger ---------- */
 html.pm [data-reveal].pm-reveal { transition: opacity 1.05s var(--lux) var(--pm-d, 0ms), transform 1.25s var(--lux) var(--pm-d, 0ms) !important; }
 html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 34px, 0); }
 
-/* Photos wipe up and settle as they arrive */
-html.pm img.pm-img { clip-path: inset(0 0 16% 0); transform: scale(1.1); transition: clip-path 1.3s var(--lux), transform 1.7s var(--lux), filter 0.6s var(--ease), opacity 0.5s var(--ease) !important; }
-html.pm img.pm-img.pm-in { clip-path: inset(0 0 0 0); transform: none; }
+/* Photos settle from a slight zoom as they arrive (transform only, composited) */
+html.pm img.pm-img { transform: scale(1.06); transition: transform 1.4s var(--lux), opacity 0.5s var(--ease) !important; }
+html.pm img.pm-img.pm-in { transform: none; }
 
 /* ---------- Micro-interactions ---------- */
 .clinic .btn { transition: transform 0.45s var(--lux), box-shadow 0.45s var(--lux), background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
@@ -75,8 +98,8 @@ html.pm img.pm-img.pm-in { clip-path: inset(0 0 0 0); transform: none; }
   /* Gold sheen glides across cards on hover */
   .pillar-card, .clinic .related-card { position: relative; }
   .pillar-card::after, .clinic .related-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
-    background: linear-gradient(115deg, transparent 35%, rgba(216, 181, 122, 0.16) 50%, transparent 65%); background-size: 260% 100%; background-position: 120% 0; opacity: 0; transition: background-position 1.2s var(--lux), opacity 0.4s var(--ease); }
-  .pillar-card:hover::after, .clinic .related-card:hover::after { opacity: 1; background-position: -20% 0; }
+    background: linear-gradient(115deg, transparent 32%, rgba(216, 181, 122, 0.16) 50%, transparent 68%); transform: translateX(-110%); opacity: 0; transition: transform 1.2s var(--lux), opacity 0.4s var(--ease); }
+  .pillar-card:hover::after, .clinic .related-card:hover::after { opacity: 1; transform: translateX(110%); }
 }
 .clinic .btn:active { transform: translateY(0) scale(0.98); transition-duration: 0.12s; }
 
@@ -108,8 +131,8 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
 @media (prefers-reduced-motion: reduce) {
   html.pm-intro body::before, html.pm-intro body::after { display: none; }
   .c-hero-media img, .p-hero-media img { animation: none !important; }
-  .pm-par { translate: none !important; scale: none !important; }
-  img.pm-img { clip-path: none !important; transform: none !important; }
+  .pm-par { transform: none !important; animation: none !important; }
+  img.pm-img { transform: none !important; }
   .pillar-card:hover, .clinic .related-card:hover, .tier:hover, .service-card:hover, .clinic .btn:hover { transform: none !important; }
   .pillar-card::after, .clinic .related-card::after { display: none; }
   ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(*) { animation: none !important; }

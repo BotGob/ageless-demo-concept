@@ -89,9 +89,13 @@
     var header = document.querySelector(".site-header");
     if (!header) return;
     var onHero = document.querySelector(".hero, .page-hero");
+    var last = null;
     function paint() {
       var y = window.scrollY || document.documentElement.scrollTop;
-      header.classList.toggle("is-scrolled", y > 20 || !onHero);
+      var on = y > 20 || !onHero;
+      if (on === last) return;
+      last = on;
+      header.classList.toggle("is-scrolled", on);
     }
     paint();
     window.addEventListener("scroll", paint, { passive: true });

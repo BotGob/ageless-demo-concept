@@ -79,14 +79,10 @@
 
   /* ---------- Shop panel: cream sheet widens out of the green as it enters ---------- */
   function shopPanel() {
+    // 2026-11-19: the scroll-linked "panel widens and the grid slides up" entrance is retired.
+    // Products are simply present, and nothing runs per scroll frame here any more.
     var shop = $('#shop'); if (!shop) return;
-    function upd() {
-      var r = shop.getBoundingClientRect(), vh = window.innerHeight;
-      var p = reduce ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.7)));
-      shop.style.setProperty('--sh', p.toFixed(3));
-    }
-    window.addEventListener('scroll', function () { requestAnimationFrame(upd); }, { passive: true });
-    window.addEventListener('resize', upd); upd();
+    shop.style.setProperty('--sh', '1');
   }
 
   /* ---------- Order confirmation: ring draws, check draws, a few gold glints drift out ---------- */

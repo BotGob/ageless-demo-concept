@@ -1,5 +1,5 @@
 /* ===================================================================
-   PREMIUM LAYER (2026-11-18) for the shop. Loaded after unify.css.
+   PREMIUM LAYER (v2, 2026-11-19) for the shop. Loaded after unify.css.
    Works with assets/js/premium.js. Off for prefers-reduced-motion.
    =================================================================== */
 :root { --lux: cubic-bezier(0.16, 1, 0.3, 1); --lux-soft: cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -20,19 +20,25 @@ body { font-kerning: normal; font-optical-sizing: auto; }
 html.pm .hv .hv-photo img { animation: pm-drift 32s 0.4s ease-in-out infinite alternate; transform-origin: 60% 50%; }
 @keyframes pm-drift { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -0.8%, 0); } }
 .hv-b .hv-photo picture { display: block; height: 100%; }
-html.pm-par-on .pm-par { scale: 1.08; will-change: translate; }
-html.pm-par-on .about-photo .pm-par { scale: 1.06; }
-.about-photo { overflow: hidden; }
+.pm-still img { animation-play-state: paused !important; }
+html.pm-par-on .pm-par { will-change: transform; transform: scale(1.07); }
+@supports (animation-timeline: view()) {
+  @media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+    html.pm-sda .hv-b .hv-photo { view-timeline-name: --pm-host; }
+    html.pm-sda .hv-b .hv-photo picture { animation: pm-par-40 linear both; animation-timeline: --pm-host; animation-range: cover; }
+  }
+}
+@keyframes pm-par-40 { from { transform: translate3d(0, 40px, 0) scale(1.07); } to { transform: translate3d(0, -40px, 0) scale(1.07); } }
 
-/* ---------- Reveals ---------- */
-html.pm .pm-rv { transition: opacity 1s var(--lux) var(--pm-d, 0ms), transform 1.2s var(--lux) var(--pm-d, 0ms) !important; }
-html.pm .pm-rv:not(.pm-in) { opacity: 0; transform: translate3d(0, 30px, 0); }
-html.pm img.pm-img { clip-path: inset(0 0 16% 0); transform: scale(1.08); transition: clip-path 1.3s var(--lux), transform 1.7s var(--lux) !important; }
-html.pm img.pm-img.pm-in { clip-path: inset(0 0 0 0); transform: none; }
+/* Voice waveform: was animating height (a page layout every frame, even when idle). Now a composited scale. */
+.wave i { height: 100%; transform: scaleY(0.3); animation-name: pm-eq; }
+.wave.pm-still i { animation-play-state: paused; }
+@keyframes pm-eq { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
-/* Images settle in where they load instead of popping */
-html.pm img.pm-fade { opacity: 0; transition: opacity 0.7s var(--lux-soft), transform 1s var(--lux) !important; }
-html.pm img.pm-fade.pm-loaded { opacity: 1; }
+/* ---------- Products are simply present (no entrance effects on product images) ---------- */
+.d-media img, .d-media .cluster img { animation: none !important; }
+.shelf img, .shelf img.on { opacity: 1; transform: none; filter: drop-shadow(0 24px 22px rgba(30, 10, 25, 0.4)); transition: none; }
+html.pm-scrolling main, html.pm-scrolling .site-foot { pointer-events: none; } /* hover lifts wait until scrolling stops */
 
 /* ---------- Buttons ---------- */
 .btn { transition: transform 0.45s var(--lux), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.45s var(--lux); position: relative; overflow: hidden; isolation: isolate; }
@@ -57,12 +63,12 @@ html.pm img.pm-fade.pm-loaded { opacity: 1; }
 @media (hover: hover) and (pointer: fine) {
   .card { transition: transform 0.6s var(--lux), box-shadow 0.6s var(--lux), border-color 0.4s ease, opacity 300ms ease, filter 300ms ease; }
   .card:not(.dim):hover { transform: translateY(-6px); box-shadow: 0 36px 64px -34px rgba(13, 33, 28, 0.5), 0 0 0 1px rgba(196, 163, 106, 0.4); }
-  .card .media img { transition: transform 1.2s var(--lux), opacity 0.7s ease; }
-  .card:hover .media img { transform: scale(1.09) translateY(-4px); }
-  .card:hover .media img.photo { transform: scale(1.07); }
+  .card .media img { transition: transform 0.9s var(--lux); }
+  .card:hover .media img { transform: scale(1.05); }
+  .card:hover .media img.photo { transform: scale(1.04); }
   .card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 4 / 4.2; z-index: 3; pointer-events: none;
-    background: linear-gradient(115deg, transparent 35%, rgba(255, 246, 225, 0.38) 50%, transparent 65%); background-size: 260% 100%; background-position: 125% 0; opacity: 0; transition: background-position 1.3s var(--lux), opacity 0.4s ease; }
-  .card:not(.dim):hover::after { opacity: 1; background-position: -25% 0; }
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 246, 225, 0.36) 50%, transparent 70%); transform: translateX(-110%); opacity: 0; transition: transform 1.2s var(--lux), opacity 0.4s ease; }
+  .card:not(.dim):hover::after { opacity: 1; transform: translateX(110%); }
 }
 
 /* ---------- Bag: soft spring open, lines settle in, a check pops on the bag ---------- */
@@ -73,15 +79,6 @@ html.pm img.pm-fade.pm-loaded { opacity: 1; }
 /* A sliver of the same paper past the edge, so the tiny overshoot never shows a gap */
 .cart::after, .drawer::after { content: ""; position: absolute; top: 0; bottom: 0; left: 100%; width: 40px; background: var(--surface); pointer-events: none; }
 @media (max-width: 860px) { .drawer::after { left: 0; right: 0; top: 100%; bottom: auto; width: auto; height: 40px; } }
-.drawer.pm-open .drawer-body > * { animation: pm-line-in 0.75s var(--lux) both; }
-.drawer.pm-open .drawer-body > *:nth-child(2) { animation-delay: 0.12s; }
-.drawer.pm-open .drawer-body > *:nth-child(n+3) { animation-delay: 0.2s; }
-.drawer.pm-open .d-media img { animation: pm-settle 1.1s var(--lux) both; }
-@keyframes pm-line-in { from { opacity: 0; transform: translate3d(18px, 0, 0); } }
-@keyframes pm-settle { from { opacity: 0; transform: scale(1.08); } }
-@media (max-width: 860px) { .drawer.pm-open .drawer-body > * { animation-name: pm-rise-in; } }
-@keyframes pm-rise-in { from { opacity: 0; transform: translate3d(0, 14px, 0); } }
-
 .bag-btn { position: relative; }
 .pm-tick { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; pointer-events: none; opacity: 0; transform: scale(0.4);
   background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.5L12 5.5' fill='none' stroke='%230d211c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; box-shadow: 0 6px 16px -6px rgba(123, 92, 44, 0.7); }
@@ -108,8 +105,7 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
 @media (prefers-reduced-motion: reduce) {
   html.pm-intro body::before, html.pm-intro body::after { display: none; }
   .hv .hv-photo img { animation: none !important; }
-  .pm-par { translate: none !important; scale: none !important; }
-  .pm-rv { opacity: 1 !important; transform: none !important; }
+  .pm-par { transform: none !important; animation: none !important; }
   .cart, .drawer { transition-duration: 0.01ms !important; }
   .card:hover, .btn:hover, .card:hover .media img { transform: none !important; }
   .card::after, .btn.gold::after { display: none; }
