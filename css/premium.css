@@ -157,3 +157,26 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
 /* About: her portrait appears once (in the page hero), not three times. */
 .clinic .welcome-grid--text, .welcome-grid--text { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-inline: auto; }
 .clinic .about-grid--text, .about-grid--text { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-inline: auto; }
+
+/* ---------- Premium polish 2026-11-21 ---------- */
+/* Roomier side margins on laptops (1280-1440 wide): content no longer runs 20px from the screen edge. */
+@media (min-width: 561px) {
+  :root { --gut: clamp(1.25rem, 5vw, 4.5rem); }
+  .wrap, .clinic .header-inner { width: min(1240px, calc(100% - 2 * var(--gut))); }
+  .reviews .marquee-track { width: min(1240px, calc(100% - 2 * var(--gut))); }
+}
+/* Reviews heading lines up with the review grid instead of floating in a narrow centered box. */
+.reviews > .wrap.section-head { max-width: none; }
+.reviews > .wrap.section-head > * { max-width: 38rem; }
+.reviews > .wrap.section-head > .gold-rule { max-width: none; }
+/* Footer: one divider line above the disclaimer, not two. */
+.clinic .footer-disclaimer { border-top: 0; margin-top: 0; }
+/* Footer links: 44px tap rows on touch screens, tighter rows with a mouse. */
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  .clinic .footer-list a { min-height: 2.1rem; }
+}
+/* Visit page: the map fills its column (the small building photo was removed). */
+.visit-visual { align-content: stretch; }
+.visit-visual .map-frame { height: 100%; min-height: 26rem; }
+.visit-visual .map-frame iframe { height: 100%; min-height: 26rem; }
+@media (max-width: 900px) { .visit-visual .map-frame, .visit-visual .map-frame iframe { min-height: 18rem; } }

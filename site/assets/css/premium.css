@@ -143,3 +143,25 @@ html.pm-intro body::after { left: 50%; top: 50%; width: 64px; height: 64px; marg
 .sample { font-size: 0.78rem; letter-spacing: 0.01em; text-transform: none; color: var(--soft); }
 /* Routine steps not yet reached stay readable. */
 .step { opacity: 0.62; }
+
+/* ---------- Premium polish 2026-11-21 ---------- */
+/* "Clinic site" in the nav is for the phone menu only; the pill on the right covers desktop (was showing twice). */
+.top .nav a.nav-menu-only { display: none; }
+@media (max-width: 1080px) { .top .nav a.nav-menu-only { display: block !important; } }
+/* "Hear Dr. Linda" bars: ink instead of gold so the icon is readable on the warm hero photo. */
+:root[data-layout="clean"] .top .voice-btn .bars i { background: currentColor; }
+/* Phone cards: the small caption label no longer sits on top of the product photo. */
+@media (max-width: 600px) {
+  :root[data-theme] .card .badge, .card .badge { top: 12px; left: 14px; font-size: 0.6rem; letter-spacing: 0.14em; }
+  .card .media { padding-top: 26px; }
+  .card .media img.photo { inset: 20% 7% 5%; height: 75%; }
+}
+/* Same page width and side margins as the clinic site (header, content and footer line up). */
+@media (min-width: 561px) {
+  :root { --gut: clamp(1.25rem, 5vw, 4.5rem); }
+  .wrap, .site-foot .wrap { width: min(1240px, calc(100% - 2 * var(--gut))); }
+  .top { padding-inline: max(var(--gut), calc((100% - 1240px) / 2)); }
+}
+@media (min-width: 861px) {
+  .hv-b .hv-copy { padding-left: max(var(--gut), calc((100% - 1240px) / 2)); max-width: calc(560px + max(var(--gut), calc((100% - 1240px) / 2))); }
+}

@@ -15,7 +15,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261119-audit"
+V = "20261121-polish"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -343,7 +343,7 @@ def related_section(key):
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Continue exploring</p>
-          <h2 class="display">You might also like</h2>
+          <h2 class="display">Related treatments</h2>
         </div>
         <div class="related-grid">
 {cards}        </div>
@@ -685,7 +685,7 @@ def build_home():
 
     <section class="section">
       <div class="wrap">
-{section_head("Membership", "The Beauty Club", "Dr. Linda’s Age-less Savings Account lets you set aside a monthly amount and build Age-less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.")}
+{section_head("Membership", "The Beauty Club", "Dr. Linda’s Age-Less Savings Account lets you set aside a monthly amount and build Age-Less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.")}
         <div class="tiers">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
@@ -834,7 +834,7 @@ def build_aesthetics():
              "body": "Individualized aesthetic consultations with an expert injector, and treatment planning focused on facial balance and your personal preferences.",
              "href": "injectables.html", "cta": "About Botox and fillers"},
             {"n": "In the office", "title": "Skin and facials",
-             "body": "Our PRP Stem-Cell Facial, micro-needling, Diamond Tome microdermabrasion, Cosmelan and medical grade peels, supervised by Dr. Linda.",
+             "body": "Our PRP Stem-Cell Facial, micro-needling, Diamond Tome microdermabrasion, Cosmelan and medical-grade peels, supervised by Dr. Linda.",
              "href": "skin.html", "cta": "See skin treatments"},
             {"n": "At home", "title": "Medical-grade skin care",
              "body": "Explore Age-Less Medicine skin care products and a personalized regimen for your skin concerns and daily routine.",
@@ -924,7 +924,7 @@ def build_prp():
           <article class="step-card" data-reveal>
             <p class="n">01</p>
             <h3>Draw</h3>
-            <p>We begin by drawing a small sample of blood. This is the starting point for the rest of your visit.</p>
+            <p>We begin by drawing a small sample of blood.</p>
           </article>
           <article class="step-card" data-reveal>
             <p class="n">02</p>
@@ -1071,7 +1071,7 @@ def build_injectables():
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
-        <p>We use muscle relaxants and dermal fillers to soften lines and restore volume with a natural look in mind. Dr. Linda trained in Botox, Restylane, Juvederm, and Perlane techniques at the institute of Aesthetics Medicine in Houston, and in contouring with cosmetic fillers at Kapps Aesthetic Training in Toronto.</p>
+        <p>We use muscle relaxants and dermal fillers to soften lines and restore volume with a natural look in mind. Dr. Linda trained in Botox, Restylane, Juvederm, and Perlane techniques at the Institute of Aesthetics Medicine in Houston, and in contouring with cosmetic fillers at Kapps Aesthetic Training in Toronto.</p>
       </div>
     </section>
     <section class="section section--ivory">
@@ -1099,7 +1099,7 @@ def build_injectables():
         <p class="eyebrow">Is this visit right for you?</p>
         <h2 class="display">Who it is for</h2>
         <hr class="gold-rule">
-        <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind. The amount needed can be higher for men. A 10 percent discount is applied when two or more muscle-relaxant areas are treated.</p>
+        <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind.</p>
       </div>
     </section>
     <section class="section section--ivory">
@@ -1108,7 +1108,7 @@ def build_injectables():
           <p class="eyebrow">Your visit</p>
           <h2 class="display">What to expect</h2>
           <hr class="gold-rule">
-          <p class="lede">Some filler visits use an anesthesia cream. For lip enhancement with Juvederm, a dental block can be performed so the visit is more comfortable.</p>
+          <p class="lede">Your visit starts with a conversation about what you would like to change. We go over your options, what results to expect and the possible risks before any treatment.</p>
         </div>
         {book_block("Botox and dermal fillers", "Book a consultation")}
       </div>
@@ -1162,7 +1162,7 @@ def build_skin():
         </article>
       </div>
     </section>
-{shop_band(note="Dr. Linda also selects other medical grade lines for our shelves. Ask us at your visit.")}    <section class="section">
+{shop_band(note="Dr. Linda also selects other medical-grade lines for our shelves. Ask us at your visit.")}    <section class="section">
       <div class="wrap prose" data-reveal>
         <p class="eyebrow">Is this visit right for you?</p>
         <h2 class="display">Who it is for</h2>
@@ -1196,14 +1196,14 @@ def build_club():
     body = f"""{page_hero(
         "Membership",
         "The Beauty Club",
-        "Dr. Linda’s Age-less Savings Account is a simple way to invest in your care each month and build Age-less Bucks toward our products and services.",
+        "Dr. Linda’s Age-Less Savings Account is a simple way to invest in your care each month and build Age-Less Bucks toward our products and services.",
         "apothecary", "",
         '<a class="btn btn--line" href="site/index.html">Visit the shop</a>',
         "Ask about joining", "Beauty Club",
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
-        <p>Most of us plan for the years ahead. The Beauty Club is a way to plan for your skin, your health, and the treatments you already love. Each month you add to your Age-less Savings Account. Those funds, plus Age-less Bucks, can be used toward vitamins, nutrients, skin care, and services at Age-Less Medicine.</p>
+        <p>Most of us plan for the years ahead. The Beauty Club is a way to plan for your skin, your health, and the treatments you already love. Each month you add to your Age-Less Savings Account. Those funds, plus Age-Less Bucks, can be used toward vitamins, nutrients, skin care, and services at Age-Less Medicine.</p>
         <p>There are three levels. Retail discounts begin at 8 percent for Bronze and rise as your monthly amount increases.</p>
       </div>
     </section>
@@ -1268,7 +1268,7 @@ def build_club():
     page(
         "beauty-club.html",
         "Beauty Club | Age-Less Medicine",
-        "Join the Age-less Savings Account at Age-Less Medicine. Monthly membership starts at $99, with retail discounts beginning at 8 percent.",
+        "Join the Age-Less Savings Account at Age-Less Medicine. Monthly membership starts at $99, with retail discounts beginning at 8 percent.",
         "club",
         body,
     )
@@ -1277,7 +1277,7 @@ def build_club():
 def build_about():
     body = f"""{page_hero(
         "Our physician",
-        "Dr. Linda McClintock",
+        "Dr.&nbsp;Linda McClintock",
         "Medical director and president of Age-Less Medicine, and a familiar health voice in Tampa Bay.",
         "lounge", "",
         '<a class="btn btn--line" href="contact.html">Visit the office</a>',
@@ -1287,15 +1287,15 @@ def build_about():
     <section class="section">
       <div class="wrap about-grid about-grid--text">
         <div class="prose" data-reveal>
-          <p>Dr. Linda founded Age-Less Medicine in 2006. She leads the practice by hand and supervises every part of the care we deliver, from hormone and weight programs to injectables and skin treatments.</p>
+          <p>Dr. Linda founded Age-Less Medicine in 2006. She leads the practice and supervises the care we deliver, from hormone and weight programs to injectables and skin treatments.</p>
           <p>For more than a decade she appeared as a health correspondent for Bay News 9. She is a member of the American Academy of Anti-Aging Medicine and the Hillsborough County Medical Association, and she completed in-depth age management training at Cenegenics Medical Institute.</p>
-          <p>She trained in Botox, Restylane, Juvederm, and Perlane techniques at the institute of Aesthetics Medicine in Houston, and in contouring with cosmetic fillers at Kapps Aesthetic Training in Toronto. She is fluent in Spanish.</p>
+          <p>She trained in Botox, Restylane, Juvederm, and Perlane techniques at the Institute of Aesthetics Medicine in Houston, and in contouring with cosmetic fillers at Kapps Aesthetic Training in Toronto. She is fluent in Spanish.</p>
         </div>
       </div>
     </section>
     <section class="section section--ivory">
       <div class="wrap prose" data-reveal>
-        <h2 class="display">A longer view of her work</h2>
+        <h2 class="display">Her earlier career</h2>
         <hr class="gold-rule">
         <ul class="cred-list">
           <li>From 1994 to 1998 she served as medical director of Health Ease, a medical plan owned by Tampa General Hospital, and later as its chief executive officer.</li>
@@ -1352,10 +1352,6 @@ def build_contact():
           </div>
         </div>
         <div class="visit-visual" data-reveal>
-          <figure class="building-photo">
-            <img src="images/clinic/urban-centre.jpg" alt="Urban Centre on West Kennedy Boulevard in Tampa" width="322" height="220" loading="lazy" decoding="async">
-            <figcaption>One Urban Centre, West Kennedy Boulevard</figcaption>
-          </figure>
           <div class="map-frame">
             <iframe title="Map of Age-Less Medicine in Tampa" src="https://maps.google.com/maps?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+FL+33609&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
