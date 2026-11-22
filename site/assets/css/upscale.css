@@ -1,0 +1,44 @@
+/* ===================================================================
+   UPSCALE DRAFT (2026-11-21, local only). Loaded last.
+   Calmer shop home: larger headlines, more air, quiet text tabs
+   instead of pill filters, product cards without boxes, one button
+   style shared with the clinic site, gentle text fades on scroll.
+   =================================================================== */
+.display.md { font-size: clamp(2.8rem, 5.8vw, 5.1rem); line-height: 1.02; }
+.shop { padding-top: clamp(96px, 13vw, 170px); padding-bottom: clamp(96px, 12vw, 160px); }
+.shop-head { gap: 28px 64px; margin-bottom: 8px; }
+.shop-head .lede { max-width: 30rem; }
+
+/* Filters: quiet text tabs with an underline for the active one */
+.chips { gap: 4px 30px; margin-top: 48px; border-bottom: 1px solid var(--line-2); }
+.chip, :root[data-theme] .chip { min-height: 46px; padding: 0 2px; border: 0; border-radius: 0; background: none !important; color: var(--soft);
+  font-size: 0.98rem; position: relative; animation: none !important; transform: none !important; }
+.chip::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: #7b5c2c; transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease-out); }
+.chip[aria-pressed="true"], :root[data-theme] .chip[aria-pressed="true"] { color: var(--ink); font-weight: 500; background: none !important; }
+.chip[aria-pressed="true"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .chip[aria-pressed="false"]:hover { color: var(--ink); background: none; } }
+.picks { margin-top: 26px; }
+
+/* Product cards: no box, the product panel and the words breathe */
+.grid { gap: 56px 32px; }
+.card, :root[data-theme] .card { background: none; border: 0; border-radius: 0; overflow: visible; box-shadow: none !important; }
+.card .media { border-radius: 10px; overflow: hidden; }
+.card .body, .card .info { padding-left: 2px; padding-right: 2px; }
+@media (max-width: 860px) { .grid { gap: 40px 16px; } }
+
+/* Sections: a little more air between them */
+.routine, .about { padding: clamp(110px, 14vw, 190px) 0; }
+.visit { padding: clamp(100px, 12vw, 160px) 0; }
+.ingr { padding: clamp(72px, 9vw, 120px) 0; }
+
+/* Buttons: same pill, height and hover as the clinic site; no lift, no glow */
+.btn { min-height: 48px; padding: 0 28px; border-radius: 999px; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important; box-shadow: none !important; }
+.btn:hover, .btn:active { transform: none !important; }
+@media (hover: hover) and (pointer: fine) { .btn.gold:hover, .hv-b .btn.gold:hover { background: #d4b47c !important; } }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #7b5c2c; outline-offset: 3px; }
+
+/* Gentle fade for text blocks as they scroll in (product photos stay put; off for reduced motion) */
+html.up-fade .up-f { opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1); }
+html.up-fade .up-f.up-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.up-fade .up-f { opacity: 1 !important; transform: none !important; transition: none !important; } }

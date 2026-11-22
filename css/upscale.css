@@ -1,0 +1,137 @@
+/* ===================================================================
+   UPSCALE DRAFT (2026-11-21, local only). Loaded last.
+   Fewer, bigger sections: more air, larger headlines, image + text
+   splits and simple lists instead of rows of same-size boxes.
+   Scoped to the home page and the Botox and fillers page for review;
+   other pages keep the live look until Vito approves the direction.
+   Buttons, focus rings and the scroll fade apply site-wide.
+   =================================================================== */
+
+/* ---------- Buttons: one calm style on both sites ---------- */
+.clinic .btn { min-height: 3rem; padding: 0 1.75rem; border-radius: 999px; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease) !important; box-shadow: none !important; }
+.clinic .btn:hover, .clinic .btn:active { transform: none !important; box-shadow: none !important; }
+.clinic .btn--gold::after { display: none !important; }
+.clinic .btn--gold { background: var(--gold); border-color: var(--gold); color: var(--green-2); }
+.clinic .btn--gold:hover { background: #d4b47c; border-color: #d4b47c; color: var(--green-2); }
+.clinic .btn--line { background: transparent; color: var(--green); border-color: rgba(22, 51, 44, 0.32); }
+.clinic .btn--line:hover { background: var(--green); border-color: var(--green); color: var(--ivory); }
+.clinic .hero .btn, .clinic .p-hero .btn, .clinic .c-hero .btn { min-height: 3.25rem; }
+.clinic a:focus-visible, .clinic button:focus-visible, .clinic select:focus-visible, .clinic input:focus-visible { outline: 2px solid #7b5c2c; outline-offset: 3px; }
+.clinic .btn:focus-visible { outline-offset: 3px; border-radius: 999px; }
+
+/* ---------- Gentle scroll fade: softer and slower (main.js + premium.js already respect reduced motion) ---------- */
+html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 16px, 0); }
+@media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
+/* ================= HOME ================= */
+.page-home .section { padding: clamp(5.5rem, 11vw, 9.5rem) 0; }
+.page-home .c-hero-title { font-size: clamp(3.3rem, 7.4vw, 6.9rem); }
+.page-home .section-head { max-width: 46rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
+.page-home .section-head h2, .page-home .quiz-band h2, .page-home .skin-shop h2, .page-home .next-chapter h2, .page-home .approach h2,
+.page-injectables .up-row h2, .page-injectables .related h2 { font-size: clamp(2.5rem, 4.8vw, 4.1rem); line-height: 1.05; letter-spacing: -0.025em; }
+.page-home .gold-rule { display: none; }
+.page-home .approach .gold-rule { display: block; }
+.page-home .welcome { padding: clamp(6rem, 11vw, 9.5rem) 0; }
+
+/* Three areas of care: big image + text, alternating sides */
+.pillar-rows { display: grid; grid-template-columns: 1fr; gap: clamp(4.5rem, 9vw, 8rem); }
+.pillar-rows .pillar-card { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center;
+  background: none; border: 0; border-radius: 0; overflow: visible; box-shadow: none !important; transform: none !important; }
+.pillar-rows .pillar-card::after { display: none !important; }
+.pillar-rows .pillar-card:nth-child(even) .pillar-media { order: 2; }
+.pillar-rows .pillar-media { aspect-ratio: 5 / 4; border-radius: 6px; }
+.pillar-rows .pillar-body { padding: 0; background: none; }
+.pillar-rows .pillar-n { font-size: 0.78rem; }
+.pillar-rows .pillar-body h3 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); margin: 0.6rem 0 0.3rem; }
+.pillar-rows .pillar-tag { font-size: 1.3rem; margin-bottom: 1.8rem; }
+.pillar-rows .pillar-list { margin-bottom: 2rem; }
+.pillar-rows .pillar-list a { min-height: 3.2rem; font-size: 1.02rem; }
+.pillar-rows .pillar-body .more-link { margin-top: 0; }
+@media (max-width: 900px) {
+  .pillar-rows { max-width: none; gap: 4rem; }
+  .pillar-rows .pillar-card { grid-template-columns: 1fr; gap: 1.6rem; }
+  .pillar-rows .pillar-card:nth-child(even) .pillar-media { order: 0; }
+  .pillar-rows .pillar-media { aspect-ratio: 4 / 3; }
+}
+
+/* Skin care band: the photo leads */
+.page-home .skin-shop { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); gap: clamp(2.5rem, 6vw, 6rem); }
+.page-home .skin-shop-photo { aspect-ratio: 5 / 4; border-radius: 6px; box-shadow: none; }
+.page-home .skin-shop-copy p { font-size: 1.08rem; max-width: 34rem; }
+@media (max-width: 900px) { .page-home .skin-shop { grid-template-columns: 1fr; } .page-home .skin-shop-photo { order: -1; aspect-ratio: 4 / 3; } }
+
+/* Not sure where to start: open and centered, no box */
+.page-home .quiz-band { display: block; text-align: center; background: none; border: 0; box-shadow: none; padding: 0; max-width: 46rem; }
+.page-home .quiz-band .lede { margin: 1.2rem auto 0; max-width: 36rem; }
+.page-home .quiz-band .btn-row { justify-content: center; margin-top: 2.2rem; }
+.page-home #find-treatment { border-top: 1px solid var(--line); }
+
+/* Reviews: one large quote, the rest as a quiet list (no boxes) */
+.page-home .reviews .marquee-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(2rem, 4vw, 3.5rem); }
+.page-home .reviews .quote-card { background: none; border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); border-radius: 0; box-shadow: none; padding: 1.6rem 0 2rem; min-height: 0; }
+.page-home .reviews .quote-card p { font-size: 1.3rem; }
+.page-home .reviews .quote-card:nth-child(8) { order: -1; grid-column: 1 / -1; border-top: 0; padding: 0 0 clamp(2.5rem, 5vw, 4rem); }
+.page-home .reviews .quote-card:nth-child(8) p { font-size: clamp(2rem, 3.6vw, 3.1rem); line-height: 1.22; max-width: 26ch; font-style: italic; color: var(--green); }
+@media (max-width: 1080px) { .page-home .reviews .marquee-track { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .page-home .reviews .marquee { overflow: visible; }
+  .page-home .reviews .marquee-track { display: grid; grid-template-columns: 1fr; width: calc(100% - 2rem); margin-inline: auto; padding: 0; }
+  .page-home .reviews .quote-card { width: auto; }
+  .page-home .reviews .quote-card:nth-child(n+5):not(:nth-child(8)) { display: none; }
+}
+
+/* Beauty Club: a simple list instead of three boxes */
+.tiers--list { grid-template-columns: 1fr !important; gap: 0; border-bottom: 1px solid var(--line); max-width: 62rem; }
+.tiers--list .tier { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 2.2fr); align-items: baseline; gap: 1rem 2rem;
+  background: none !important; color: var(--ink) !important; border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none !important; transform: none !important; padding: 1.8rem 0; }
+.tiers--list .tier h3 { font-size: clamp(1.8rem, 2.6vw, 2.3rem); color: var(--green); }
+.tiers--list .tier .price { margin: 0; font-size: 2rem; color: var(--green); }
+.tiers--list .tier .price span { color: var(--muted) !important; }
+.tiers--list .tier ul { margin: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 1.8rem; }
+.tiers--list .tier li { border: 0 !important; padding: 0; color: var(--muted) !important; }
+.tiers--list .tier--gold h3 { color: #7b5c2c; }
+@media (max-width: 760px) { .tiers--list .tier { grid-template-columns: 1fr auto; } .tiers--list .tier ul { grid-column: 1 / -1; flex-direction: column; } }
+
+/* ================= BOTOX AND FILLERS (treatment page draft) ================= */
+.page-injectables .section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
+.page-injectables .p-hero h1 { font-size: clamp(2.8rem, 6.2vw, 5.4rem); line-height: 1.02; }
+.page-injectables .gold-rule { display: none; }
+.page-injectables .up-intro .prose { max-width: 50rem; }
+.page-injectables .up-intro .prose p { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2.05rem); line-height: 1.38; color: var(--green); max-width: none; letter-spacing: -0.005em; }
+/* Service boxes become a simple list: name on the left, details on the right */
+.detail-list { display: block !important; max-width: 62rem; }
+.detail-list .detail { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 1rem 3rem; background: none; border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); border-radius: 0; box-shadow: none !important; padding: 2.1rem 0; }
+.detail-list .detail:last-child { border-bottom: 1px solid rgba(123, 92, 44, 0.28); }
+.detail-list .detail h3 { font-size: clamp(1.7rem, 2.5vw, 2.2rem); color: var(--green); margin: 0; line-height: 1.12; }
+.detail-list .detail p { font-size: 1.04rem; }
+/* Who it is for / What to expect: two calm rows in one section */
+.up-rows { display: grid; gap: clamp(3.5rem, 7vw, 6rem); max-width: 62rem; }
+.up-row { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 1.2rem 3rem; align-items: start; }
+.up-row h2 { margin: 0; }
+.up-row-body p { font-size: 1.12rem; color: #4f493f; max-width: 40rem; }
+.up-row-body .btn-row { margin-top: 2rem !important; }
+/* Related treatments: image + text, no boxes */
+.page-injectables .related-card { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transform: none !important; overflow: visible; }
+.page-injectables .related-card::after { display: none !important; }
+.page-injectables .related-media { border-radius: 6px; aspect-ratio: 3 / 2 !important; }
+.page-injectables .related-body { padding: 1.4rem 0 0 !important; }
+.page-injectables .related-body h3 { font-size: clamp(1.7rem, 2.4vw, 2.1rem); }
+.page-injectables .related-grid { gap: clamp(2rem, 4vw, 3.5rem); }
+@media (max-width: 760px) { .detail-list .detail, .up-row { grid-template-columns: 1fr; gap: 0.7rem; } }
+
+/* ---------- Fixes after first look ---------- */
+/* Membership price: the number was rendering at the small "a month" size (live bug too). */
+.tier .price span[data-count] { font-size: inherit !important; color: inherit !important; }
+/* Headings keep a little air above the text now that the gold rules are gone. */
+.page-home .section-head .lede, .page-home .next-chapter h2 + .lede, .page-home .skin-shop h2 + p { margin-top: 1.2rem; }
+.page-home .next-chapter .btn-row { margin-top: 2rem; }
+.page-home .skin-shop h2 { font-size: clamp(2.3rem, 3.8vw, 3.4rem); }
+.page-home .skin-shop h2 + p { margin-top: 1.2rem; }
+@media (min-width: 901px) { .page-home .skin-shop { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); } }
+.page-home .reviews blockquote { margin: 0; }
+/* Seven short quotes left an odd one out; the shortest ("Caring healthcare") sits out on the home page. */
+.page-home .reviews .quote-card:nth-child(5) { display: none; }
+.page-injectables .up-row h2 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); }
+.page-home .skin-shop-copy h2 { margin-bottom: 1.2rem; max-width: none; text-wrap: pretty; }
+.page-home section:not(.approach) .gold-rule + p { margin-top: 1.2rem; }

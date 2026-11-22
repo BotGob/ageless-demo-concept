@@ -3,6 +3,8 @@ from pathlib import Path
 import re
 
 ROOT = Path("/workspace/ageless-demo")
+# Share previews need absolute URLs. Demo address now; switch to https://age-lessmedicine.com/ at launch.
+SITE_URL = "https://botgob.github.io/ageless-demo-concept/"
 
 MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
@@ -15,7 +17,7 @@ MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
           </g>
         </svg>"""
 
-V = "20261121-polish"
+V = "20261121-upscale"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -327,7 +329,7 @@ RELATED = {
 }
 
 
-def related_section(key):
+def related_section(key, eyebrow=True):
     cards = ""
     for href, image, title, lede in RELATED[key]:
         cards += f"""          <a class="related-card" href="{href}" data-reveal>
@@ -342,8 +344,7 @@ def related_section(key):
     return f"""    <section class="section related">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <p class="eyebrow">Continue exploring</p>
-          <h2 class="display">Related treatments</h2>
+{'          <p class="eyebrow">Continue exploring</p>' + chr(10) if eyebrow else ""}          <h2 class="display">Related treatments</h2>
         </div>
         <div class="related-grid">
 {cards}        </div>
@@ -385,6 +386,22 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
   <style>html,body{{background:#faf6ee}}</style>
   <meta name="description" content="{description}">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/brand/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+  <meta name="theme-color" content="#16332c">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Age-Less Medicine">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:url" content="{SITE_URL}{'' if filename == 'index.html' else filename}">
+  <meta property="og:image" content="{SITE_URL}images/og/og-clinic.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Age-Less Medicine. Live well. Age beautifully.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{SITE_URL}images/og/og-clinic.jpg">
   <link rel="preload" href="site/assets/fonts/CormorantGaramond-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="site/assets/fonts/CormorantGaramond-500i.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="site/assets/fonts/Outfit-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -392,6 +409,7 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
   <link rel="stylesheet" href="css/styles.css?v={V}">
   <link rel="stylesheet" href="css/clinic.css?v={V}">
   <link rel="stylesheet" href="css/premium.css?v={V}">
+  <link rel="stylesheet" href="css/upscale.css?v={V}">
 {extra_head}  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
 </head>
@@ -446,8 +464,7 @@ def section_head(eyebrow, title, lede="", center=False, tag="h2", hid=""):
     lede_html = f'\n          <p class="lede">{lede}</p>' if lede else ""
     c = " section-head--center" if center else ""
     return f"""        <div class="section-head{c}" data-reveal>
-          <p class="eyebrow">{eyebrow}</p>
-          <{tag} class="display"{i}>{title}</{tag}>
+{f'          <p class="eyebrow">{eyebrow}</p>' + chr(10) if eyebrow else ""}          <{tag} class="display"{i}>{title}</{tag}>
           <hr class="gold-rule">{lede_html}
         </div>"""
 
@@ -476,10 +493,10 @@ def approach_section(compact=False):
 
 def shop_band(eyebrow="Between visits", title="Age-Less skin&nbsp;care", body="Dr. Linda's own line of medical-grade skin care, the same products she uses in the treatment room. Order online and we ship it to you, or pick it up free at our office.", note=""):
     note_html = f'\n          <p class="skin-shop-note">{note}</p>' if note else ""
+    eyebrow_html = f'\n          <p class="eyebrow">{eyebrow}</p>' if eyebrow else ""
     return f"""    <section class="section shop-band-section">
       <div class="wrap skin-shop shop-band" data-reveal>
-        <div class="skin-shop-copy">
-          <p class="eyebrow">{eyebrow}</p>
+        <div class="skin-shop-copy">{eyebrow_html}
           <h2 class="display">{title}</h2>
           <hr class="gold-rule">
           <p>{body}</p>{note_html}
@@ -605,7 +622,7 @@ def pillar_cards():
     for p in PILLARS:
         items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in p["items"])
         out += f"""          <article class="pillar-card" data-reveal>
-            <a class="pillar-media" href="{p['href']}" tabindex="-1" aria-hidden="true">{pic(p['img'], '')}</a>
+            <a class="pillar-media" href="{p['href']}" tabindex="-1" aria-hidden="true">{pic(p['img'], '', sizes="(max-width: 700px) 92vw, (max-width: 1080px) 56vw, 700px")}</a>
             <div class="pillar-body">
               <p class="pillar-n">{p['n']}</p>
               <h3><a href="{p['href']}">{p['title']}</a></h3>
@@ -644,8 +661,8 @@ def build_home():
 {welcome_section()}
     <section class="section pillars" id="care">
       <div class="wrap">
-{section_head("How we can help", "Three areas of care, one plan for you", "Every plan starts with a conversation about your health history, your priorities and your goals.")}
-        <div class="pillar-grid">
+{section_head("", "Three areas of care, one plan for you", "Every plan starts with a conversation about your health history, your priorities and your goals.")}
+        <div class="pillar-grid pillar-rows">
 {pillar_cards()}        </div>
       </div>
     </section>
@@ -655,11 +672,10 @@ def build_home():
     </section>
 
 {approach_section()}
-{shop_band(eyebrow="Age-Less skin care", title="Her skin care, between&nbsp;visits", body="Medical-grade skin care from Dr. Linda's practice, with a personalized regimen for your skin concerns and daily routine. Order online and we ship it to you, or pick it up free at our office.")}
+{shop_band(eyebrow="", title="Her skin care, between&nbsp;visits", body="Medical-grade skin care from Dr. Linda's practice, with a personalized regimen for your skin concerns and daily routine. Order online and we ship it to you, or pick it up free at our office.")}
     <section class="section" id="find-treatment">
       <div class="wrap quiz-band" data-reveal>
         <div>
-          <p class="eyebrow">A simple starting point</p>
           <h2 class="display">Not sure where to start?</h2>
           <p class="lede">Answer two short questions and we will point you toward a visit that may fit. No medical details are collected.</p>
         </div>
@@ -672,7 +688,6 @@ def build_home():
 
     <section class="reviews section section--ivory">
       <div class="wrap section-head" data-reveal>
-        <p class="eyebrow">Kind words</p>
         <h2 class="display">What our patients say</h2>
         <hr class="gold-rule">
         <p class="lede">A few notes from people we have been fortunate to care for.</p>
@@ -685,8 +700,8 @@ def build_home():
 
     <section class="section">
       <div class="wrap">
-{section_head("Membership", "The Beauty Club", "Dr. Linda’s Age-Less Savings Account lets you set aside a monthly amount and build Age-Less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.")}
-        <div class="tiers">
+{section_head("", "The Beauty Club", "Dr. Linda’s Age-Less Savings Account lets you set aside a monthly amount and build Age-Less Bucks toward our products and services. Retail discounts begin at 8 percent for a Bronze account.")}
+        <div class="tiers tiers--list">
           <article class="tier" data-reveal>
             <h3>Bronze</h3>
             <p class="price">$<span data-count="99">99</span> <span>a month</span></p>
@@ -721,7 +736,7 @@ def build_home():
       </div>
     </section>
 
-{next_chapter()}"""
+{next_chapter(eyebrow=False)}"""
     page(
         "index.html",
         "Age-Less Medicine | Live well. Age beautifully.",
@@ -736,11 +751,11 @@ def build_home():
     )
 
 
-def next_chapter():
+def next_chapter(eyebrow=True):
+    eb = '\n          <p class="eyebrow">Begin your next chapter</p>' if eyebrow else ""
     return f"""    <section class="section next-chapter" id="visit">
       <div class="wrap next-grid">
-        <div data-reveal>
-          <p class="eyebrow">Begin your next chapter</p>
+        <div data-reveal>{eb}
           <h2 class="display">A thoughtful plan. A healthier outlook.</h2>
           <hr class="gold-rule">
           <p class="lede">Schedule your personalized consultation. We are also happy to answer questions by phone.</p>
@@ -1069,13 +1084,13 @@ def build_injectables():
         '<a class="btn btn--line" href="aesthetics.html">Skin and aesthetics</a>',
         "Book a consultation", "Botox and dermal fillers",
     )}
-    <section class="section">
+    <section class="section up-intro">
       <div class="wrap prose" data-reveal>
         <p>We use muscle relaxants and dermal fillers to soften lines and restore volume with a natural look in mind. Dr. Linda trained in Botox, Restylane, Juvederm, and Perlane techniques at the Institute of Aesthetics Medicine in Houston, and in contouring with cosmetic fillers at Kapps Aesthetic Training in Toronto.</p>
       </div>
     </section>
     <section class="section section--ivory">
-      <div class="wrap detail-grid">
+      <div class="wrap detail-grid detail-list">
         <article class="detail" data-reveal>
           <h3>Muscle relaxants</h3>
           <p>Botox and Dysport are used on the face, around the eyes, the forehead, and the frown line. A 10 percent discount is applied when two or more treatment areas are treated. The amount needed can be higher for men.</p>
@@ -1094,26 +1109,24 @@ def build_injectables():
         </article>
       </div>
     </section>
-    <section class="section">
-      <div class="wrap prose" data-reveal>
-        <p class="eyebrow">Is this visit right for you?</p>
-        <h2 class="display">Who it is for</h2>
-        <hr class="gold-rule">
-        <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind.</p>
-      </div>
-    </section>
-    <section class="section section--ivory">
-      <div class="wrap" data-reveal>
-        <div class="section-head">
-          <p class="eyebrow">Your visit</p>
-          <h2 class="display">What to expect</h2>
-          <hr class="gold-rule">
-          <p class="lede">Your visit starts with a conversation about what you would like to change. We go over your options, what results to expect and the possible risks before any treatment.</p>
+    <section class="section up-rows-section">
+      <div class="wrap up-rows">
+        <div class="up-row" data-reveal>
+          <h2 class="display">Who it is for</h2>
+          <div class="up-row-body">
+            <p>Dr. Linda offers these treatments to women and men who want to soften lines and restore volume with a natural look in mind.</p>
+          </div>
         </div>
-        {book_block("Botox and dermal fillers", "Book a consultation")}
+        <div class="up-row" data-reveal>
+          <h2 class="display">What to expect</h2>
+          <div class="up-row-body">
+            <p>Your visit starts with a conversation about what you would like to change. We go over your options, what results to expect and the possible risks before any treatment.</p>
+    {book_block("Botox and dermal fillers", "Book a consultation")}
+          </div>
+        </div>
       </div>
     </section>
-{related_section("injectables")}
+{related_section("injectables", eyebrow=False)}
 """
     page(
         "injectables.html",
