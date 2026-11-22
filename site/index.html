@@ -30,12 +30,12 @@
 <link rel="preload" href="assets/fonts/CormorantGaramond-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/CormorantGaramond-500i.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Outfit-300.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/fonts.css?v=20261122-up2">
-<link rel="stylesheet" href="assets/css/style.css?v=20261122-up2">
-<link rel="stylesheet" href="assets/css/heroes.css?v=20261122-up2">
-<link rel="stylesheet" href="assets/css/unify.css?v=20261122-up2">
-<link rel="stylesheet" href="assets/css/premium.css?v=20261122-up2">
-<link rel="stylesheet" href="assets/css/upscale.css?v=20261122-up2">
+<link rel="stylesheet" href="assets/fonts.css?v=20261122-feed">
+<link rel="stylesheet" href="assets/css/style.css?v=20261122-feed">
+<link rel="stylesheet" href="assets/css/heroes.css?v=20261122-feed">
+<link rel="stylesheet" href="assets/css/unify.css?v=20261122-feed">
+<link rel="stylesheet" href="assets/css/premium.css?v=20261122-feed">
+<link rel="stylesheet" href="assets/css/upscale.css?v=20261122-feed">
 <!-- LAYOUT: clean landing is the default. Add ?layout=full to see the original motion-heavy hero for comparison. -->
 <script>(function(){var q=new URLSearchParams(location.search),d=document.documentElement;d.setAttribute('data-layout', q.get('layout') === 'full' ? 'full' : 'clean');
 /* HERO MOCKUPS (2026-11-14): ?hero=a..e previews five first-screen directions. No param = B (Editorial), Vito's pick 2026-11-14. ?hero=now shows the earlier dark green clean hero. */
@@ -208,7 +208,7 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
         </h1>
         <p class="hero-sub fade-in" data-i18n="hero_sub">The same products she trusts in the treatment room, chosen for your skin and sent to your door.</p>
         <div class="hero-ctas fade-in">
-          <button class="btn gold" type="button" data-open="peptide-rx"><span data-i18n="hero_cta">Shop Peptide RX</span> <span class="price-chip"><span data-price="89"></span></span></button>
+          <button class="btn gold" type="button" data-open="peptide-rx"><span data-i18n="hero_cta">Shop Peptide RX</span> <span class="price-chip"><span data-price="89" data-live-price="peptide-rx"></span></span></button>
           <a class="btn ghost" href="#shop" data-i18n="hero_cta2">Shop by skin goal</a>
         </div>
         <p class="hero-foot fade-in" data-i18n="hero_kicker_line">Medical-grade skin care from her Tampa practice</p>
@@ -275,7 +275,7 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
           <li class="step" data-step="2"><span class="n">3</span><div><h3 data-i18n="step_3">Protect</h3><p data-i18n="step_3b">Finish with tinted Sunscreen 50+, every single day.</p></div></li>
         </ol>
         <div class="routine-buy">
-          <div class="rp"><span class="big" data-price="235"></span> <s data-price="277"></s><small><span data-i18n="routine_price_note">instead of $277 separately</span> · <span data-i18n="sample">sample pricing</span></small></div>
+          <div class="rp"><span class="big" data-price="235" data-live-price="morning-routine"></span> <s data-price="277" data-live-compare="morning-routine"></s><small><span data-i18n="routine_price_note">instead of $277 separately</span> · <span data-i18n="sample">sample pricing</span></small></div>
           <button class="btn gold" type="button" data-add="morning-routine" data-i18n="routine_cta">Add the Morning Routine</button>
         </div>
       </div>
@@ -493,12 +493,12 @@ var h=(q.get('hero')||'b').toLowerCase(); if(/^[a-e]$/.test(h) && q.get('layout'
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/js/data.js?v=20261122-up2"></script>
-<script src="assets/js/heroes.js?v=20261122-up2"></script>
-<script src="assets/js/shopify.js?v=20261122-up2"></script>
-<script src="assets/js/motion.js?v=20261122-up2"></script>
-<script src="assets/js/app.js?v=20261122-up2"></script>
-<script src="assets/js/premium.js?v=20261122-up2"></script>
-<script src="assets/js/upscale.js?v=20261122-up2"></script>
+<script src="assets/js/data.js?v=20261122-feed"></script>
+<script src="assets/js/heroes.js?v=20261122-feed"></script>
+<script src="assets/js/shopify.js?v=20261122-feed"></script>
+<script src="assets/js/motion.js?v=20261122-feed"></script>
+<script src="assets/js/app.js?v=20261122-feed"></script>
+<script src="assets/js/premium.js?v=20261122-feed"></script>
+<script src="assets/js/upscale.js?v=20261122-feed"></script>
 </body>
 </html>

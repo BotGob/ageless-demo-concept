@@ -21,7 +21,13 @@ The token is set, so checkout goes to the Age-Less Demo Shopify development stor
 - `token` set to a public Storefront API access token: on load the shop looks up each product by handle (the handle equals the product id in assets/js/data.js, for example `peptide-rx`) and stores its first variant ID. At checkout it calls `cartCreate` with the bag lines and redirects to `cart.checkoutUrl`, Shopify's own checkout. On the dev store that checkout runs with test payments only.
 - Fallback: if the token is missing, the API fails, or a product in the bag is not found in Shopify, the shop logs a console warning and opens the simulated checkout instead.
 - Only ever put a Storefront API token here (it is meant to be public). Never an Admin API token.
-- Prices on the page come from data.js. Keep them equal to the Shopify product prices.
+- Live product feed (draft, 2026-11-22): when the token works, the shop reads each product's name, price, compare-at price, main photo and stock straight from Shopify (same handles as data.js) and redraws the grid, the product drawer, the bag, the hero price chip and the routine price. So a price, photo or stock change in Shopify shows on the site without touching code.
+  - Sold out in Shopify (not available for sale) shows "Sold out" and disables Add to bag. Three or fewer tracked units shows "Only N left".
+  - Spanish: if the store has Spanish published (Shopify Translate & Adapt), the Spanish product names come from Shopify too. Until then the Spanish text in data.js stays. If a product is renamed in Shopify, the new name is shown in both languages until a Spanish translation exists.
+  - Descriptions, sizes, ingredients and badges still come from data.js (her Shopify descriptions are one long block).
+  - Safe fallback: if the request fails, times out (8 s), or the token lacks a scope, the page keeps the data.js products exactly as they are. Checkout mapping falls back to a basic lookup when only the extra fields fail.
+  - Switches in AL_SHOPIFY: livePrices, livePhotos, liveStock, liveTitles (set any to false to keep the data.js value).
+- With no working token, prices on the page come from data.js. Keep them equal to the Shopify product prices.
 
 To load the products into Shopify: Admin > Products > Import, using products.csv (kept outside this site folder), then upload one image per product.
 

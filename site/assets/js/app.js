@@ -143,7 +143,27 @@
     var d = IMG_WH[src];
     return d ? ' width="' + d[0] + '" height="' + d[1] + '"' : '';
   }
+  /* Live Shopify photo (shopify.js sets p.live.img). Sized through Shopify's image CDN. */
+  function liveSrc(p, w) { var u = p.live.img.url; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w; }
+  function liveImgHTML(p, lazy) {
+    var im = p.live.img;
+    return '<img class="sf-img" src="' + liveSrc(p, 700) + '" srcset="' + liveSrc(p, 450) + ' 450w, ' + liveSrc(p, 700) + ' 700w, ' + liveSrc(p, 1100) + ' 1100w" sizes="(max-width: 700px) 46vw, 380px" alt="' + esc(L(p.name)) + '" width="' + im.w + '" height="' + im.h + '"' + (lazy ? ' loading="lazy"' : '') + ' decoding="async">';
+  }
+  function thumbSrc(p) { return p.live && p.live.img ? liveSrc(p, 200) : (p.img || PIECES['peptide-rx'].img); }
+  function soldOut(p) { return !!(p.live && p.live.stock && !p.live.stock.forSale); }
+  function stockNote(p) {
+    var s = p.live && p.live.stock;
+    if (!s) return '';
+    if (!s.forSale) return '<span class="stock out">' + esc(t('sold_out')) + '</span>';
+    if (s.qty != null && s.qty > 0 && s.qty <= 3) return '<span class="stock low">' + esc(t('low_stock').replace('{n}', s.qty)) + '</span>';
+    return '';
+  }
+  function addBtn(p, extra, label) {
+    if (soldOut(p)) return '<button class="btn gold" type="button" disabled aria-disabled="true"' + (extra || '') + '>' + esc(t('sold_out')) + '</button>';
+    return '<button class="btn gold" type="button" data-add="' + p.id + '"' + (extra || '') + '>' + label + '</button>';
+  }
   function mediaHTML(p, cls) {
+    if (p.live && p.live.img) return liveImgHTML(p, true);
     if (p.photo) return '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' loading="lazy" decoding="async">';
     if (p.bundle) return '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt=""' + imgWH(PIECES[k].img) + ' loading="lazy" decoding="async">'; }).join('') + '</div>';
     return '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' loading="lazy" decoding="async">';
@@ -155,8 +175,8 @@
       '<span class="badge">' + esc(L(p.badge)) + '</span>' + mediaHTML(p) + '</button>' +
       '<div class="info"><span class="tag-lead">' + (lang === 'es' ? 'Empieza aquí' : 'Start here') + '</span>' +
       '<h3>' + esc(L(p.name)) + (p.supplement ? '*' : '') + '</h3><p>' + esc(L(p.short)) + '</p>' +
-      '<div class="price-row">' + price + '<span class="sample">' + esc(t('sample')) + '</span></div>' +
-      '<div class="card-actions"><button class="btn gold" type="button" data-add="' + p.id + '">' + esc(t('add')) + '</button>' +
+      '<div class="price-row">' + price + '<span class="sample">' + esc(t('sample')) + '</span>' + stockNote(p) + '</div>' +
+      '<div class="card-actions">' + addBtn(p, '', esc(t('add'))) +
       '<button class="btn ghost" type="button" data-open="' + p.id + '">' + esc(t('details')) + '</button></div></div></article>';
   }
   function renderGrid(animate) {
@@ -249,10 +269,10 @@
   function openDrawer(id) { openDrawerId = id; drawerQty = 1; fillDrawer(id); if (drawer.hidden) show(drawer); $('.drawer-body').scrollTop = 0; }
   function fillDrawer(id) {
     var p = byId[id], h = '';
-    h += '<div class="d-media' + (p.photo ? ' is-photo' : '') + '">' + (p.photo ? '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">' : p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt=""' + imgWH(PIECES[k].img) + ' decoding="async">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">') + '</div>';
+    h += '<div class="d-media' + (p.live && p.live.img ? ' is-live' : p.photo ? ' is-photo' : '') + '">' + (p.live && p.live.img ? liveImgHTML(p, false) : p.photo ? '<img class="photo" src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">' : p.bundle ? '<div class="cluster">' + p.bundle.map(function (k) { return '<img src="' + PIECES[k].img + '" alt=""' + imgWH(PIECES[k].img) + ' decoding="async">'; }).join('') + '</div>' : '<img src="' + p.img + '" alt="' + esc(L(p.name)) + '"' + imgWH(p.img) + ' decoding="async">') + '</div>';
     h += '<div class="d-info"><span class="tag-lead" style="display:inline-flex">' + esc(L(p.badge)) + '</span>';
     h += '<h2 id="drawerTitle">' + esc(L(p.name)) + (p.supplement ? '*' : '') + '</h2><div class="d-size">' + esc(L(p.size)) + '</div>';
-    h += '<div class="price-row" style="margin-top:14px"><span class="price">' + money(p.price) + (p.compareAt ? '<s>' + money(p.compareAt) + '</s>' : '') + '</span><span class="sample">' + esc(t('sample')) + '</span></div>';
+    h += '<div class="price-row" style="margin-top:14px"><span class="price">' + money(p.price) + (p.compareAt ? '<s>' + money(p.compareAt) + '</s>' : '') + '</span><span class="sample">' + esc(t('sample')) + '</span>' + stockNote(p) + '</div>';
     h += '<p class="d-long">' + esc(L(p.long)) + '</p>';
     if (p.chart) {
       h += '<div class="eye"><h3>' + esc(t('eye_tap')) + '</h3><div class="eye-chips" role="group">';
@@ -270,12 +290,12 @@
     }
     if (p.supplement) h += '<p class="d-sub">' + esc(t('foot_supp')) + '</p>';
     h += '</div><div class="d-buy"><div class="stepper" role="group" aria-label="' + esc(t('qty')) + '"><button type="button" data-dq="-1" aria-label="-">&minus;</button><output id="dQty">' + drawerQty + '</output><button type="button" data-dq="1" aria-label="+">+</button></div>' +
-      '<button class="btn gold" type="button" data-add="' + p.id + '" data-qty="' + drawerQty + '" id="dAdd">' + esc(t('add')) + ' · ' + money(p.price * drawerQty) + '</button></div>';
+      addBtn(p, ' data-qty="' + drawerQty + '" id="dAdd"', esc(t('add')) + ' · ' + money(p.price * drawerQty)) + '</div>';
     $('#drawerBody').innerHTML = h;
   }
   drawer.addEventListener('click', function (e) {
     var q = e.target.closest('[data-dq]');
-    if (q) { drawerQty = Math.max(1, Math.min(9, drawerQty + +q.getAttribute('data-dq'))); var dq = $('#dQty'), up = +q.getAttribute('data-dq') > 0; dq.textContent = drawerQty; if (!reduce) dq.animate([{ transform: 'translateY(' + (up ? 70 : -70) + '%)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 260, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }); var b = $('#dAdd'); b.setAttribute('data-qty', drawerQty); b.textContent = t('add') + ' · ' + money(byId[openDrawerId].price * drawerQty); return; }
+    if (q) { drawerQty = Math.max(1, Math.min(9, drawerQty + +q.getAttribute('data-dq'))); var dq = $('#dQty'), up = +q.getAttribute('data-dq') > 0; dq.textContent = drawerQty; if (!reduce) dq.animate([{ transform: 'translateY(' + (up ? 70 : -70) + '%)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 260, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }); var b = $('#dAdd'); if (!b.hasAttribute('data-add')) return; b.setAttribute('data-qty', drawerQty); b.textContent = t('add') + ' · ' + money(byId[openDrawerId].price * drawerQty); return; }
     var ey = e.target.closest('[data-eye]');
     if (ey) {
       var on = ey.getAttribute('aria-pressed') !== 'true';
@@ -295,6 +315,7 @@
   function count() { return cart.reduce(function (s, l) { return s + l.qty; }, 0); }
   function subtotal() { return cart.reduce(function (s, l) { return s + byId[l.id].price * l.qty; }, 0); }
   function addToBag(id, qty, srcBtn) {
+    if (!byId[id] || soldOut(byId[id])) return;
     var line = cart.filter(function (l) { return l.id === id; })[0];
     if (line) line.qty = Math.min(20, line.qty + qty); else { cart.push({ id: id, qty: qty }); newLine = id; }
     save(); renderCart();
@@ -311,7 +332,7 @@
     var src = srcBtn && (srcBtn.closest('.card') ? $('.media img', srcBtn.closest('.card')) : srcBtn.closest('.drawer') ? $('.d-media img', drawer) : srcBtn.closest('.routine') ? $('#shelf img[data-g="1"]') : null);
     if (reduce || !src || !bag.animate) { bump(); return; }
     var a = src.getBoundingClientRect(), b = bag.getBoundingClientRect();
-    var img = document.createElement('img'); img.className = 'flyer'; img.src = byId[id].img || PIECES['peptide-rx'].img; img.alt = '';
+    var img = document.createElement('img'); img.className = 'flyer'; img.src = thumbSrc(byId[id]); img.alt = '';
     var w = Math.min(a.width, 160), h = Math.min(a.height, 200);
     img.style.cssText = 'left:' + (a.left + a.width / 2 - w / 2) + 'px;top:' + (a.top + a.height / 2 - h / 2) + 'px;width:' + w + 'px;height:' + h + 'px';
     document.body.appendChild(img);
@@ -333,7 +354,7 @@
     cartEl.classList.toggle('empty', n === 0);
     $('#cartLines').innerHTML = cart.map(function (l) {
       var p = byId[l.id];
-      return '<li class="line-item" data-line="' + l.id + '"><div class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""' + imgWH(p.img || PIECES['peptide-rx'].img) + ' loading="lazy" decoding="async"></div><div><h4>' + esc(L(p.name)) + '</h4>' +
+      return '<li class="line-item" data-line="' + l.id + '"><div class="thumb"><img src="' + thumbSrc(p) + '" alt=""' + (p.live && p.live.img ? ' width="200" height="200"' : imgWH(p.img || PIECES['peptide-rx'].img)) + ' loading="lazy" decoding="async"></div><div><h4>' + esc(L(p.name)) + '</h4>' +
         '<div class="meta"><div class="stepper sm" role="group" aria-label="' + esc(t('qty')) + '"><button type="button" data-q="-1" aria-label="-">&minus;</button><output>' + l.qty + '</output><button type="button" data-q="1" aria-label="+">+</button></div>' +
         '<button type="button" class="rm" data-rm>' + esc(t('remove')) + '</button></div></div><span class="lp">' + money2(p.price * l.qty) + '</span></li>';
     }).join('');
@@ -372,7 +393,7 @@
   function totals() { var s = subtotal(), sh = shipCost(), tx = Math.round(s * TAX * 100) / 100; return { s: s, sh: sh, tx: tx, total: s + sh + tx }; }
   function renderSummary() {
     var x = totals();
-    $('#coLines').innerHTML = cart.map(function (l) { var p = byId[l.id]; return '<li><span class="thumb"><img src="' + (p.img || PIECES['peptide-rx'].img) + '" alt=""' + imgWH(p.img || PIECES['peptide-rx'].img) + ' loading="lazy" decoding="async"><span class="q">' + l.qty + '</span></span><span>' + esc(L(p.name)) + '</span><span class="tnum">' + money2(p.price * l.qty) + '</span></li>'; }).join('');
+    $('#coLines').innerHTML = cart.map(function (l) { var p = byId[l.id]; return '<li><span class="thumb"><img src="' + thumbSrc(p) + '" alt=""' + (p.live && p.live.img ? ' width="200" height="200"' : imgWH(p.img || PIECES['peptide-rx'].img)) + ' loading="lazy" decoding="async"><span class="q">' + l.qty + '</span></span><span>' + esc(L(p.name)) + '</span><span class="tnum">' + money2(p.price * l.qty) + '</span></li>'; }).join('');
     $('#coSub').textContent = money2(x.s); $('#coShip').textContent = x.sh ? money2(x.sh) : t('free');
     $('#coTax').textContent = money2(x.tx); $('#coTotal').textContent = money2(x.total);
     $('#shipCost').textContent = subtotal() >= FREE_SHIP ? t('free') : money2(SHIP);
@@ -483,5 +504,17 @@
   function toast(msg) { tEl.textContent = msg; tEl.classList.add('on'); clearTimeout(tt); tt = setTimeout(function () { tEl.classList.remove('on'); }, 2200); }
 
   applyLang(); onScroll();
+  /* Live Shopify feed: once shopify.js has loaded her products, redraw with the live names, prices,
+     photos and stock. If the feed failed, nothing changes and the built-in data stays on screen. */
+  if (window.ALShop && window.ALShop.ready) window.ALShop.ready.then(function (s) {
+    if (!s || !s.applied) return;
+    $$('[data-live-price]').forEach(function (el) { var p = byId[el.getAttribute('data-live-price')]; if (p) el.setAttribute('data-price', p.price); });
+    $$('[data-live-compare]').forEach(function (el) { var p = byId[el.getAttribute('data-live-compare')]; if (p && p.compareAt) el.setAttribute('data-price', p.compareAt); });
+    var before = cart.length;
+    cart = cart.filter(function (l) { return byId[l.id] && !(byId[l.id].live && byId[l.id].live.stock && !byId[l.id].live.stock.forSale); });
+    if (cart.length !== before) save();
+    applyLang();
+    if (openDrawerId && !drawer.hidden) fillDrawer(openDrawerId);
+  }).catch(function () {});
   window.ALDemo = { setLang: function (l) { lang = l; applyLang(); } };
 })();

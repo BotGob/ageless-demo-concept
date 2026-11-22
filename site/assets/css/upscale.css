@@ -45,3 +45,16 @@ html.up-fade .up-f.up-in { opacity: 1; transform: none; }
 
 /* Header swirl reads a touch stronger on the photo hero */
 .top .brand-mark.brand-swirl { color: #9a7530; }
+
+/* ---------- Live Shopify photos (shopify.js feed). Her Shopify photos sit on a cream square,
+   so they fill the card photo area edge to edge instead of showing a box. ---------- */
+.media img.sf-img { position: absolute; inset: 3% 4%; z-index: 1; width: 92%; height: 94%; max-width: none; max-height: none; object-fit: contain; filter: none; }
+.media:has(img.sf-img), .d-media.is-live { background: #f5f1e8 !important; }
+.media:has(img.sf-img)::before, .media:has(img.sf-img)::after { display: none !important; }
+.d-media.is-live img.sf-img { max-width: 86%; max-height: 86%; width: auto; height: auto; object-fit: contain; filter: none; }
+.thumb img[src*="cdn.shopify.com"] { object-fit: contain; mix-blend-mode: multiply; }
+.flyer[src*="cdn.shopify.com"] { mix-blend-mode: multiply; filter: none; }
+.stock { font-size: 0.78rem; letter-spacing: 0.04em; }
+.stock.out { color: #8a3b2e; }
+.stock.low { color: #7b5c2c; }
+.card .btn[disabled] { opacity: 0.55; cursor: not-allowed; }
