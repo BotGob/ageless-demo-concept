@@ -29,7 +29,7 @@ html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 16px, 0)
 .page-home .c-hero-title { font-size: clamp(3.3rem, 7.4vw, 6.9rem); }
 .page-home .section-head { max-width: 46rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
 .page-home .section-head h2, .page-home .quiz-band h2, .page-home .skin-shop h2, .page-home .next-chapter h2, .page-home .approach h2,
-.page-injectables .up-row h2, .page-injectables .related h2 { font-size: clamp(2.5rem, 4.8vw, 4.1rem); line-height: 1.05; letter-spacing: -0.025em; }
+.page-up .up-row h2, .page-up .related h2 { font-size: clamp(2.5rem, 4.8vw, 4.1rem); line-height: 1.05; letter-spacing: -0.025em; }
 .page-home .gold-rule { display: none; }
 .page-home .approach .gold-rule { display: block; }
 .page-home .welcome { padding: clamp(6rem, 11vw, 9.5rem) 0; }
@@ -94,11 +94,11 @@ html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 16px, 0)
 @media (max-width: 760px) { .tiers--list .tier { grid-template-columns: 1fr auto; } .tiers--list .tier ul { grid-column: 1 / -1; flex-direction: column; } }
 
 /* ================= BOTOX AND FILLERS (treatment page draft) ================= */
-.page-injectables .section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
-.page-injectables .p-hero h1 { font-size: clamp(2.8rem, 6.2vw, 5.4rem); line-height: 1.02; }
-.page-injectables .gold-rule { display: none; }
-.page-injectables .up-intro .prose { max-width: 50rem; }
-.page-injectables .up-intro .prose p { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2.05rem); line-height: 1.38; color: var(--green); max-width: none; letter-spacing: -0.005em; }
+.page-up .section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
+.page-up .p-hero h1 { font-size: clamp(2.8rem, 6.2vw, 5.4rem); line-height: 1.02; }
+.page-up .gold-rule { display: none; }
+.page-up .up-intro .prose { max-width: 50rem; }
+.page-up .up-intro .prose p { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2.05rem); line-height: 1.38; color: var(--green); max-width: none; letter-spacing: -0.005em; }
 /* Service boxes become a simple list: name on the left, details on the right */
 .detail-list { display: block !important; max-width: 62rem; }
 .detail-list .detail { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 1rem 3rem; background: none; border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); border-radius: 0; box-shadow: none !important; padding: 2.1rem 0; }
@@ -112,12 +112,12 @@ html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 16px, 0)
 .up-row-body p { font-size: 1.12rem; color: #4f493f; max-width: 40rem; }
 .up-row-body .btn-row { margin-top: 2rem !important; }
 /* Related treatments: image + text, no boxes */
-.page-injectables .related-card { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transform: none !important; overflow: visible; }
-.page-injectables .related-card::after { display: none !important; }
-.page-injectables .related-media { border-radius: 6px; aspect-ratio: 3 / 2 !important; }
-.page-injectables .related-body { padding: 1.4rem 0 0 !important; }
-.page-injectables .related-body h3 { font-size: clamp(1.7rem, 2.4vw, 2.1rem); }
-.page-injectables .related-grid { gap: clamp(2rem, 4vw, 3.5rem); }
+.page-up .related-card { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transform: none !important; overflow: visible; }
+.page-up .related-card::after { display: none !important; }
+.page-up .related-media { border-radius: 6px; aspect-ratio: 3 / 2 !important; }
+.page-up .related-body { padding: 1.4rem 0 0 !important; }
+.page-up .related-body h3 { font-size: clamp(1.7rem, 2.4vw, 2.1rem); }
+.page-up .related-grid { gap: clamp(2rem, 4vw, 3.5rem); }
 @media (max-width: 760px) { .detail-list .detail, .up-row { grid-template-columns: 1fr; gap: 0.7rem; } }
 
 /* ---------- Fixes after first look ---------- */
@@ -132,6 +132,60 @@ html.pm [data-reveal].pm-reveal:not(.is-in) { transform: translate3d(0, 16px, 0)
 .page-home .reviews blockquote { margin: 0; }
 /* Seven short quotes left an odd one out; the shortest ("Caring healthcare") sits out on the home page. */
 .page-home .reviews .quote-card:nth-child(5) { display: none; }
-.page-injectables .up-row h2 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); }
+.page-up .up-row h2 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); }
 .page-home .skin-shop-copy h2 { margin-bottom: 1.2rem; max-width: none; text-wrap: pretty; }
 .page-home section:not(.approach) .gold-rule + p { margin-top: 1.2rem; }
+
+/* ================= ALL TREATMENT PAGES (t191u): same calm treatment as Botox and fillers ================= */
+.page-up .section-head { max-width: 46rem; margin-bottom: clamp(2.8rem, 5.5vw, 4.5rem); }
+.page-up .section-head h2, .page-up .prose h2, .page-up .next-chapter h2, .page-up .approach h2, .page-up .skin-shop h2 { font-size: clamp(2.4rem, 4.4vw, 3.8rem); line-height: 1.06; letter-spacing: -0.022em; }
+.page-up .approach .gold-rule { display: block; }
+.page-up section:not(.approach) .gold-rule + p, .page-up .section-head .lede, .page-up .prose h2 + p, .page-up .next-chapter h2 + .lede { margin-top: 1.2rem; }
+.page-up .next-chapter .btn-row { margin-top: 2rem; }
+.page-up .up-intro .prose p + p { margin-top: 1.4rem; }
+/* Pillar services: three boxes become calm rows */
+.service-list { display: block !important; max-width: 64rem; }
+.service-list .service-row { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); gap: 1rem 3rem; background: none; border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); border-radius: 0; box-shadow: none !important; transform: none !important; padding: clamp(2rem, 4vw, 2.8rem) 0; }
+.service-list .service-row:last-child { border-bottom: 1px solid rgba(123, 92, 44, 0.28); }
+.service-list .service-n { color: var(--muted); margin-bottom: 0.7rem; }
+.service-list .service-row h3 { font-size: clamp(1.8rem, 2.7vw, 2.4rem); margin: 0; }
+.service-list .service-body p { font-size: 1.06rem; }
+.service-list .service-body .btn-row { margin-top: 1.4rem; padding-top: 0; }
+/* Detail lists with more than one paragraph or a list keep the name on the left */
+.detail-list .detail h3 { grid-row: 1 / span 6; }
+.detail-list .detail > :not(h3) { grid-column: 2; }
+.detail-list .detail > p + p { margin-top: 0; }
+/* Steps: three boxes become a numbered list */
+.page-up .steps-list { display: block; max-width: 44rem; margin-top: 1.6rem; }
+.page-up .steps-list .step-card { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 0.2rem 1rem; background: none; border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); border-radius: 0; box-shadow: none; padding: 1.4rem 0; }
+.page-up .steps-list .step-card:last-child { border-bottom: 1px solid rgba(123, 92, 44, 0.28); }
+.page-up .steps-list .n { grid-row: 1 / span 2; font-size: 1.6rem; color: #7b5c2c; margin: 0; }
+.page-up .steps-list h3 { margin: 0; font-size: 1.55rem; }
+.page-up .up-row-body .steps-list p { font-size: 1.02rem; }
+.page-up .section > .wrap > .steps-list { max-width: 56rem; }
+/* FAQ: hairlines instead of boxes */
+.page-up .faq { gap: 0; max-width: 52rem; }
+.page-up .faq-item { border: 0; border-top: 1px solid rgba(123, 92, 44, 0.28); background: none; }
+.page-up .faq-item:last-child { border-bottom: 1px solid rgba(123, 92, 44, 0.28); }
+.page-up .faq-item button { padding: 1.4rem 0; font-size: 1.45rem; }
+.page-up .faq-item .faq-a { padding: 0 0 1.4rem; font-size: 1.04rem; }
+/* Supplements: products without boxes */
+.page-up .shop-grid { gap: clamp(1.6rem, 3vw, 2.6rem); }
+.page-up .product { background: none; border: 0; box-shadow: none !important; transform: none !important; }
+.page-up .product-photo { border-radius: 10px; }
+.page-up .product-body { padding: 1.1rem 0 0; }
+/* Skin care band on treatment pages: like the home page */
+.page-up .skin-shop { gap: clamp(2.5rem, 6vw, 6rem); }
+.page-up .skin-shop-photo { aspect-ratio: 5 / 4; border-radius: 6px; box-shadow: none; }
+.page-up .skin-shop-copy h2 { font-size: clamp(2.3rem, 3.8vw, 3.4rem); margin-bottom: 1.2rem; max-width: none; text-wrap: pretty; }
+@media (min-width: 901px) { .page-up .skin-shop { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); } }
+@media (max-width: 900px) { .page-up .skin-shop { grid-template-columns: 1fr; } .page-up .skin-shop-photo { order: -1; aspect-ratio: 4 / 3; } }
+@media (max-width: 760px) {
+  .service-list .service-row { grid-template-columns: 1fr; gap: 0.8rem; }
+  .detail-list .detail h3 { grid-row: auto; }
+  .detail-list .detail > :not(h3) { grid-column: 1; }
+}
+/* Header mark: her gold swirl */
+.brand-swirl { overflow: visible; }
+@media (max-width: 560px) { .page-up .p-hero h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); max-width: none; } }
+.page-up .steps-list .step-card p.n { font-size: 1.7rem; line-height: 1.1; color: #7b5c2c; font-family: var(--serif); }

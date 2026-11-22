@@ -6,18 +6,10 @@ ROOT = Path("/workspace/ageless-demo")
 # Share previews need absolute URLs. Demo address now; switch to https://age-lessmedicine.com/ at launch.
 SITE_URL = "https://botgob.github.io/ageless-demo-concept/"
 
-MARK = """<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
-          <circle cx="24" cy="24" r="22.2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
-          <g fill="currentColor">
-            <circle cx="24" cy="24" r="3.1"/>
-            <ellipse cx="24" cy="13.2" rx="3.2" ry="7.2"/>
-            <ellipse cx="24" cy="34.8" rx="3.2" ry="7.2"/>
-            <ellipse cx="13.2" cy="24" rx="7.2" ry="3.2"/>
-            <ellipse cx="34.8" cy="24" rx="7.2" ry="3.2"/>
-          </g>
-        </svg>"""
+SWIRL = '<g transform="translate(48 0) scale(-1 1)" fill="none" stroke="currentColor" stroke-width="3.9" stroke-linecap="round"><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(0 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(30 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(60 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(90 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(120 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(150 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(180 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(210 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(240 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(270 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(300 24 24)"/><path d="M24 19.8 C 30 17.5, 31.5 10.5, 26 5.2" transform="rotate(330 24 24)"/></g>'
+MARK = f"""<svg class="brand-mark brand-swirl" viewBox="0 0 48 48" aria-hidden="true">{SWIRL}</svg>"""
 
-V = "20261121-upscale"
+V = "20261122-up2"
 
 # Image sizes for width/height attributes (stock photos in images/stock/)
 IMG = {
@@ -93,7 +85,7 @@ MAPS = "https://maps.google.com/?q=4830+West+Kennedy+Boulevard+Suite+110+Tampa+F
 
 def nowidow(text):
     text = text.replace("Stem-Cell", "Stem&#8209;Cell")
-    if " " not in text:
+    if text.count(" ") < 2:  # two-word headings may wrap (e.g. "Hormone optimization" on a phone)
         return text
     head, tail = text.rsplit(" ", 1)
     return f"{head}&nbsp;{tail}"
@@ -413,7 +405,7 @@ def page(filename, title, description, active, body, solid=True, extra_head=""):
 {extra_head}  <noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <script>(function(){{var l=new URLSearchParams(location.search).get("lang");try{{l=l||localStorage.getItem("al-lang")}}catch(e){{}}if(l==="es"){{document.documentElement.classList.add("lang-pending");setTimeout(function(){{document.documentElement.classList.remove("lang-pending")}},1500)}}}})();</script>
 </head>
-<body class="clinic page-{active}">
+<body class="clinic page-{active}{' page-up' if active in TREAT_PAGES else ''}">
   <a class="skip" href="#main">Skip to content</a>
 {header(active)}
 {VOICE_POP}
@@ -530,7 +522,7 @@ def supplements_grid():
         </div>"""
 
 
-def service_cards(services):
+def service_cards(services, as_list=False):
     out = ""
     for s in services:
         sid = f' id="{s["id"]}"' if s.get("id") else ""
@@ -541,6 +533,15 @@ def service_cards(services):
             links += f'<a class="btn btn--line" href="{s["href"]}">{s["cta"]}</a>'
         if s.get("book"):
             links += f'<a class="btn btn--gold" href="#book" data-open-booking data-treatment="{s["book"]}">{s["book_label"]}</a>'
+        if as_list:
+            out += f"""          <article class="service-card service-row"{sid} data-reveal>
+            <div class="service-head"><p class="service-n">{s["n"]}</p>
+            <h3>{s["title"]}</h3></div>
+            <div class="service-body"><p>{s["body"]}</p>{extra}{fine}
+            <div class="btn-row">{links}</div></div>
+          </article>
+"""
+            continue
         out += f"""          <article class="service-card"{sid} data-reveal>
             <p class="service-n">{s["n"]}</p>
             <h3>{s["title"]}</h3>
@@ -548,7 +549,8 @@ def service_cards(services):
             <div class="btn-row">{links}</div>
           </article>
 """
-    return f"""        <div class="service-grid">
+    lc = " service-list" if as_list else ""
+    return f"""        <div class="service-grid{lc}">
 {out}        </div>"""
 
 
@@ -783,12 +785,12 @@ def pillar_page(filename, key, n, title, tagline, lede, image, alt, services, af
     body = f"""{hero}
     <section class="section" id="services">
       <div class="wrap">
-{section_head(title, tagline)}
-{service_cards(services)}
+{section_head("", tagline)}
+{service_cards(services, as_list=True)}
       </div>
     </section>
 {after}{approach_section(compact=True)}
-{next_chapter()}"""
+{next_chapter(eyebrow=False)}"""
     page(filename, f"{title} | Age-Less Medicine", desc, key, body)
 
 
@@ -835,11 +837,11 @@ def build_metabolic():
 def build_aesthetics():
     after = f"""    <section class="section section--ivory" id="supplements">
       <div class="wrap">
-{section_head("From within", "Age-Less vitamins and supplements", "Personalized guidance on Age-Less vitamins and supplements to complement your nutrition and wellness plan. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.")}
+{section_head("", "Age-Less vitamins and supplements", "Personalized guidance on Age-Less vitamins and supplements to complement your nutrition and wellness plan. Age-Less Greens is in our online shop. For the others, ask us at your visit or give us a call.")}
 {supplements_grid()}
       </div>
     </section>
-{shop_band()}"""
+{shop_band(eyebrow="")}"""
     pillar_page(
         "aesthetics.html", "aesthetics", "03", "Skin and aesthetics", "Your beauty. Your way.",
         "Aesthetic care and medical-grade skin care, planned around your features and your preferences.",
@@ -871,7 +873,6 @@ def build_prp():
     )}
     <section class="section">
       <div class="wrap prose" data-reveal>
-        <p class="eyebrow">What it is</p>
         <h2 class="display">What is a PRP facial?</h2>
         <hr class="gold-rule">
         <p>PRP stands for platelet-rich plasma, the part of your blood that carries natural growth factors. At Age-Less Medicine we call this treatment our PRP Stem-Cell Facial. We draw a small sample of blood, place it in a special centrifuge to prepare the serum, and apply that serum to your skin with our micro-needling technique.</p>
@@ -879,7 +880,7 @@ def build_prp():
       </div>
     </section>
     <section class="section section--ivory">
-      <div class="wrap detail-grid">
+      <div class="wrap detail-grid detail-list">
         <article class="detail" data-reveal>
           <h3>How it pairs with micro-needling</h3>
           <p>Micro-needling is how we deliver the prepared serum during the facial. We also offer micro-needling on its own. It can be used on the face, neck, chest, arms, hands, legs, abdomen, and back.</p>
@@ -893,7 +894,6 @@ def build_prp():
     <section class="section">
       <div class="wrap" data-reveal>
         <div class="section-head">
-          <p class="eyebrow">Questions</p>
           <h2 class="display">A few things people often ask</h2>
           <hr class="gold-rule">
         </div>
@@ -917,25 +917,19 @@ def build_prp():
         </div>
       </div>
     </section>
-    <section class="section section--ivory">
-      <div class="wrap" data-reveal>
-        <div class="section-head">
-          <p class="eyebrow">Is this visit right for you?</p>
+    <section class="section section--ivory up-rows-section">
+      <div class="wrap up-rows">
+        <div class="up-row" data-reveal>
           <h2 class="display">Who it is for</h2>
-          <hr class="gold-rule">
-          <p class="lede">We offer the PRP Stem-Cell Facial to women and men, and for all skin types and tones. Many guests come to us when they want a physician-supervised facial that may help the look of pores, fine lines, wrinkles, stretch marks, or acne scarring. We also offer PRP stem-cell treatments for hair.</p>
+          <div class="up-row-body">
+            <p>We offer the PRP Stem-Cell Facial to women and men, and for all skin types and tones. Many guests come to us when they want a physician-supervised facial that may help the look of pores, fine lines, wrinkles, stretch marks, or acne scarring. We also offer PRP stem-cell treatments for hair.</p>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Your visit</p>
+        <div class="up-row" data-reveal>
           <h2 class="display">What to expect</h2>
-          <hr class="gold-rule">
-          <p class="lede">Your time with us follows three clear steps.</p>
-        </div>
-        <div class="steps">
+          <div class="up-row-body">
+            <p>Your time with us follows three clear steps.</p>
+        <div class="steps steps-list">
           <article class="step-card" data-reveal>
             <p class="n">01</p>
             <h3>Draw</h3>
@@ -953,9 +947,11 @@ def build_prp():
           </article>
         </div>
         {book_block("PRP Stem-Cell Facial", "Book a PRP facial")}
+          </div>
+        </div>
       </div>
     </section>
-{related_section("prp")}
+{related_section("prp", eyebrow=False)}
 """
     page(
         "prp.html",
@@ -975,7 +971,7 @@ def build_hormones():
         '<a class="btn btn--line" href="longevity.html">Longevity and hormones</a>',
         "Book this visit", "Hormone optimization",
     )}
-    <section class="section">
+    <section class="section up-intro">
       <div class="wrap prose" data-reveal>
         <p>Your first visits with Dr. Linda begin with a careful look at your medical history, blood analysis and other biological markers. From there she creates an individualized program that may include bio-identical hormone care, nutrition and exercise.</p>
         <p>We see this work as a partnership. The goal is a plan that fits your life, reviewed over time as your needs change.</p>
@@ -984,11 +980,10 @@ def build_hormones():
     <section class="section section--ivory">
       <div class="wrap" data-reveal>
         <div class="section-head">
-          <p class="eyebrow">Your visit</p>
           <h2 class="display">What to expect</h2>
           <hr class="gold-rule">
         </div>
-        <div class="detail-grid">
+        <div class="detail-grid detail-list">
           <article class="detail">
             <h3>Your initial visit</h3>
             <ul>
@@ -1007,7 +1002,7 @@ def build_hormones():
         <p class="fine fine--block">Care requires an individual medical evaluation. Treatment eligibility, benefits and risks vary.</p>
       </div>
     </section>
-{related_section("hormones")}
+{related_section("hormones", eyebrow=False)}
 """
     page(
         "hormones.html",
@@ -1029,8 +1024,8 @@ def build_weight():
     )}
     <section class="section">
       <div class="wrap">
-{section_head("How the program works", "A plan that fits your life", "Weight care works best when it is personal. Dr. Linda guides each step and adjusts the plan with you over time.")}
-        <div class="steps">
+{section_head("", "A plan that fits your life", "Weight care works best when it is personal. Dr. Linda guides each step and adjusts the plan with you over time.")}
+        <div class="steps steps-list">
           <article class="step-card" data-reveal>
             <p class="n">01</p>
             <h3>Evaluate</h3>
@@ -1050,7 +1045,7 @@ def build_weight():
       </div>
     </section>
     <section class="section section--ivory">
-      <div class="wrap detail-grid">
+      <div class="wrap detail-grid detail-list">
         <article class="detail" data-reveal>
           <h3>Who it is for</h3>
           <p>Adults who want physician-guided weight management. Eligibility is decided after a medical evaluation.</p>
@@ -1064,7 +1059,7 @@ def build_weight():
         {book_block("Micro-dose GLP-1 weight loss", "Book a consultation")}
       </div>
     </section>
-{related_section("weight")}
+{related_section("weight", eyebrow=False)}
 """
     page(
         "weight-loss.html",
@@ -1147,7 +1142,7 @@ def build_skin():
         "Book a skin visit", "Skin and facials",
     )}
     <section class="section">
-      <div class="wrap detail-grid">
+      <div class="wrap detail-grid detail-list">
         <article class="detail" data-reveal>
           <h3>PRP Stem-Cell Facial</h3>
           <p>A preparation from your own blood, applied with micro-needling. It is designed to support the look of pores, fine lines, and wrinkles, and may help the appearance of stretch marks and acne scarring.</p>
@@ -1175,26 +1170,24 @@ def build_skin():
         </article>
       </div>
     </section>
-{shop_band(note="Dr. Linda also selects other medical-grade lines for our shelves. Ask us at your visit.")}    <section class="section">
-      <div class="wrap prose" data-reveal>
-        <p class="eyebrow">Is this visit right for you?</p>
-        <h2 class="display">Who it is for</h2>
-        <hr class="gold-rule">
-        <p>Our skin treatments are chosen and supervised by Dr. Linda. We see women and men, and we offer the PRP Stem-Cell Facial for all skin types and tones.</p>
-      </div>
-    </section>
-    <section class="section section--ivory">
-      <div class="wrap" data-reveal>
-        <div class="section-head">
-          <p class="eyebrow">Your visit</p>
-          <h2 class="display">What to expect</h2>
-          <hr class="gold-rule">
-          <p class="lede">Your visit depends on the treatment you choose. A Diamond Tome session is about 45 minutes, followed by a 15-minute hydrating facial. Cosmelan includes two microdermabrasion visits, a mask worn for seven to eight hours, and 30 days of home care. We will help you choose a plan when you come in.</p>
+{shop_band(eyebrow="", note="Dr. Linda also selects other medical-grade lines for our shelves. Ask us at your visit.")}    <section class="section up-rows-section">
+      <div class="wrap up-rows">
+        <div class="up-row" data-reveal>
+          <h2 class="display">Who it is for</h2>
+          <div class="up-row-body">
+            <p>Our skin treatments are chosen and supervised by Dr. Linda. We see women and men, and we offer the PRP Stem-Cell Facial for all skin types and tones.</p>
+          </div>
         </div>
+        <div class="up-row" data-reveal>
+          <h2 class="display">What to expect</h2>
+          <div class="up-row-body">
+            <p>Your visit depends on the treatment you choose. A Diamond Tome session is about 45 minutes, followed by a 15-minute hydrating facial. Cosmelan includes two microdermabrasion visits, a mask worn for seven to eight hours, and 30 days of home care. We will help you choose a plan when you come in.</p>
         {book_block("Skin and facials", "Book a skin visit")}
+          </div>
+        </div>
       </div>
     </section>
-{related_section("skin")}
+{related_section("skin", eyebrow=False)}
 """
     page(
         "skin.html",
