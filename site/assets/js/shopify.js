@@ -12,7 +12,8 @@
 window.AL_SHOPIFY = window.AL_SHOPIFY || {
   domain: 'age-less-demo.myshopify.com',
   token: 'e3be9f7d34278ffe6446a28dda47787e',
-  apiVersion: '2025-01'
+  apiVersion: '2025-01',
+  livePhotos: false
 };
 (function () {
   'use strict';
